@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1061664889869",
+    "project_id": "track-warranty-78ded",
+    "storage_bucket": "track-warranty-78ded.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061664889869:android:bf6a6e87b8303157644944",
+        "android_client_info": {
+          "package_name": "com.example.warranty_tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOX7TNgTUmj2SLITWS7iHjR0iD6d1y3VI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

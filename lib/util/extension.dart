@@ -1,0 +1,31 @@
+import 'dart:developer';
+
+import 'package:intl/intl.dart';
+
+extension DateTimeExtension on DateTime {
+  String get toFormattedDate {
+    return DateFormat('dd MMM yyyy').format(this);
+  }
+}
+
+extension StringExtension on String {
+  DateTime? toDate() {
+    // Define the date format matching the format you want to parse
+    final format = DateFormat('dd MMM yyyy');
+
+    try {
+      // Parse the string into a DateTime object using the defined format
+      return format.parse(this);
+    } catch (e) {
+      // If parsing fails, return null or handle the error as needed
+      log('Error parsing date: $e');
+      return null;
+    }
+  }
+}
+
+extension Iso8601Extensions on String {
+  DateTime? toDateTime() {
+    return DateTime.tryParse(this);
+  }
+}
