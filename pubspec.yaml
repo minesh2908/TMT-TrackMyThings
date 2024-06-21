@@ -52,7 +52,8 @@ dependencies:
   provider: ^6.1.2
   shimmer: ^3.0.0
   firebase_app_check: ^0.3.0+1
-  flutter_localization: ^0.2.0
+  flutter_localizations:
+    sdk: flutter
    
 
   

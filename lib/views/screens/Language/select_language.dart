@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:provider/provider.dart';
-import 'package:warranty_tracker/views/screens/Language/select_language_provider.dart';
+import 'package:warranty_tracker/views/screens/Language/cubit/select_language_cubit.dart';
 
 class SelectLanguage extends StatefulWidget {
   const SelectLanguage({super.key});
@@ -23,21 +23,21 @@ class _SelectLanguageState extends State<SelectLanguage> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Consumer<LanguageChangeNotifier>(
-      builder: (context, provider, _) {
-        return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            elevation: 2,
-            title: Text(
-              AppLocalizations.of(context)!.language,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            centerTitle: true,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        elevation: 2,
+        title: Text(
+          AppLocalizations.of(context)!.language,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
           ),
-          body: Column(
+        ),
+        centerTitle: true,
+      ),
+      body: BlocBuilder<SelectLanguageCubit, String>(
+        builder: (context, state) {
+          return Column(
             children: [
               Expanded(
                 child: ListView.builder(
@@ -47,13 +47,13 @@ class _SelectLanguageState extends State<SelectLanguage> {
                     return InkWell(
                       onTap: () {
                         if (languages[index]['name'] == 'English') {
-                          provider.ChangeLanguage(
-                            Locale(languages[index]['code']!),
-                          );
+                          context
+                              .read<SelectLanguageCubit>()
+                              .updateAppLanguage('en');
                         } else if (languages[index]['name'] == 'हिंदी') {
-                          provider.ChangeLanguage(
-                            Locale(languages[index]['code']!),
-                          );
+                          context
+                              .read<SelectLanguageCubit>()
+                              .updateAppLanguage('hi');
                         }
                       },
                       child: ListTile(
@@ -63,8 +63,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                             color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
-                        trailing: provider.appLang?.languageCode ==
-                                languages[index]['code']
+                        trailing: state == languages[index]['code']
                             ? const Icon(Icons.check)
                             : null,
                       ),
@@ -73,9 +72,9 @@ class _SelectLanguageState extends State<SelectLanguage> {
                 ),
               ),
             ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

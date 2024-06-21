@@ -47,12 +47,8 @@ class ProductRepository {
           await productCollection.where('userId', isEqualTo: userId).get();
       final productList =
           productListSnapshot.docs.map(ProductModal.fromSnapshot).toList();
-
-      //print(productList);
       return productList;
     } catch (e) {
-      // print('!!!!!!!!!!!!!');
-      // print(e);
       throw Exception();
     }
   }

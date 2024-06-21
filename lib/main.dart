@@ -4,14 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:provider/provider.dart';
 import 'package:warranty_tracker/firebase_options.dart';
 import 'package:warranty_tracker/routes/routes.dart';
 import 'package:warranty_tracker/routes/routes_names.dart';
 import 'package:warranty_tracker/service/shared_prefrence.dart';
 import 'package:warranty_tracker/theme/color_sceme.dart';
 import 'package:warranty_tracker/theme/theme_manager.dart';
-import 'package:warranty_tracker/views/screens/Language/select_language_provider.dart';
+import 'package:warranty_tracker/views/screens/Language/cubit/select_language_cubit.dart';
 import 'package:warranty_tracker/views/screens/add_product/bloc/product_bloc.dart';
 import 'package:warranty_tracker/views/screens/auth/bloc/auth_bloc.dart';
 
@@ -35,10 +34,12 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               ProductBloc()..add(GetAllProductEvent(test: 'From Main')),
         ),
-        ChangeNotifierProvider(create: (_) => LanguageChangeNotifier()),
+        BlocProvider<SelectLanguageCubit>.value(
+          value: SelectLanguageCubit(),
+        ),
       ],
-      child: Consumer<LanguageChangeNotifier>(
-        builder: (context, value, _) {
+      child: BlocBuilder<SelectLanguageCubit, String>(
+        builder: (context, state) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Warranty Tracker App',
@@ -61,9 +62,7 @@ class MyApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
             ],
             supportedLocales: const [Locale('en'), Locale('hi')],
-            locale: AppPrefHelper.getLanguage().isEmpty
-                ? const Locale('en')
-                : Locale(AppPrefHelper.getLanguage()),
+            locale: Locale(state),
           );
         },
       ),

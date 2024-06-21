@@ -139,7 +139,7 @@ class AppPrefHelper {
   }
 
   static String getLanguage() {
-    final language = AppPref.get(AppPrefKey.language, '') as String;
+    final language = AppPref.get(AppPrefKey.language, 'en') as String;
 
     return language;
   }
