@@ -85,6 +85,9 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
+                            dropdownColor:
+                                Theme.of(context).colorScheme.onPrimary,
+                            borderRadius: BorderRadius.circular(14),
                             value: sortByNotifier.value,
                             onChanged: (value) {
                               sortByNotifier.value = value!;
