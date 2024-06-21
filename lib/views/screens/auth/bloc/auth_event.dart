@@ -13,6 +13,4 @@ class UpdateUserAccountDetails extends AuthEvent {
   UserModel userModel;
 }
 
-class DeleteAccount extends AuthEvent {
-  
-}
+class DeleteAccount extends AuthEvent {}

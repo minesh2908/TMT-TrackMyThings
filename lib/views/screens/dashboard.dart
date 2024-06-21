@@ -141,8 +141,7 @@ class _MyDashboardState extends State<MyDashboard> {
                                         onTap: () async {
                                           final scaffoldMessenger =
                                               ScaffoldMessenger.of(context);
-                                          final productBlocContex =
-                                              context.read<ProductBloc>();
+
                                           final result =
                                               await Navigator.pushNamed(
                                             context,

@@ -35,4 +35,3 @@ final class SearchProductEvent extends ProductEvent {
   final String searchProductName;
 }
 
-

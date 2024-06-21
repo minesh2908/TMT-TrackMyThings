@@ -12,11 +12,10 @@ class ProductRepository {
       FirebaseFirestore.instance.collection('productCollection');
 
   Future<void> addProduct(ProductModal? productModal, String uid) async {
-    // print('add product');
+    
 
     try {
-      final product =
-          await productCollection.doc(uid).set(productModal!.toMap());
+      await productCollection.doc(uid).set(productModal!.toMap());
     } catch (e) {
       log(e.toString());
       throw Exception();
@@ -55,12 +54,12 @@ class ProductRepository {
 
   Future<void> updateProduct(ProductModal productModal) async {
     try {
-      print('product ID from repo - ${productModal.productId}');
+    
       await productCollection
           .doc(productModal.productId)
           .set(productModal.toMap());
     } catch (e) {
-      print(e);
+      
       throw Exception();
     }
   }
@@ -77,7 +76,7 @@ class ProductRepository {
     try {
       for (final product in productModal) {
         await productCollection.doc(product.productId).delete();
-        print('deleted all products');
+       
       }
     } catch (e) {
       throw Exception();

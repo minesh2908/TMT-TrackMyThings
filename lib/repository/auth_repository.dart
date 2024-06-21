@@ -34,7 +34,7 @@ class AuthRepository {
         await AppPrefHelper.setPhoneNumber(
           phoneNumber: userData.user?.phoneNumber ?? '',
         );
-        print('=======================user google signed in');
+
         return user;
       } else {
         final userData = await UserRepository().getCurrentUserDetails(userId);

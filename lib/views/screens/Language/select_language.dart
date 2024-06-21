@@ -43,7 +43,6 @@ class _SelectLanguageState extends State<SelectLanguage> {
                 child: ListView.builder(
                   itemCount: languages.length,
                   itemBuilder: (context, index) {
-                    const selectedLanguageIndex = 0;
                     return InkWell(
                       onTap: () {
                         if (languages[index]['name'] == 'English') {

@@ -8,7 +8,6 @@ class UserRepository {
       FirebaseFirestore.instance.collection('userCollection');
 
   Future<UserModel> createUser(User? user) async {
-    print('=======================user created');
     try {
       await userCollection.doc(AppPrefHelper.getUID()).set({
         'userId': user?.uid,
@@ -53,11 +52,8 @@ class UserRepository {
   Future<void> deleteUser(String userId) async {
     try {
       await userCollection.doc(userId).delete();
-      print('user deleted');
+
       await FirebaseAuth.instance.currentUser!.delete();
-      print('account deleted');
-      AppPrefHelper.signOut();
-      print('sign out');
     } catch (e) {
       throw Exception(e);
     }

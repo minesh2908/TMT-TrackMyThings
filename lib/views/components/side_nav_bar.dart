@@ -5,9 +5,15 @@ import 'package:warranty_tracker/service/shared_prefrence.dart';
 import 'package:warranty_tracker/views/components/body_widget.dart';
 import 'package:warranty_tracker/views/screens/auth/bloc/auth_bloc.dart';
 
-class SideNavBar extends StatelessWidget {
+class SideNavBar extends StatefulWidget {
   const SideNavBar({super.key});
 
+  @override
+  State<SideNavBar> createState() => _SideNavBarState();
+}
+
+class _SideNavBarState extends State<SideNavBar> {
+  bool light = true;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
@@ -48,6 +54,13 @@ class SideNavBar extends StatelessWidget {
                       height: 20,
                     ),
                     sideNavBarItem(
+                      title: AppLocalizations.of(context)!.home,
+                      icon: Icons.home,
+                      function: () {
+                        Navigator.pushNamed(context, '/dashboard');
+                      },
+                    ),
+                    sideNavBarItem(
                       title: AppLocalizations.of(context)!.account,
                       icon: Icons.person,
                       function: () {
@@ -69,13 +82,24 @@ class SideNavBar extends StatelessWidget {
                       icon: Icons.settings,
                     ),
                     sideNavBarItem(
+                      title: AppLocalizations.of(context)!.darkTheme,
+                      icon: Icons.dark_mode,
+                      widget: Switch(
+                        value: light,
+                        onChanged: (bool value) {
+                          setState(() {
+                            light = value;
+                          });
+                        },
+                      ),
+                    ),
+                    sideNavBarItem(
                       title: AppLocalizations.of(context)!.rateApp,
                       icon: Icons.star,
                     ),
                     sideNavBarItem(
-                      title: AppLocalizations.of(context)!.darkTheme,
-                      icon: Icons.dark_mode,
-                      widget: Switch(value: false, onChanged: (value) {}),
+                      title: AppLocalizations.of(context)!.aboutUs,
+                      icon: Icons.code,
                     ),
                     sideNavBarItem(
                       title: AppLocalizations.of(context)!.logOut,

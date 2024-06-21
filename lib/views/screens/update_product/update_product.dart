@@ -89,13 +89,13 @@ class _UpdateProductState extends State<UpdateProduct> {
                   padding: const EdgeInsets.all(8),
                   child: IconButton(
                     onPressed: () {
-                      showDialog(
+                      showDialog<void>(
                         context: context,
                         builder: (context) {
                           return AlertDialog(
                             title: const Text('Delete Product'),
                             content: Text(
-                              'Are you sure you want to delete ${widget.productModal!.productName}',
+                              '''Are you sure you want to delete ${widget.productModal!.productName}''',
                             ),
                             actions: [
                               TextButton(
@@ -145,30 +145,22 @@ class _UpdateProductState extends State<UpdateProduct> {
                       ValueListenableBuilder(
                         valueListenable: billImageNotifier,
                         builder: (context, value, _) {
-                          return InkWell(
-                            onTap: () async {
-                              await PickImageBottomSheet().showBottomSheet(
-                                  context, (File? selectedImage) {
-                                billImageNotifier.value = selectedImage;
-                              });
-                            },
-                            child: Container(
-                              height: 100,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: const Color(0xFFC1CDF5)),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: widget.productModal?.billImage != null
-                                    ? Image.network(
-                                        widget.productModal!.billImage!,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : Assets.images.addImage
-                                        .image(fit: BoxFit.cover),
-                              ),
+                          return Container(
+                            height: 100,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: const Color(0xFFC1CDF5)),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: widget.productModal?.billImage != null
+                                  ? Image.network(
+                                      widget.productModal!.billImage!,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Assets.images.addImage
+                                      .image(fit: BoxFit.cover),
                             ),
                           );
                         },
@@ -223,39 +215,6 @@ class _UpdateProductState extends State<UpdateProduct> {
                       const SizedBox(
                         height: 20,
                       ),
-                      InputFieldForm(
-                        fieldName: 'Warranty End Date',
-                        controller: warrantyEndDateController,
-                        icon: Icons.calendar_month,
-                        function: () {
-                          _showDatePicker(
-                            context,
-                            warrantyEndDateController,
-                            'Select Warranty Ends Date',
-                            DateTime.now(),
-                          );
-                        },
-                        readOnly: true,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Warranty end date is mandatory';
-                          } else {
-                            final warrantyEndDate =
-                                DateFormat('dd MMM yyyy').parse(value);
-                            final purchaseDate = DateFormat('dd MMM yyyy')
-                                .parse(purchasedDateController.text);
-
-                            if (warrantyEndDate.isBefore(purchaseDate)) {
-                              return 'Warranty end date must be after purchase date';
-                            } else {
-                              return null;
-                            }
-                          }
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
                       ValueListenableBuilder(
                         valueListenable: productImageNotifier,
                         builder: (context, value, _) {
@@ -287,7 +246,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                                         if (widget.productModal!.productImage !=
                                             null)
                                           Image.network(
-                                            widget.productModal!.billImage!,
+                                            widget.productModal!.productImage!,
                                           )
                                         else
                                           const Text('No Image'),
@@ -375,7 +334,6 @@ class _UpdateProductState extends State<UpdateProduct> {
                       InkWell(
                         onTap: () async {
                           if (_formKey.currentState!.validate()) {
-                            print(' bill Image - ${billImageNotifier.value}');
                             context.read<ProductBloc>().add(
                                   UpdateProductEvent(
                                     productModal: ProductModal(
@@ -400,12 +358,6 @@ class _UpdateProductState extends State<UpdateProduct> {
                                   ),
                                 );
                             productStateNotifier.value = 'updated';
-                            print(
-                              purchasedDateController.text
-                                  .toDate()!
-                                  .toIso8601String(),
-                            );
-                            print(widget.productModal!.productId);
                           }
                         },
                         child: const SubmitButton(
@@ -427,7 +379,7 @@ class _UpdateProductState extends State<UpdateProduct> {
     BuildContext context,
     TextEditingController controller,
     String helpText,
-    final DateTime firstDate,
+    DateTime firstDate,
   ) async {
     final pickedDate = await showDatePicker(
       helpText: helpText,
@@ -464,5 +416,3 @@ class _UpdateProductState extends State<UpdateProduct> {
     });
   }
 }
-
-

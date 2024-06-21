@@ -86,6 +86,7 @@ enum AppPrefKey {
   phoneNumber('phoneNumber'),
   uid('logout'),
   defaultWarrantyPeriod('defaultWarrantyPeriod'),
+  sortProductBy('sortProductBy'),
   language('language');
 
   const AppPrefKey(this.name);
@@ -142,6 +143,17 @@ class AppPrefHelper {
     final language = AppPref.get(AppPrefKey.language, 'en') as String;
 
     return language;
+  }
+
+  static Future<bool> setSortProductBy({required String sortProductBy}) async {
+    return AppPref.save(AppPrefKey.sortProductBy, sortProductBy);
+  }
+
+  static String getSortProductBy() {
+    final sortProductBy =
+        AppPref.get(AppPrefKey.sortProductBy, 'Warranty end date') as String;
+
+    return sortProductBy;
   }
 
   static Future<bool> setDefaultWarrantyPeriod({

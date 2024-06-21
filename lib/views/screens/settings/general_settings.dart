@@ -5,6 +5,7 @@ import 'package:warranty_tracker/modal/user_model.dart';
 import 'package:warranty_tracker/service/shared_prefrence.dart';
 import 'package:warranty_tracker/views/components/button.dart';
 import 'package:warranty_tracker/views/components/input_field_form.dart';
+import 'package:warranty_tracker/views/screens/add_product/bloc/product_bloc.dart';
 import 'package:warranty_tracker/views/screens/auth/bloc/auth_bloc.dart';
 
 class GeneralSettings extends StatefulWidget {
@@ -25,7 +26,8 @@ class _GeneralSettingsState extends State<GeneralSettings> {
       TextEditingController(text: AppPrefHelper.getDefaultWarrantyPeriod());
   String? _selectedValue;
   final _formKey = GlobalKey<FormState>();
-  final sortByNotifier = ValueNotifier<String>('Warranty end date');
+  final sortByNotifier =
+      ValueNotifier<String>(AppPrefHelper.getSortProductBy());
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
@@ -86,12 +88,11 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                             value: sortByNotifier.value,
                             onChanged: (value) {
                               sortByNotifier.value = value!;
-                              print(sortByNotifier.value);
                             },
                             items: [
                               'Warranty end date',
                               'Purchased date',
-                              'Item name',
+                              'Product name',
                             ].map((e) {
                               return DropdownMenuItem<String>(
                                 value: e,
@@ -132,6 +133,10 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                     InkWell(
                       onTap: () async {
                         if (_formKey.currentState!.validate()) {
+                          await AppPrefHelper.setSortProductBy(
+                            sortProductBy: sortByNotifier.value,
+                          );
+                          context.read<ProductBloc>().add(GetAllProductEvent());
                           context.read<AuthBloc>().add(
                                 UpdateUserAccountDetails(
                                   userModel: UserModel(

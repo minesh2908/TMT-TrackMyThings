@@ -57,13 +57,13 @@ class _AccountDetailsState extends State<AccountDetails> {
                 padding: const EdgeInsets.all(8),
                 child: IconButton(
                   onPressed: () {
-                    showDialog(
+                    showDialog<void>(
                       context: context,
                       builder: (context) {
                         return AlertDialog(
                           title: const Text('Delete Account'),
                           content: const Text(
-                            'As you delete your account all the data related to it will also be deleted. This Process can not be undone. Are you sure you want to delete your account?',
+                            '''As you delete your account all the data related to it will also be deleted. This Process can not be undone. Are you sure you want to delete your account?''',
                           ),
                           actions: [
                             TextButton(
@@ -101,12 +101,12 @@ class _AccountDetailsState extends State<AccountDetails> {
             child: Center(
               child: BlocConsumer<AuthBloc, AuthState>(
                 listener: (context, state) {
-                  // TODO: implement listener
+                  
                   if (state is AccountUpdatedState) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text(
-                          'Account Updated Succesfully',
+                          'Account Updated Successfully',
                         ),
                       ),
                     );

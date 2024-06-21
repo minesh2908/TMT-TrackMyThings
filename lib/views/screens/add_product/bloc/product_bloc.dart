@@ -4,9 +4,10 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:warranty_tracker/modal/product_modal.dart';
 import 'package:warranty_tracker/repository/product_repository.dart';
+import 'package:warranty_tracker/service/shared_prefrence.dart';
+import 'package:warranty_tracker/service/sort_product.dart';
 
 part 'product_event.dart';
 part 'product_state.dart';
@@ -19,7 +20,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<UpdateProductEvent>(updateProductEvent);
     on<DeleteProductEvent>(deleteProductEvent);
     on<SearchProductEvent>(searchProductEvent);
-
+  
   }
 
   FutureOr<void> addProductEvent(
@@ -62,8 +63,9 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     emit(ProductLoadingState());
     try {
       final productList = await ProductRepository().getAllProducts();
-
-      emit(ProductSuccessState(productList: productList));
+      final sortedProductList =
+          sortProductList(productList, AppPrefHelper.getSortProductBy());
+      emit(ProductSuccessState(productList: sortedProductList));
     } catch (e) {
       emit(ProductFailureState(errorMsg: e.toString()));
     }

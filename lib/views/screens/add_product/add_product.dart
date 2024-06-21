@@ -180,39 +180,39 @@ class _AddProductState extends State<AddProduct> {
                       const SizedBox(
                         height: 20,
                       ),
-                      InputFieldForm(
-                        fieldName: 'Warranty End Date',
-                        controller: warrantyEndDateController,
-                        icon: Icons.calendar_month,
-                        function: () {
-                          _showDatePicker(
-                            context,
-                            warrantyEndDateController,
-                            'Select Warranty Ends Date',
-                            DateTime.now(),
-                          );
-                        },
-                        readOnly: true,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Warranty end date is mandatory';
-                          } else {
-                            final warrantyEndDate =
-                                DateFormat('dd MMM yyyy').parse(value);
-                            final purchaseDate = DateFormat('dd MMM yyyy')
-                                .parse(purchasedDateController.text);
+                      // InputFieldForm(
+                      //   fieldName: 'Warranty End Date',
+                      //   controller: warrantyEndDateController,
+                      //   icon: Icons.calendar_month,
+                      //   function: () {
+                      //     _showDatePicker(
+                      //       context,
+                      //       warrantyEndDateController,
+                      //       'Select Warranty Ends Date',
+                      //       DateTime.now(),
+                      //     );
+                      //   },
+                      //   readOnly: true,
+                      //   validator: (value) {
+                      //     if (value == null || value.isEmpty) {
+                      //       return 'Warranty end date is mandatory';
+                      //     } else {
+                      //       final warrantyEndDate =
+                      //           DateFormat('dd MMM yyyy').parse(value);
+                      //       final purchaseDate = DateFormat('dd MMM yyyy')
+                      //           .parse(purchasedDateController.text);
 
-                            if (warrantyEndDate.isBefore(purchaseDate)) {
-                              return 'Warranty end date must be after purchase date';
-                            } else {
-                              return null;
-                            }
-                          }
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      //       if (warrantyEndDate.isBefore(purchaseDate)) {
+                      //         return 'Warranty end date must be after purchase date';
+                      //       } else {
+                      //         return null;
+                      //       }
+                      //     }
+                      //   },
+                      // ),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
                       ValueListenableBuilder(
                         valueListenable: productImageNotifier,
                         builder: (context, value, _) {

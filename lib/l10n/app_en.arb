@@ -24,5 +24,7 @@
     "phoneNumber":"Phone Number",
     "updateAccount":"Update Account",
     "productAddSuccess":"Product Updated Succesfully",
-    "productDeleteSuccess":"Product Deleted Succesfully"
+    "productDeleteSuccess":"Product Deleted Succesfully",
+    "home":"Home",
+    "aboutUs":"About Me"
 }
