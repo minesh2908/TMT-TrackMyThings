@@ -102,7 +102,14 @@ class _UpdateProductState extends State<UpdateProduct> {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: const Text('Cancel'),
+                                child: Text(
+                                  'Cancel',
+                                  style: TextStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondaryFixedVariant,
+                                  ),
+                                ),
                               ),
                               TextButton(
                                 onPressed: () async {

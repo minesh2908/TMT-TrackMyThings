@@ -63,7 +63,12 @@ class _SelectLanguageState extends State<SelectLanguage> {
                           ),
                         ),
                         trailing: state == languages[index]['code']
-                            ? const Icon(Icons.check)
+                            ? Icon(
+                                Icons.check,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSecondaryFixedVariant,
+                              )
                             : null,
                       ),
                     );

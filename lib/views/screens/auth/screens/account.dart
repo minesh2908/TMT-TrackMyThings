@@ -70,7 +70,14 @@ class _AccountDetailsState extends State<AccountDetails> {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              child: const Text('Cancel'),
+                              child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondaryFixedVariant,
+                                ),
+                              ),
                             ),
                             TextButton(
                               onPressed: () {
@@ -101,7 +108,6 @@ class _AccountDetailsState extends State<AccountDetails> {
             child: Center(
               child: BlocConsumer<AuthBloc, AuthState>(
                 listener: (context, state) {
-                  
                   if (state is AccountUpdatedState) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
