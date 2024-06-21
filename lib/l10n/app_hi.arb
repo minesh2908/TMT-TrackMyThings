@@ -26,6 +26,6 @@
     "updateAccount":"अकाउंट अपडेट करें" ,
     "productAddSuccess":"उत्पाद सफलतापूर्वक अपडेट किया गया", 
     "productDeleteSuccess":"उत्पाद सफलतापूर्वक हटा दिया गया",
-    "home":"Home",
-    "aboutUs":"About Me"
+    "home":"होम",
+    "aboutUs":"अबाउट में "
 }

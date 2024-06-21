@@ -184,8 +184,9 @@ class _MyDashboardState extends State<MyDashboard> {
                                             children: [
                                               Container(
                                                 decoration: BoxDecoration(
-                                                  color:
-                                                      const Color(0xFFe9e9e9),
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSurface,
                                                   borderRadius:
                                                       BorderRadius.circular(12),
                                                 ),
@@ -293,7 +294,7 @@ class _MyDashboardState extends State<MyDashboard> {
                                                       progressColor:
                                                           Theme.of(context)
                                                               .colorScheme
-                                                              .primary,
+                                                              .onPrimary,
                                                       backgroundColor:
                                                           Theme.of(context)
                                                               .colorScheme
@@ -412,7 +413,7 @@ class _MyDashboardState extends State<MyDashboard> {
             child: Transform.scale(
               scale: 1.2,
               child: FloatingActionButton(
-                backgroundColor: Theme.of(context).colorScheme.primary,
+                backgroundColor: Theme.of(context).colorScheme.onPrimary,
                 onPressed: () async {
                   final result = await Navigator.pushNamed(
                     context,

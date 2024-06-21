@@ -9,6 +9,7 @@ import 'package:warranty_tracker/routes/routes.dart';
 import 'package:warranty_tracker/routes/routes_names.dart';
 import 'package:warranty_tracker/service/shared_prefrence.dart';
 import 'package:warranty_tracker/theme/color_sceme.dart';
+import 'package:warranty_tracker/theme/cubit/theme_cubit.dart';
 import 'package:warranty_tracker/theme/theme_manager.dart';
 import 'package:warranty_tracker/views/screens/Language/cubit/select_language_cubit.dart';
 import 'package:warranty_tracker/views/screens/add_product/bloc/product_bloc.dart';
@@ -37,32 +38,40 @@ class MyApp extends StatelessWidget {
         BlocProvider<SelectLanguageCubit>.value(
           value: SelectLanguageCubit(),
         ),
+        BlocProvider<ThemeCubit>.value(
+          value: ThemeCubit(),
+        ),
       ],
-      child: BlocBuilder<SelectLanguageCubit, String>(
-        builder: (context, state) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Warranty Tracker App',
-            theme: appTheme(
-              context,
-              colorScheme: lightColorScheme,
-              systemUiOverlayStyle: SystemUiOverlayStyle.dark,
-            ),
-            darkTheme: appTheme(
-              context,
-              colorScheme: darkColorScheme,
-              systemUiOverlayStyle: SystemUiOverlayStyle.light,
-            ),
-            initialRoute: RoutesName.splashScreen,
-            onGenerateRoute: Routes.generateRoute,
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            supportedLocales: const [Locale('en'), Locale('hi')],
-            locale: Locale(state),
+      child: BlocBuilder<ThemeCubit, bool>(
+        builder: (context, themeSate) {
+          return BlocBuilder<SelectLanguageCubit, String>(
+            builder: (context, state) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Warranty Tracker App',
+                themeMode: themeSate ? ThemeMode.dark : ThemeMode.light,
+                theme: appTheme(
+                  context,
+                  colorScheme: lightColorScheme,
+                  systemUiOverlayStyle: SystemUiOverlayStyle.dark,
+                ),
+                darkTheme: appTheme(
+                  context,
+                  colorScheme: darkColorScheme,
+                  systemUiOverlayStyle: SystemUiOverlayStyle.light,
+                ),
+                initialRoute: RoutesName.splashScreen,
+                onGenerateRoute: Routes.generateRoute,
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                supportedLocales: const [Locale('en'), Locale('hi')],
+                locale: Locale(state),
+              );
+            },
           );
         },
       ),

@@ -87,6 +87,7 @@ enum AppPrefKey {
   uid('logout'),
   defaultWarrantyPeriod('defaultWarrantyPeriod'),
   sortProductBy('sortProductBy'),
+  darkTheme('darkTheme'),
   language('language');
 
   const AppPrefKey(this.name);
@@ -113,6 +114,16 @@ class AppPrefHelper {
     final displayName = AppPref.get(AppPrefKey.displayName, '') as String;
     // log('displayName: $displayName');
     return displayName;
+  }
+
+  static Future<bool> setDarkTheme({required bool darkTheme}) async {
+    return AppPref.save(AppPrefKey.darkTheme, darkTheme);
+  }
+
+  static bool getDarkTheme() {
+    final darkTheme = AppPref.get(AppPrefKey.darkTheme, false) as bool;
+    // log('displayName: $displayName');
+    return darkTheme;
   }
 
   static Future<bool> setPhoneNumber({required String phoneNumber}) async {

@@ -28,6 +28,10 @@ class InputFieldForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: Theme.of(context).colorScheme.onSecondaryFixedVariant,
+      ),
       validator: validator,
       keyboardType: keyboardType,
       readOnly: readOnly,
@@ -43,8 +47,15 @@ class InputFieldForm extends StatelessWidget {
         ),
         alignLabelWithHint: true,
         labelText: fieldName,
-        labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+        labelStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Theme.of(context).colorScheme.onSecondaryFixedVariant,
+        ),
         hintText: fieldName,
+        hintStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Theme.of(context).colorScheme.onSecondaryFixedVariant,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: Color(0xFFC1CDF5)),

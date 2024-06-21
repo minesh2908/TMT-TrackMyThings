@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:warranty_tracker/service/shared_prefrence.dart';
+import 'package:warranty_tracker/theme/cubit/theme_cubit.dart';
 import 'package:warranty_tracker/views/components/body_widget.dart';
 import 'package:warranty_tracker/views/screens/auth/bloc/auth_bloc.dart';
 
@@ -13,7 +14,7 @@ class SideNavBar extends StatefulWidget {
 }
 
 class _SideNavBarState extends State<SideNavBar> {
-  bool light = true;
+  bool dark = AppPrefHelper.getDarkTheme();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
@@ -85,11 +86,14 @@ class _SideNavBarState extends State<SideNavBar> {
                       title: AppLocalizations.of(context)!.darkTheme,
                       icon: Icons.dark_mode,
                       widget: Switch(
-                        value: light,
-                        onChanged: (bool value) {
+                        value: dark,
+                        onChanged: (bool value) async {
                           setState(() {
-                            light = value;
+                            dark = value;
                           });
+                          await AppPrefHelper.setDarkTheme(darkTheme: value);
+                          print(AppPrefHelper.getDarkTheme());
+                          context.read<ThemeCubit>().changeTheme(value);
                         },
                       ),
                     ),
@@ -150,7 +154,7 @@ class sideNavBarItem extends StatelessWidget {
         contentPadding: const EdgeInsets.all(0),
         leading: Icon(
           icon,
-          color: color,
+          color: color ?? Theme.of(context).colorScheme.onSecondaryFixedVariant,
         ),
         title: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -163,7 +167,11 @@ class sideNavBarItem extends StatelessWidget {
             ),
           ),
         ),
-        trailing: widget ?? const Icon(Icons.arrow_forward_ios),
+        trailing: widget ??
+            Icon(
+              Icons.arrow_forward_ios,
+              color: Theme.of(context).colorScheme.onSecondaryFixedVariant,
+            ),
       ),
     );
   }

@@ -151,13 +151,17 @@ class _UpdateProductState extends State<UpdateProduct> {
                             decoration: BoxDecoration(
                               border:
                                   Border.all(color: const Color(0xFFC1CDF5)),
+                              borderRadius: BorderRadius.circular(14),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(8),
                               child: widget.productModal?.billImage != null
-                                  ? Image.network(
-                                      widget.productModal!.billImage!,
-                                      fit: BoxFit.cover,
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(14),
+                                      child: Image.network(
+                                        widget.productModal!.billImage!,
+                                        fit: BoxFit.cover,
+                                      ),
                                     )
                                   : Assets.images.addImage
                                       .image(fit: BoxFit.cover),

@@ -14,7 +14,7 @@ class SubmitButton extends StatelessWidget {
           .size
           .width, // Set the width to the screen width
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary,
+        color: Theme.of(context).colorScheme.onPrimary,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Center(

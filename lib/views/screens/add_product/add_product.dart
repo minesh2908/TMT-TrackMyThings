@@ -115,6 +115,7 @@ class _AddProductState extends State<AddProduct> {
                               decoration: BoxDecoration(
                                 border:
                                     Border.all(color: const Color(0xFFC1CDF5)),
+                                borderRadius: BorderRadius.circular(14),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8),
