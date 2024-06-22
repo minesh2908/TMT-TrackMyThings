@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:warranty_tracker/modal/product_modal.dart';
 import 'package:warranty_tracker/routes/routes_names.dart';
 import 'package:warranty_tracker/views/screens/Language/select_language.dart';
+import 'package:warranty_tracker/views/screens/about_me/about_me.dart';
 import 'package:warranty_tracker/views/screens/add_product/add_product.dart';
 import 'package:warranty_tracker/views/screens/auth/screens/account.dart';
 import 'package:warranty_tracker/views/screens/auth/screens/google_sign_in.dart';
@@ -63,6 +64,12 @@ class Routes {
         return MaterialPageRoute(
           builder: (context) {
             return const GeneralSettings();
+          },
+        );
+      case RoutesName.about_me:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const AboutMe();
           },
         );
       default:

@@ -52,9 +52,9 @@ class _MyDashboardState extends State<MyDashboard> {
                     cursorColor: Colors.white,
                     focusNode: _focusNode,
                     controller: _controller,
-                    decoration: const InputDecoration.collapsed(
-                      hintText: 'Enter Product name...',
-                      hintStyle: TextStyle(color: Colors.white),
+                    decoration: InputDecoration.collapsed(
+                      hintText: AppLocalizations.of(context)!.enterPorductName,
+                      hintStyle: const TextStyle(color: Colors.white),
                     ),
                     style: const TextStyle(
                       color: Colors.white,
@@ -235,8 +235,10 @@ class _MyDashboardState extends State<MyDashboard> {
                                                   children: [
                                                     Flexible(
                                                       child: Text(
-                                                        productData
-                                                                .productName ??
+                                                        productData.productName
+                                                                ?.truncate(
+                                                              20,
+                                                            ) ??
                                                             '',
                                                         style: TextStyle(
                                                           fontWeight:

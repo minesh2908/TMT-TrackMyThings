@@ -29,3 +29,13 @@ extension Iso8601Extensions on String {
     return DateTime.tryParse(this);
   }
 }
+
+extension NameStringExtension on String {
+  String truncate(int maxLength) {
+    if (length <= maxLength) {
+      return this;
+    } else {
+      return substring(0, maxLength);
+    }
+  }
+}

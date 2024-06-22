@@ -14,4 +14,6 @@ class RoutesName {
   static const String seleceLanguage = '/select-language';
 
   static const String settings = '/settings';
+
+  static const String about_me = '/about-me';
 }

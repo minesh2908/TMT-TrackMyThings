@@ -147,7 +147,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                                   AppLocalizations.of(context)!.phoneNumber,
                               controller: phoneController,
                               validator: (value) {
-                                if (value?.length != 10) {
+                                if (value!.isNotEmpty && value.length != 10) {
                                   return 'Phone Number must be of 10 digit';
                                 }
                                 return null;

@@ -104,6 +104,9 @@ class _SideNavBarState extends State<SideNavBar> {
                     sideNavBarItem(
                       title: AppLocalizations.of(context)!.aboutUs,
                       icon: Icons.code,
+                      function: () {
+                        Navigator.pushNamed(context, '/about-me');
+                      },
                     ),
                     sideNavBarItem(
                       title: AppLocalizations.of(context)!.logOut,

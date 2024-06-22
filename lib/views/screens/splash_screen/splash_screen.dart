@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:warranty_tracker/views/screens/auth/bloc/auth_bloc.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,11 +12,10 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-
-    super.didChangeDependencies();
+  void initState() {
+    // TODO: implement initState
     isUserAuthenticated(context);
+    super.initState();
   }
 
   @override
@@ -37,6 +38,7 @@ Future<void> isUserAuthenticated(BuildContext context) async {
 
   if (isUserAvailable != null) {
     Future.delayed(const Duration(milliseconds: 1500), () {
+      context.read<AuthBloc>().add(GetCurrentUserData());
       Navigator.pushNamed(context, '/dashboard');
     });
   } else {

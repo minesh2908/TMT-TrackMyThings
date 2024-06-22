@@ -18,7 +18,7 @@ class GeneralSettings extends StatefulWidget {
 class _GeneralSettingsState extends State<GeneralSettings> {
   @override
   void initState() {
-    print('===== ${AppPrefHelper.getDefaultWarrantyPeriod()}');
+    print('from general setting in it ${AppPrefHelper.getDefaultWarrantyPeriod()}');
     super.initState();
   }
 
@@ -30,14 +30,15 @@ class _GeneralSettingsState extends State<GeneralSettings> {
       ValueNotifier<String>(AppPrefHelper.getSortProductBy());
   @override
   Widget build(BuildContext context) {
+    final appLocalization = AppLocalizations.of(context)!;
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         print(state.runtimeType);
         if (state is AccountUpdatedState) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+            SnackBar(
               content: Text(
-                'Settings Updated Succesfully',
+                appLocalization.settingsUpdatedSuccess,
               ),
             ),
           );
@@ -64,7 +65,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Sort item by',
+                    appLocalization.sortItemBy,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -120,11 +121,11 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                   InputFieldForm(
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Default Warranty Period can not be empty';
+                        return appLocalization.defaultWarrantyCanNotBeEmpty;
                       }
                       return null;
                     },
-                    fieldName: 'Default Warranty months(in months)',
+                    fieldName: appLocalization.defaultWarrantyPeriod,
                     controller: defaultWarrantyController,
                   ),
                   const SizedBox(
@@ -159,8 +160,8 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                           );
                         }
                       },
-                      child: const SubmitButton(
-                        heading: 'Save',
+                      child: SubmitButton(
+                        heading: appLocalization.save,
                       ),
                     ),
                 ],

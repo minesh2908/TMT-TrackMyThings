@@ -26,5 +26,35 @@
     "productAddSuccess":"Product Updated Succesfully",
     "productDeleteSuccess":"Product Deleted Succesfully",
     "home":"Home",
-    "aboutUs":"About Me"
+    "aboutUs":"About Me",
+    "updateProduct":"Update Product",
+    "deleteProduct":"Delete Product",
+    "areYouSure":"Are you sure you want to delete",
+    "cancel":"Cancel",
+    "delete":"Delete",
+    "addProductBillAndWeWillAutoFill":"*Add Product Bill and we will auto fill the details",
+    "productName":"Product Name",
+    "productNameRequired":"Product Name is required",
+    "purchasedDate":"Purchased Date",
+    "selectPurchasedDate":"Select Purchased Date",
+    "warrantyPeriod":"Warranty Period(in months)",
+    "imageAvailable":"Image Available",
+    "noImage":"No Image",
+    "imageAdded":"Image Added",
+    "productImage":"Product Image",
+    "note":"Note",
+    "addProduct":"Add Product",
+    "sortItemBy":"Sort Item By",
+    "defaultWarrantyPeriod":"Default Warranty Period",
+    "save":"Save",
+    "mineshSarawogi":"Minesh Sarawogi",
+    "flutterDeveloper":"Flutter Developer",
+    "aboutMeText":" This app is developed and maintained by Minesh Sarawogi(Me). I am a 2 years experienced Flutter developer with experience of multiple apps. If this app helps you any way them please rate app 5 star to support us. And if you face any issue while working using app you can directly message us.  Thank You!",
+    "thankYou":"Thank You",
+    "settingsUpdatedSuccess":"Settings Updated Succesfully",
+    "defaultWarrantyCanNotBeEmpty":"Default Warranty Period can not be empty",
+    "warrantyEndDate":"Warranty End Date"
+    
+    
+    
 }

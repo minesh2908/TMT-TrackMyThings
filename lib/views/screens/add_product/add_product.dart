@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:warranty_tracker/gen/assets.gen.dart';
 import 'package:warranty_tracker/modal/product_modal.dart';
@@ -60,6 +61,7 @@ class _AddProductState extends State<AddProduct> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocalization = AppLocalizations.of(context)!;
     return BlocConsumer<ProductBloc, ProductState>(
       listener: (context, state) {
         if (state is ProductSuccessState) {
@@ -81,9 +83,9 @@ class _AddProductState extends State<AddProduct> {
               backgroundColor: Theme.of(context).colorScheme.primary,
               leading: const BackButton(),
               elevation: 2,
-              title: const Text(
-                'Add Product',
-                style: TextStyle(
+              title: Text(
+                appLocalization.addProduct,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -131,18 +133,18 @@ class _AddProductState extends State<AddProduct> {
                           );
                         },
                       ),
-                      const Text(
-                        '*Add Product Bill and we will auto fill the details',
+                      Text(
+                        appLocalization.addProductBillAndWeWillAutoFill,
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       InputFieldForm(
-                        fieldName: 'Product Name',
+                        fieldName: appLocalization.productName,
                         controller: productNameController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Product Name is required';
+                            return appLocalization.productNameRequired;
                           }
                           return null;
                         },
@@ -153,14 +155,14 @@ class _AddProductState extends State<AddProduct> {
                       InkWell(
                         onTap: () {},
                         child: InputFieldForm(
-                          fieldName: 'Purchased Date',
+                          fieldName: appLocalization.purchasedDate,
                           controller: purchasedDateController,
                           icon: Icons.calendar_month,
                           function: () {
                             _showDatePicker(
                               context,
                               purchasedDateController,
-                              'Select Purchased Date',
+                              appLocalization.selectPurchasedDate,
                               DateTime(2000),
                             );
                           },
@@ -171,49 +173,22 @@ class _AddProductState extends State<AddProduct> {
                         height: 20,
                       ),
                       InputFieldForm(
-                        fieldName: 'Warranty Period(in months)',
+                        fieldName: appLocalization.warrantyPeriod,
                         controller: warrantyPeriodController,
                         keyboardType: TextInputType.number,
                         onSubmit: (value) {
                           calculateEndDate();
                         },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Warranty Periods is required';
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      // InputFieldForm(
-                      //   fieldName: 'Warranty End Date',
-                      //   controller: warrantyEndDateController,
-                      //   icon: Icons.calendar_month,
-                      //   function: () {
-                      //     _showDatePicker(
-                      //       context,
-                      //       warrantyEndDateController,
-                      //       'Select Warranty Ends Date',
-                      //       DateTime.now(),
-                      //     );
-                      //   },
-                      //   readOnly: true,
-                      //   validator: (value) {
-                      //     if (value == null || value.isEmpty) {
-                      //       return 'Warranty end date is mandatory';
-                      //     } else {
-                      //       final warrantyEndDate =
-                      //           DateFormat('dd MMM yyyy').parse(value);
-                      //       final purchaseDate = DateFormat('dd MMM yyyy')
-                      //           .parse(purchasedDateController.text);
-
-                      //       if (warrantyEndDate.isBefore(purchaseDate)) {
-                      //         return 'Warranty end date must be after purchase date';
-                      //       } else {
-                      //         return null;
-                      //       }
-                      //     }
-                      //   },
-                      // ),
-                      // const SizedBox(
-                      //   height: 20,
-                      // ),
                       ValueListenableBuilder(
                         valueListenable: productImageNotifier,
                         builder: (context, value, _) {
@@ -233,7 +208,7 @@ class _AddProductState extends State<AddProduct> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'Image Added',
+                                          appLocalization.imageAdded,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18,
@@ -249,7 +224,7 @@ class _AddProductState extends State<AddProduct> {
                                             ),
                                           )
                                         else
-                                          const Text('No Image'),
+                                          Text(appLocalization.noImage),
                                         InkWell(
                                           onTap: () async {
                                             productImageNotifier.value = null;
@@ -273,7 +248,7 @@ class _AddProductState extends State<AddProduct> {
                                         });
                                       },
                                       child: Text(
-                                        'Product Image',
+                                        appLocalization.productImage,
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -292,7 +267,7 @@ class _AddProductState extends State<AddProduct> {
                         height: 20,
                       ),
                       InputFieldForm(
-                        fieldName: 'Note',
+                        fieldName: appLocalization.note,
                         controller: noteController,
                         maxLines: 3,
                       ),
@@ -328,8 +303,8 @@ class _AddProductState extends State<AddProduct> {
                                 );
                           }
                         },
-                        child: const SubmitButton(
-                          heading: 'Add Product',
+                        child: SubmitButton(
+                          heading: appLocalization.addProduct,
                         ),
                       ),
                     ],

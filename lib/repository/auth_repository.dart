@@ -28,29 +28,19 @@ class AuthRepository {
           displayName: userData.user!.displayName!,
         );
         await AppPrefHelper.setDefaultWarrantyPeriod(
-          defaultWarrantyPeriod: '12',
+          defaultWarrantyPeriod: user.defaultWarrantyPeriod!,
         );
         await AppPrefHelper.setEmail(email: userData.user!.email!);
         await AppPrefHelper.setPhoneNumber(
           phoneNumber: userData.user?.phoneNumber ?? '',
         );
-
+        print('From new user -${AppPrefHelper.getDefaultWarrantyPeriod()}');
         return user;
       } else {
         final userData = await UserRepository().getCurrentUserDetails(userId);
-        await AppPrefHelper.setDisplayName(
-          displayName: userData.name!,
+        print(
+          'From Auth repo already signed in user - ${userData.defaultWarrantyPeriod}',
         );
-
-        await AppPrefHelper.setEmail(email: userData.email!);
-        await AppPrefHelper.setPhoneNumber(
-          phoneNumber: userData.phoneNumber ?? '',
-        );
-        await AppPrefHelper.setDefaultWarrantyPeriod(
-          defaultWarrantyPeriod: userData.defaultWarrantyPeriod!,
-        );
-        log('-------------------');
-        log(AppPrefHelper.getDisplayName());
         return UserModel();
       }
     } catch (e) {

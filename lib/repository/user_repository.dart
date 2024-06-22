@@ -22,6 +22,7 @@ class UserRepository {
         email: user?.email,
         name: user?.displayName,
         phoneNumber: user?.phoneNumber,
+        defaultWarrantyPeriod: '12',
       );
     } catch (e) {
       throw Exception(e);
@@ -40,10 +41,27 @@ class UserRepository {
     try {
       final userSnapshot =
           await userCollection.where('userId', isEqualTo: userId).get();
-      final userDate = userSnapshot.docs.map(UserModel.fromSnapshot);
-      // print('--------------------');
-      // print(userDate.first);
-      return userDate.first;
+      final userData = userSnapshot.docs.map(UserModel.fromSnapshot).first;
+
+      await AppPrefHelper.setDisplayName(
+        displayName: userData.name!,
+      );
+
+      await AppPrefHelper.setEmail(email: userData.email!);
+      await AppPrefHelper.setPhoneNumber(
+        phoneNumber: userData.phoneNumber ?? '',
+      );
+      await AppPrefHelper.setDefaultWarrantyPeriod(
+        defaultWarrantyPeriod: userData.defaultWarrantyPeriod!,
+      );
+
+      print(
+        'From already created user - ${AppPrefHelper.getDefaultWarrantyPeriod()}',
+      );
+      print(userData.defaultWarrantyPeriod);
+      print('---------------');
+      print(userData);
+      return userData;
     } catch (e) {
       throw Exception(e);
     }

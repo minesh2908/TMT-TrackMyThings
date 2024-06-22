@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 import 'package:warranty_tracker/modal/user_model.dart';
 import 'package:warranty_tracker/repository/auth_repository.dart';
@@ -18,6 +19,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<GoogleSignOutEvent>(googleSignOutEvent);
     on<UpdateUserAccountDetails>(updateUserAccountDetails);
     on<DeleteAccount>(deleteAccount);
+    on<GetCurrentUserData>(getCurrentUserData);
   }
 
   FutureOr<void> googleSignInEvent(
@@ -79,6 +81,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthSuccessState());
     } catch (e) {
       emit(AuthFailureState(e.toString()));
+    }
+  }
+
+  FutureOr<void> getCurrentUserData(
+    GetCurrentUserData event,
+    Emitter<AuthState> emit,
+  ) async {
+    try {
+      final currentUser = FirebaseAuth.instance.currentUser?.uid;
+      final userdata =
+          await UserRepository().getCurrentUserDetails(currentUser!);
+      print(userdata);
+    } catch (e) {
+      throw Exception(e);
     }
   }
 }

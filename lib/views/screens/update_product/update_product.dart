@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:warranty_tracker/gen/assets.gen.dart';
 import 'package:warranty_tracker/modal/product_modal.dart';
@@ -32,6 +33,7 @@ class _UpdateProductState extends State<UpdateProduct> {
   late final TextEditingController warrantyPeriodController;
   late final TextEditingController warrantyEndDateController;
   late final TextEditingController noteController;
+
   @override
   void initState() {
     productNameController =
@@ -52,6 +54,7 @@ class _UpdateProductState extends State<UpdateProduct> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocalization = AppLocalizations.of(context)!;
     return BlocConsumer<ProductBloc, ProductState>(
       listener: (context, state) {
         if (state is ProductSuccessState) {
@@ -77,9 +80,9 @@ class _UpdateProductState extends State<UpdateProduct> {
               backgroundColor: Theme.of(context).colorScheme.primary,
               leading: const BackButton(),
               elevation: 2,
-              title: const Text(
-                'Update Product',
-                style: TextStyle(
+              title: Text(
+                appLocalization.updateProduct,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -93,9 +96,11 @@ class _UpdateProductState extends State<UpdateProduct> {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: const Text('Delete Product'),
+                            title: Text(
+                              appLocalization.deleteProduct,
+                            ),
                             content: Text(
-                              '''Are you sure you want to delete ${widget.productModal!.productName}''',
+                              '''${appLocalization.areYouSure} ${widget.productModal!.productName}''',
                             ),
                             actions: [
                               TextButton(
@@ -103,7 +108,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                                   Navigator.pop(context);
                                 },
                                 child: Text(
-                                  'Cancel',
+                                  AppLocalizations.of(context)!.cancel,
                                   style: TextStyle(
                                     color: Theme.of(context)
                                         .colorScheme
@@ -122,7 +127,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                                   Navigator.pop(context);
                                 },
                                 child: Text(
-                                  'Delete',
+                                  appLocalization.delete,
                                   style: TextStyle(
                                     color: Theme.of(context).colorScheme.error,
                                   ),
@@ -176,18 +181,19 @@ class _UpdateProductState extends State<UpdateProduct> {
                           );
                         },
                       ),
-                      const Text(
-                        '*Add Product Bill and we will auto fill the details',
+                      Text(
+                        AppLocalizations.of(context)!
+                            .addProductBillAndWeWillAutoFill,
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       InputFieldForm(
-                        fieldName: 'Product Name',
+                        fieldName: AppLocalizations.of(context)!.productName,
                         controller: productNameController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Product Name is required';
+                            return appLocalization.productNameRequired;
                           }
                           return null;
                         },
@@ -198,14 +204,14 @@ class _UpdateProductState extends State<UpdateProduct> {
                       InkWell(
                         onTap: () {},
                         child: InputFieldForm(
-                          fieldName: 'Purchased Date',
+                          fieldName: appLocalization.purchasedDate,
                           controller: purchasedDateController,
                           icon: Icons.calendar_month,
                           function: () {
                             _showDatePicker(
                               context,
                               purchasedDateController,
-                              'Select Purchased Date',
+                              appLocalization.selectPurchasedDate,
                               DateTime(2000),
                             );
                           },
@@ -216,11 +222,17 @@ class _UpdateProductState extends State<UpdateProduct> {
                         height: 20,
                       ),
                       InputFieldForm(
-                        fieldName: 'Warranty Period(in months)',
+                        fieldName: appLocalization.warrantyPeriod,
                         controller: warrantyPeriodController,
                         keyboardType: TextInputType.number,
                         onSubmit: (value) {
                           calculateEndDate();
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Warranty Periods is required';
+                          }
+                          return null;
                         },
                       ),
                       const SizedBox(
@@ -245,7 +257,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'Image Available',
+                                          appLocalization.imageAvailable,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18,
@@ -260,7 +272,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                                             widget.productModal!.productImage!,
                                           )
                                         else
-                                          const Text('No Image'),
+                                          Text(appLocalization.noImage),
                                         const SizedBox(),
                                       ],
                                     )
@@ -270,7 +282,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              'Image Added',
+                                              appLocalization.imageAdded,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 18,
@@ -288,7 +300,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                                                 ),
                                               )
                                             else
-                                              const Text('No Image'),
+                                              Text(appLocalization.noImage),
                                             InkWell(
                                               onTap: () async {
                                                 productImageNotifier.value =
@@ -313,7 +325,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                                             });
                                           },
                                           child: Text(
-                                            'Product Image',
+                                            appLocalization.productImage,
                                             textAlign: TextAlign.start,
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -332,7 +344,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                         height: 20,
                       ),
                       InputFieldForm(
-                        fieldName: 'Note',
+                        fieldName: appLocalization.note,
                         controller: noteController,
                         maxLines: 3,
                       ),
@@ -371,8 +383,8 @@ class _UpdateProductState extends State<UpdateProduct> {
                             productStateNotifier.value = 'updated';
                           }
                         },
-                        child: const SubmitButton(
-                          heading: 'Update Product',
+                        child: SubmitButton(
+                          heading: appLocalization.updateProduct,
                         ),
                       ),
                     ],
