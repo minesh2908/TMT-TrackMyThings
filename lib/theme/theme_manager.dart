@@ -11,8 +11,8 @@ ThemeData appTheme(
     brightness: colorScheme.brightness,
   );
   return ThemeData.from(
-          colorScheme: colorScheme,
-          useMaterial3: true,
-          textTheme: GoogleFonts.ptSansNarrowTextTheme(baseTheme.textTheme))
-      .copyWith(scaffoldBackgroundColor: colorScheme.surface);
+    colorScheme: colorScheme,
+    useMaterial3: true,
+    textTheme: GoogleFonts.ptSansNarrowTextTheme(baseTheme.textTheme),
+  ).copyWith(scaffoldBackgroundColor: colorScheme.surface);
 }

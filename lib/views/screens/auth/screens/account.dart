@@ -35,8 +35,11 @@ class _AccountDetailsState extends State<AccountDetails> {
         }
         if (state is AuthFailureState) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Account Deleted Successfully')),
+            const SnackBar(content: Text('Account Deletion Failed')),
           );
+        }
+        if (state is AccountDeletedState) {
+          Navigator.pushNamed(context, '/');
         }
       },
       builder: (context, state) {
@@ -84,6 +87,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                                 context.read<AuthBloc>().add(
                                       DeleteAccount(),
                                     );
+                                Navigator.pop(context);
                               },
                               child: Text(
                                 'Delete',
@@ -143,12 +147,19 @@ class _AccountDetailsState extends State<AccountDetails> {
                               height: 20,
                             ),
                             InputFieldForm(
+                              keyboardType: TextInputType.number,
+                              maxLength: 10,
                               fieldName:
                                   AppLocalizations.of(context)!.phoneNumber,
                               controller: phoneController,
                               validator: (value) {
-                                if (value!.isNotEmpty && value.length != 10) {
-                                  return 'Phone Number must be of 10 digit';
+                                if (value!.isNotEmpty) {
+                                  if (value.length != 10) {
+                                    return 'Phone Number must be of 10 digits';
+                                  } else if (!RegExp(r'^[0-9]+$')
+                                      .hasMatch(value)) {
+                                    return '''Phone Number must contain only digits''';
+                                  }
                                 }
                                 return null;
                               },

@@ -6,13 +6,13 @@
     "slider2content":"You cna easily add any product and its warranty to app by just clicking its picture. Others things will be automatically done.",
     "slider3Heading":"Claim Warranty easily",
     "slider3content":"At the time of claiming or checking the warranty you just need to search the product and you will have your product with its all details to you",
-    "bySiginigIn":"*By signing in you are accepting our Terms & Condiditon",
+    "bySiginigIn":"*By signing in you are accepting our Terms & Condition",
     "welcome":"Welcome",
     "youHaveNotAdded":"You have not added any product yet.",
     "clickToAdd":"Click + for adding product now",
     "oops":"Oops! Something went wrong.",
     "retry":"Please retry after sometime",
-    "enterPorductName":"Enter Product Name",
+    "enterProductName":"Enter Product Name",
     "settings":"Settings",
     "account":"Account",
     "language":"Language",
@@ -23,8 +23,8 @@
     "name":"Name",
     "phoneNumber":"Phone Number",
     "updateAccount":"Update Account",
-    "productAddSuccess":"Product Updated Succesfully",
-    "productDeleteSuccess":"Product Deleted Succesfully",
+    "productAddSuccess":"Product Updated Successfully",
+    "productDeleteSuccess":"Product Deleted Successfully",
     "home":"Home",
     "aboutUs":"About Me",
     "updateProduct":"Update Product",
@@ -54,6 +54,7 @@
     "settingsUpdatedSuccess":"Settings Updated Succesfully",
     "defaultWarrantyCanNotBeEmpty":"Default Warranty Period can not be empty",
     "warrantyEndDate":"Warranty End Date"
+    
     
     
     

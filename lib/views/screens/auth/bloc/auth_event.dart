@@ -15,5 +15,4 @@ class UpdateUserAccountDetails extends AuthEvent {
 
 class DeleteAccount extends AuthEvent {}
 
-
-class GetCurrentUserData extends AuthEvent{}
+class GetCurrentUserData extends AuthEvent {}

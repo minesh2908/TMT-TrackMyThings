@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:warranty_tracker/service/shared_prefrence.dart';
 import 'package:warranty_tracker/theme/cubit/theme_cubit.dart';
 import 'package:warranty_tracker/views/components/body_widget.dart';
+import 'package:warranty_tracker/views/screens/Language/cubit/select_language_cubit.dart';
 import 'package:warranty_tracker/views/screens/auth/bloc/auth_bloc.dart';
 
 class SideNavBar extends StatefulWidget {
@@ -92,7 +93,7 @@ class _SideNavBarState extends State<SideNavBar> {
                             dark = value;
                           });
                           await AppPrefHelper.setDarkTheme(darkTheme: value);
-                          print(AppPrefHelper.getDarkTheme());
+                          // print(AppPrefHelper.getDarkTheme());
                           context.read<ThemeCubit>().changeTheme(value);
                         },
                       ),
@@ -114,13 +115,14 @@ class _SideNavBarState extends State<SideNavBar> {
                       color: Theme.of(context).colorScheme.error,
                       widget: const SizedBox(),
                       function: () async {
+                        context
+                            .read<SelectLanguageCubit>()
+                            .updateAppLanguage('en');
+                        context.read<ThemeCubit>().changeTheme(false);
                         context.read<AuthBloc>().add(GoogleSignOutEvent());
                         if (state.runtimeType == AuthSuccessState) {
                           await AppPrefHelper.signOut();
                         }
-                        print(
-                          '-----------------------${AppPrefHelper.getDisplayName()} ${AppPrefHelper.getEmail()}${AppPrefHelper.getUID()} ${AppPrefHelper.getPhoneNumber()}',
-                        );
                       },
                     ),
                   ],

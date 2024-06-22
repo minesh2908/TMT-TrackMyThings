@@ -53,7 +53,7 @@ class _MyDashboardState extends State<MyDashboard> {
                     focusNode: _focusNode,
                     controller: _controller,
                     decoration: InputDecoration.collapsed(
-                      hintText: AppLocalizations.of(context)!.enterPorductName,
+                      hintText: AppLocalizations.of(context)!.enterProductName,
                       hintStyle: const TextStyle(color: Colors.white),
                     ),
                     style: const TextStyle(
@@ -66,7 +66,7 @@ class _MyDashboardState extends State<MyDashboard> {
                     },
                   )
                 : Text(
-                    '${AppLocalizations.of(context)!.welcome} ${AppPrefHelper.getDisplayName()}',
+                    '''${AppLocalizations.of(context)!.welcome} ${AppPrefHelper.getDisplayName()}''',
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
             actions: [
@@ -105,13 +105,17 @@ class _MyDashboardState extends State<MyDashboard> {
                             ),
                             Text(
                               AppLocalizations.of(context)!.youHaveNotAdded,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w600),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context).colorScheme.scrim,
+                              ),
                             ),
                             Text(
                               AppLocalizations.of(context)!.clickToAdd,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w600),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context).colorScheme.scrim,
+                              ),
                             ),
                           ],
                         )
@@ -129,7 +133,8 @@ class _MyDashboardState extends State<MyDashboard> {
                                   itemBuilder: (context, index) {
                                     final productData =
                                         state.productList[index];
-                                    final remaingTime = calculateDateDifference(
+                                    final remainingTime =
+                                        calculateDateDifference(
                                       productData.warrantyEndsDate!,
                                     );
 
@@ -148,20 +153,22 @@ class _MyDashboardState extends State<MyDashboard> {
                                             RoutesName.updateProduct,
                                             arguments: productData,
                                           );
-                                          print('======== $result');
+                                          // print('======== $result');
                                           if (result == 'updated') {
                                             scaffoldMessenger.showSnackBar(
-                                              const SnackBar(
+                                              SnackBar(
                                                 content: Text(
-                                                  'Product Updated Succesfully',
+                                                  AppLocalizations.of(context)!
+                                                      .productAddSuccess,
                                                 ),
                                               ),
                                             );
                                           } else if (result == 'deleted') {
                                             scaffoldMessenger.showSnackBar(
-                                              const SnackBar(
+                                              SnackBar(
                                                 content: Text(
-                                                  'Product Deleted Succesfully',
+                                                  AppLocalizations.of(context)!
+                                                      .productDeleteSuccess,
                                                 ),
                                               ),
                                             );
@@ -247,19 +254,19 @@ class _MyDashboardState extends State<MyDashboard> {
                                                               Theme.of(context)
                                                                   .colorScheme
                                                                   .surface,
-                                                          fontSize: 24,
+                                                          fontSize: 22,
                                                         ),
                                                       ),
                                                     ),
                                                     Expanded(
                                                       child: Text(
-                                                        'Warrant expires on ${productData.warrantyEndsDate!.toDateTime()!.toFormattedDate}',
-                                                        maxLines: 3,
+                                                        '''Warranty ends on ${productData.warrantyEndsDate!.toDateTime()!.toFormattedDate}''',
+                                                        maxLines: 1,
                                                         style: TextStyle(
                                                           color: Theme.of(
                                                             context,
                                                           ).colorScheme.surface,
-                                                          fontSize: 18,
+                                                          fontSize: 16,
                                                         ),
                                                       ),
                                                     ),
@@ -267,7 +274,7 @@ class _MyDashboardState extends State<MyDashboard> {
                                                       height: 12,
                                                     ),
                                                     Text(
-                                                      remaingTime,
+                                                      remainingTime,
                                                       style: TextStyle(
                                                         color: Theme.of(context)
                                                             .colorScheme
@@ -422,7 +429,7 @@ class _MyDashboardState extends State<MyDashboard> {
                     RoutesName.addProduct,
                   );
                   if (!mounted) return;
-                  print('======== $result');
+                  //print('======== $result');
                   if (result == true) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

@@ -36,7 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
 
   google_fonts: ^6.2.1
-  flutter_svg: ^2.0.10+1
+
   lottie: ^3.1.2
   percent_indicator: ^4.2.3
   intl: ^0.19.0
@@ -54,6 +54,7 @@ dependencies:
   firebase_app_check: ^0.3.0+1
   flutter_localizations:
     sdk: flutter
+  flutter_svg: ^2.0.10+1  
   webview_flutter: ^4.8.0
   url_launcher: ^6.2.5
    
@@ -63,6 +64,7 @@ dependencies:
 dev_dependencies:
   build_runner: ^2.4.10
   flutter_gen_runner: ^5.5.0+1
+  flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
 
@@ -71,7 +73,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^3.0.0
+  
   very_good_analysis: ^5.1.0
 
 flutter_gen:

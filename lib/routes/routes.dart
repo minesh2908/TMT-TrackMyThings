@@ -54,7 +54,7 @@ class Routes {
             return const AccountDetails();
           },
         );
-      case RoutesName.seleceLanguage:
+      case RoutesName.selectLanguage:
         return MaterialPageRoute(
           builder: (context) {
             return const SelectLanguage();
@@ -66,7 +66,7 @@ class Routes {
             return const GeneralSettings();
           },
         );
-      case RoutesName.about_me:
+      case RoutesName.aboutMe:
         return MaterialPageRoute(
           builder: (context) {
             return const AboutMe();

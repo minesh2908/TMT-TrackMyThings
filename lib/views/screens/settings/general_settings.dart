@@ -18,7 +18,7 @@ class GeneralSettings extends StatefulWidget {
 class _GeneralSettingsState extends State<GeneralSettings> {
   @override
   void initState() {
-    print('from general setting in it ${AppPrefHelper.getDefaultWarrantyPeriod()}');
+    // print('from general setting in it ${AppPrefHelper.getDefaultWarrantyPeriod()}');
     super.initState();
   }
 
@@ -33,7 +33,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
     final appLocalization = AppLocalizations.of(context)!;
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        print(state.runtimeType);
+        // print(state.runtimeType);
         if (state is AccountUpdatedState) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

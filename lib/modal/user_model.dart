@@ -72,6 +72,6 @@ class UserModel {
 
   @override
   String toString() {
-    return 'User(email: $email, name: $name, phoneNumber: $phoneNumber, userId: $userId, defaultWarrantyPeriod : $defaultWarrantyPeriod, sortItemBy:$sortItemBy)';
+    return '''User(email: $email, name: $name, phoneNumber: $phoneNumber, userId: $userId, defaultWarrantyPeriod : $defaultWarrantyPeriod, sortItemBy:$sortItemBy)''';
   }
 }

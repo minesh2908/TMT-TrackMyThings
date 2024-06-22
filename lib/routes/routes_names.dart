@@ -11,9 +11,9 @@ class RoutesName {
 
   static const String accountDetails = '/account-details';
 
-  static const String seleceLanguage = '/select-language';
+  static const String selectLanguage = '/select-language';
 
   static const String settings = '/settings';
 
-  static const String about_me = '/about-me';
+  static const String aboutMe = '/about-me';
 }

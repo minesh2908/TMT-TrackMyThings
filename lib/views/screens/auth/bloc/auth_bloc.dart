@@ -33,7 +33,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthSuccessState());
       }
     } catch (e) {
-      print('Sign in failure');
+      // print('Sign in failure');
       emit(AuthFailureState(e.toString()));
     }
   }
@@ -46,7 +46,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       final isSignOut = await AuthRepository().signOutFromGoogle();
       if (isSignOut) {
-        print('Log out success');
+        // print('Log out success');
         emit(AuthSuccessState());
       }
     } catch (e) {
@@ -59,12 +59,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     emit(AuthLoadingState());
-    print(state.runtimeType);
+    // print(state.runtimeType);
     try {
       await UserRepository().updateUser(event.userModel);
       emit(AccountUpdatedState());
-      print(state.runtimeType);
-    } catch (e) {}
+      // print(state.runtimeType);
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   FutureOr<void> deleteAccount(
@@ -74,11 +76,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoadingState());
     try {
       final productList = await ProductRepository().getAllProducts();
-      print(productList);
+      // print(productList);
       await ProductRepository().deleteAllProduct(productList);
       await UserRepository().deleteUser(AppPrefHelper.getUID());
-      print('account deleted');
-      emit(AuthSuccessState());
+      // print('account deleted');
+      emit(AccountDeletedState());
     } catch (e) {
       emit(AuthFailureState(e.toString()));
     }
@@ -90,9 +92,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     try {
       final currentUser = FirebaseAuth.instance.currentUser?.uid;
-      final userdata =
+      final userData =
           await UserRepository().getCurrentUserDetails(currentUser!);
-      print(userdata);
+      // print(userData);
     } catch (e) {
       throw Exception(e);
     }

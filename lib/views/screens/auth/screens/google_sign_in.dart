@@ -20,7 +20,7 @@ class _GoogleSignInState extends State<GoogleSignIn> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        print(state.runtimeType);
+        //print(state.runtimeType);
         if (state.runtimeType == AuthSuccessState) {
           Navigator.pushNamedAndRemoveUntil(
             context,
@@ -44,7 +44,7 @@ class _GoogleSignInState extends State<GoogleSignIn> {
                         return PageView.builder(
                           onPageChanged: (int index) {
                             count.value = index;
-                            print(count.value);
+                            // print(count.value);
                           },
                           itemCount: sliderData.length,
                           itemBuilder: (context, index) {
@@ -62,9 +62,11 @@ class _GoogleSignInState extends State<GoogleSignIn> {
                                   ),
                                   Text(
                                     sliderData[index].title,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 30,
                                       fontWeight: FontWeight.bold,
+                                      color:
+                                          Theme.of(context).colorScheme.scrim,
                                     ),
                                   ),
                                   const SizedBox(
@@ -73,9 +75,11 @@ class _GoogleSignInState extends State<GoogleSignIn> {
                                   Text(
                                     sliderData[index].body,
                                     textAlign: TextAlign.center,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
+                                      color:
+                                          Theme.of(context).colorScheme.scrim,
                                     ),
                                   ),
                                 ],
@@ -138,6 +142,9 @@ class _GoogleSignInState extends State<GoogleSignIn> {
                         ),
                         Text(
                           AppLocalizations.of(context)!.bySiginigIn,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.scrim,
+                          ),
                         ),
                         const SizedBox(
                           height: 10,

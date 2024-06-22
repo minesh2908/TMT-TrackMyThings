@@ -119,31 +119,35 @@ class _AboutMeState extends State<AboutMe> {
                 child: Center(
                   child: Text(
                     appLocaltization.aboutMeText,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
+                      color: Theme.of(context).colorScheme.scrim,
                     ),
                     textAlign: TextAlign.center,
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.all(8),
+              Padding(
+                padding: const EdgeInsets.all(8),
                 child: Row(
                   children: [
-                    Expanded(
+                    const Expanded(
                       child: Divider(
                         thickness: 3,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       child: Text(
-                        'Thank You',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        appLocaltization.thankYou,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.scrim,
+                        ),
                       ),
                     ),
-                    Expanded(
+                    const Expanded(
                       child: Divider(
                         thickness: 3,
                       ),

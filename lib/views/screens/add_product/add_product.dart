@@ -189,6 +189,14 @@ class _AddProductState extends State<AddProduct> {
                       const SizedBox(
                         height: 20,
                       ),
+                      InputFieldForm(
+                        readOnly: true,
+                        fieldName: appLocalization.warrantyEndDate,
+                        controller: warrantyEndDateController,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       ValueListenableBuilder(
                         valueListenable: productImageNotifier,
                         builder: (context, value, _) {

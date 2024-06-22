@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 /// A widget representing the body of a screen with optional loading indicator.
 class BodyWidget extends StatelessWidget {
-  /// Constructs a [BodyWidget] with required child and optional loading indicator parameters.
   const BodyWidget({
     required this.child,
     this.isLoading = false,

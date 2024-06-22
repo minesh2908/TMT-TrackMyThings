@@ -34,13 +34,11 @@ class AuthRepository {
         await AppPrefHelper.setPhoneNumber(
           phoneNumber: userData.user?.phoneNumber ?? '',
         );
-        print('From new user -${AppPrefHelper.getDefaultWarrantyPeriod()}');
+        // print('From new user -${AppPrefHelper.getDefaultWarrantyPeriod()}');
         return user;
       } else {
-        final userData = await UserRepository().getCurrentUserDetails(userId);
-        print(
-          'From Auth repo already signed in user - ${userData.defaultWarrantyPeriod}',
-        );
+        await UserRepository().getCurrentUserDetails(userId);
+      
         return UserModel();
       }
     } catch (e) {
@@ -52,6 +50,7 @@ class AuthRepository {
   Future<bool> signOutFromGoogle() async {
     try {
       await FirebaseAuth.instance.signOut();
+      
       await AppPrefHelper.signOut();
       return true;
     } on Exception catch (_) {

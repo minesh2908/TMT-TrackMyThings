@@ -13,6 +13,7 @@ class InputFieldForm extends StatelessWidget {
     this.validator,
     this.errorText,
     this.onSubmit,
+    this.maxLength,
   });
   final String fieldName;
 
@@ -25,6 +26,7 @@ class InputFieldForm extends StatelessWidget {
   final String? Function(String?)? validator;
   final String? errorText;
   final void Function(String)? onSubmit;
+  final int? maxLength;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -32,6 +34,7 @@ class InputFieldForm extends StatelessWidget {
         fontWeight: FontWeight.bold,
         color: Theme.of(context).colorScheme.onSecondaryFixedVariant,
       ),
+      maxLength: maxLength,
       validator: validator,
       keyboardType: keyboardType,
       readOnly: readOnly,

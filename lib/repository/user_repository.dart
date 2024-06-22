@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:warranty_tracker/modal/user_model.dart';
+import 'package:warranty_tracker/repository/auth_repository.dart';
 import 'package:warranty_tracker/service/shared_prefrence.dart';
 
 class UserRepository {
@@ -55,12 +56,9 @@ class UserRepository {
         defaultWarrantyPeriod: userData.defaultWarrantyPeriod!,
       );
 
-      print(
-        'From already created user - ${AppPrefHelper.getDefaultWarrantyPeriod()}',
-      );
-      print(userData.defaultWarrantyPeriod);
-      print('---------------');
-      print(userData);
+      // print(userData.defaultWarrantyPeriod);
+      // print('---------------');
+      // print(userData);
       return userData;
     } catch (e) {
       throw Exception(e);
@@ -72,6 +70,8 @@ class UserRepository {
       await userCollection.doc(userId).delete();
 
       await FirebaseAuth.instance.currentUser!.delete();
+      await AuthRepository().signOutFromGoogle();
+      
     } catch (e) {
       throw Exception(e);
     }
