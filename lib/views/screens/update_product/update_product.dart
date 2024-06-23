@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:warranty_tracker/gen/assets.gen.dart';
+import 'package:warranty_tracker/l10n/l10n.dart';
 import 'package:warranty_tracker/modal/product_modal.dart';
 import 'package:warranty_tracker/service/shared_prefrence.dart';
 import 'package:warranty_tracker/util/extension.dart';
@@ -52,19 +52,6 @@ class _UpdateProductState extends State<UpdateProduct> {
     super.initState();
   }
 
-  late AppLocalizations _appLocalizations;
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-    _appLocalizations = AppLocalizations.of(context)!;
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProductBloc, ProductState>(
@@ -93,7 +80,8 @@ class _UpdateProductState extends State<UpdateProduct> {
               leading: const BackButton(),
               elevation: 2,
               title: Text(
-                _appLocalizations.updateProduct,
+                context.lang.updateProduct,
+                //'Update Product',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -109,10 +97,12 @@ class _UpdateProductState extends State<UpdateProduct> {
                         builder: (context) {
                           return AlertDialog(
                             title: Text(
-                              AppLocalizations.of(context)!.deleteProduct,
+                              context.lang.deleteProduct,
+                              //'Delete Product',
                             ),
                             content: Text(
-                              '''${_appLocalizations.areYouSure} ${widget.productModal!.productName}''',
+                              '''${context.lang.areYouSure} ${widget.productModal!.productName}''',
+                              //'Are you sure you want to delete ${widget.productModal!.productName} ',
                             ),
                             actions: [
                               TextButton(
@@ -120,7 +110,8 @@ class _UpdateProductState extends State<UpdateProduct> {
                                   Navigator.pop(context);
                                 },
                                 child: Text(
-                                  _appLocalizations.cancel,
+                                  context.lang.cancel,
+                                  //'Cancel',
                                   style: TextStyle(
                                     color: Theme.of(context)
                                         .colorScheme
@@ -139,7 +130,8 @@ class _UpdateProductState extends State<UpdateProduct> {
                                   Navigator.pop(context);
                                 },
                                 child: Text(
-                                  _appLocalizations.delete,
+                                  context.lang.delete,
+                                  //'Delete',
                                   style: TextStyle(
                                     color: Theme.of(context).colorScheme.error,
                                   ),
@@ -194,17 +186,20 @@ class _UpdateProductState extends State<UpdateProduct> {
                         },
                       ),
                       Text(
-                        _appLocalizations.addProductBillAndWeWillAutoFill,
+                        context.lang.addProductBillAndWeWillAutoFill,
+                        // '*Add Product Bill and we will auto fill the details',
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       InputFieldForm(
-                        fieldName: _appLocalizations.productName,
+                        fieldName: context.lang.productName,
+                        //fieldName: 'Product Name',
                         controller: productNameController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return _appLocalizations.productNameRequired;
+                            // return context.lang.productNameRequired;
+                            return 'Product Name is Required';
                           }
                           return null;
                         },
@@ -215,14 +210,16 @@ class _UpdateProductState extends State<UpdateProduct> {
                       InkWell(
                         onTap: () {},
                         child: InputFieldForm(
-                          fieldName: _appLocalizations.purchasedDate,
+                          fieldName: context.lang.purchasedDate,
+                          // fieldName: 'Purchased Date',
                           controller: purchasedDateController,
                           icon: Icons.calendar_month,
                           function: () {
                             _showDatePicker(
                               context,
                               purchasedDateController,
-                              _appLocalizations.selectPurchasedDate,
+                              context.lang.selectPurchasedDate,
+                              //'Select Purchased Date',
                               DateTime(2000),
                             );
                           },
@@ -233,7 +230,8 @@ class _UpdateProductState extends State<UpdateProduct> {
                         height: 20,
                       ),
                       InputFieldForm(
-                        fieldName: _appLocalizations.warrantyPeriod,
+                        fieldName: context.lang.warrantyPeriod,
+                        //fieldName: 'Warranty Periods',
                         controller: warrantyPeriodController,
                         keyboardType: TextInputType.number,
                         onSubmit: (value) {
@@ -251,7 +249,8 @@ class _UpdateProductState extends State<UpdateProduct> {
                       ),
                       InputFieldForm(
                         readOnly: true,
-                        fieldName: _appLocalizations.warrantyEndDate,
+                        fieldName: context.lang.warrantyEndDate,
+                        //fieldName: 'Warranty End Date',
                         controller: warrantyEndDateController,
                       ),
                       const SizedBox(
@@ -276,7 +275,8 @@ class _UpdateProductState extends State<UpdateProduct> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          _appLocalizations.imageAvailable,
+                                          context.lang.imageAvailable,
+                                          // 'Image Available',
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18,
@@ -292,7 +292,8 @@ class _UpdateProductState extends State<UpdateProduct> {
                                           )
                                         else
                                           Text(
-                                            _appLocalizations.noImage,
+                                            context.lang.noImage,
+                                            //'No Image',
                                           ),
                                         const SizedBox(),
                                       ],
@@ -303,7 +304,8 @@ class _UpdateProductState extends State<UpdateProduct> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              _appLocalizations.imageAdded,
+                                              context.lang.imageAdded,
+                                              //'Image Added',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 18,
@@ -322,7 +324,8 @@ class _UpdateProductState extends State<UpdateProduct> {
                                               )
                                             else
                                               Text(
-                                                _appLocalizations.noImage,
+                                                context.lang.noImage,
+                                                // 'No Image',
                                               ),
                                             InkWell(
                                               onTap: () async {
@@ -348,7 +351,8 @@ class _UpdateProductState extends State<UpdateProduct> {
                                             });
                                           },
                                           child: Text(
-                                            _appLocalizations.productImage,
+                                            context.lang.productImage,
+                                            //'Product Image',
                                             textAlign: TextAlign.start,
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -367,7 +371,8 @@ class _UpdateProductState extends State<UpdateProduct> {
                         height: 20,
                       ),
                       InputFieldForm(
-                        fieldName: _appLocalizations.note,
+                        // fieldName: context.lang.note,
+                        fieldName: 'Note',
                         controller: noteController,
                         maxLines: 3,
                       ),
@@ -407,7 +412,8 @@ class _UpdateProductState extends State<UpdateProduct> {
                           }
                         },
                         child: SubmitButton(
-                          heading: _appLocalizations.updateProduct,
+                          heading: context.lang.updateProduct,
+                          //  heading: 'Update Product',
                         ),
                       ),
                     ],

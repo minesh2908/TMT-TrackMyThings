@@ -156,19 +156,21 @@ class _MyDashboardState extends State<MyDashboard> {
                                           // print('======== $result');
                                           if (result == 'updated') {
                                             scaffoldMessenger.showSnackBar(
-                                              SnackBar(
+                                              const SnackBar(
                                                 content: Text(
-                                                  AppLocalizations.of(context)!
-                                                      .productAddSuccess,
+                                                  // context
+                                                  //     .lang.productAddSuccess,
+                                                  'Product Updated Succesfully!',
                                                 ),
                                               ),
                                             );
                                           } else if (result == 'deleted') {
                                             scaffoldMessenger.showSnackBar(
-                                              SnackBar(
+                                              const SnackBar(
                                                 content: Text(
-                                                  AppLocalizations.of(context)!
-                                                      .productDeleteSuccess,
+                                                  // AppLocalizations.of(context)!
+                                                  //     .productDeleteSuccess,
+                                                  'Product Deleted succesfully!',
                                                 ),
                                               ),
                                             );
