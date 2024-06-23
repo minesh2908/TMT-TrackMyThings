@@ -16,4 +16,6 @@ class RoutesName {
   static const String settings = '/settings';
 
   static const String aboutMe = '/about-me';
+
+  static const String fullImage = '/full-Image';
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:warranty_tracker/service/shared_prefrence.dart';
+import 'package:warranty_tracker/util/extension.dart';
 
 /// A widget representing the body of a screen with optional loading indicator.
 class BodyWidget extends StatelessWidget {
@@ -36,7 +38,65 @@ class BodyWidget extends StatelessWidget {
             color: Theme.of(context).brightness == Brightness.light
                 ? Theme.of(context).colorScheme.tertiary.withOpacity(0.5)
                 : Theme.of(context).colorScheme.tertiary.withOpacity(.15),
-            child: const Center(child: CircularProgressIndicator()),
+            child: Center(
+              child: Container(
+                height: 150,
+                width: 150,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(14),
+                  ),
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 4,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    top: BorderSide(
+                      width: 4,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    right: BorderSide(
+                      width: 4,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    left: BorderSide(
+                      width: 4,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    if (AppPrefHelper.getDisplayName() != '')
+                      Text(
+                        '${AppPrefHelper.getDisplayName().beforeFirstSpace} Please wait',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      )
+                    else
+                      Text(
+                        'Hello, Please wait',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
           ),
       ],
     );

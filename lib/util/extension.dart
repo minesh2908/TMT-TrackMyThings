@@ -39,3 +39,10 @@ extension NameStringExtension on String {
     }
   }
 }
+
+extension StringExtensions on String {
+  String get beforeFirstSpace {
+    final spaceIndex = indexOf(' ');
+    return spaceIndex == -1 ? this : substring(0, spaceIndex);
+  }
+}

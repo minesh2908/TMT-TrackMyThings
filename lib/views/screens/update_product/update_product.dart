@@ -1,17 +1,15 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:warranty_tracker/gen/assets.gen.dart';
 import 'package:warranty_tracker/l10n/l10n.dart';
 import 'package:warranty_tracker/modal/product_modal.dart';
+import 'package:warranty_tracker/routes/routes_names.dart';
 import 'package:warranty_tracker/service/shared_prefrence.dart';
 import 'package:warranty_tracker/util/extension.dart';
 import 'package:warranty_tracker/views/components/body_widget.dart';
 import 'package:warranty_tracker/views/components/button.dart';
 import 'package:warranty_tracker/views/components/input_field_form.dart';
-import 'package:warranty_tracker/views/components/pick_image_bottom_sheet.dart';
 import 'package:warranty_tracker/views/screens/add_product/bloc/product_bloc.dart';
 
 class UpdateProduct extends StatefulWidget {
@@ -24,8 +22,6 @@ class UpdateProduct extends StatefulWidget {
 class _UpdateProductState extends State<UpdateProduct> {
   final _formKey = GlobalKey<FormState>();
 
-  final billImageNotifier = ValueNotifier<File?>(null);
-  final productImageNotifier = ValueNotifier<File?>(null);
   final productStateNotifier = ValueNotifier<String>('updated');
 
   late final TextEditingController productNameController;
@@ -156,34 +152,36 @@ class _UpdateProductState extends State<UpdateProduct> {
                   child: Column(
                     children: [
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
-                      ValueListenableBuilder(
-                        valueListenable: billImageNotifier,
-                        builder: (context, value, _) {
-                          return Container(
-                            height: 100,
-                            width: 100,
-                            decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: const Color(0xFFC1CDF5)),
-                              borderRadius: BorderRadius.circular(14),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: widget.productModal?.billImage != null
-                                  ? ClipRRect(
-                                      borderRadius: BorderRadius.circular(14),
-                                      child: Image.network(
-                                        widget.productModal!.billImage!,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    )
-                                  : Assets.images.addImage
-                                      .image(fit: BoxFit.cover),
-                            ),
-                          );
-                        },
+                      Container(
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: const Color(0xFFC1CDF5)),
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: widget.productModal?.billImage != null
+                              ? InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      RoutesName.fullImage,
+                                      arguments: widget.productModal?.billImage,
+                                    );
+                                  },
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(14),
+                                    child: Image.network(
+                                      widget.productModal!.billImage!,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                )
+                              : Assets.images.addImage.image(fit: BoxFit.cover),
+                        ),
                       ),
                       Text(
                         context.lang.addProductBillAndWeWillAutoFill,
@@ -256,116 +254,72 @@ class _UpdateProductState extends State<UpdateProduct> {
                       const SizedBox(
                         height: 20,
                       ),
-                      ValueListenableBuilder(
-                        valueListenable: productImageNotifier,
-                        builder: (context, value, _) {
-                          return Container(
-                            height: 55,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: const Color(0xFFC1CDF5)),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: widget.productModal!.productImage != null
-                                  ? Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          context.lang.imageAvailable,
-                                          // 'Image Available',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSecondaryFixedVariant,
-                                          ),
+                      Container(
+                        height: 55,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: const Color(0xFFC1CDF5)),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: widget.productModal!.productImage != null
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      context.lang.imageAvailable,
+                                      // 'Image Available',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSecondaryFixedVariant,
+                                      ),
+                                    ),
+                                    if (widget.productModal!.productImage !=
+                                        null)
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            RoutesName.fullImage,
+                                            arguments: widget
+                                                .productModal?.productImage,
+                                          );
+                                        },
+                                        child: Image.network(
+                                          widget.productModal!.productImage!,
                                         ),
-                                        if (widget.productModal!.productImage !=
-                                            null)
-                                          Image.network(
-                                            widget.productModal!.productImage!,
-                                          )
-                                        else
-                                          Text(
-                                            context.lang.noImage,
-                                            //'No Image',
-                                          ),
-                                        const SizedBox(),
-                                      ],
-                                    )
-                                  : productImageNotifier.value != null
-                                      ? Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              context.lang.imageAdded,
-                                              //'Image Added',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondaryFixedVariant,
-                                              ),
-                                            ),
-                                            if (productImageNotifier.value !=
-                                                null)
-                                              Image.file(
-                                                File(
-                                                  productImageNotifier
-                                                      .value!.path,
-                                                ),
-                                              )
-                                            else
-                                              Text(
-                                                context.lang.noImage,
-                                                // 'No Image',
-                                              ),
-                                            InkWell(
-                                              onTap: () async {
-                                                productImageNotifier.value =
-                                                    null;
-                                              },
-                                              child: Icon(
-                                                Icons.delete,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .error,
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      : InkWell(
-                                          onTap: () async {
-                                            await PickImageBottomSheet()
-                                                .showBottomSheet(context,
-                                                    (File? selectedImage) {
-                                              productImageNotifier.value =
-                                                  selectedImage;
-                                            });
-                                          },
-                                          child: Text(
-                                            context.lang.productImage,
-                                            //'Product Image',
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onSecondaryFixedVariant,
-                                            ),
-                                          ),
-                                        ),
-                            ),
-                          );
-                        },
+                                      )
+                                    else
+                                      Text(
+                                        context.lang.noImage,
+                                        //'No Image',
+                                      ),
+                                    const SizedBox(),
+                                  ],
+                                )
+                              : Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      context.lang.noImage,
+                                      //'Image Added',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSecondaryFixedVariant,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                        ),
                       ),
                       const SizedBox(
                         height: 20,

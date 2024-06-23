@@ -7,6 +7,7 @@ import 'package:warranty_tracker/views/screens/add_product/add_product.dart';
 import 'package:warranty_tracker/views/screens/auth/screens/account.dart';
 import 'package:warranty_tracker/views/screens/auth/screens/google_sign_in.dart';
 import 'package:warranty_tracker/views/screens/dashboard.dart';
+import 'package:warranty_tracker/views/screens/full_image/full_image.dart';
 import 'package:warranty_tracker/views/screens/settings/general_settings.dart';
 import 'package:warranty_tracker/views/screens/splash_screen/splash_screen.dart';
 import 'package:warranty_tracker/views/screens/update_product/update_product.dart';
@@ -38,6 +39,15 @@ class Routes {
           builder: (context) {
             return UpdateProduct(
               productModal: productModal,
+            );
+          },
+        );
+      case RoutesName.fullImage:
+        final imageUrl = setting.arguments! as String;
+        return MaterialPageRoute(
+          builder: (context) {
+            return FullImage(
+              imageUrl: imageUrl,
             );
           },
         );

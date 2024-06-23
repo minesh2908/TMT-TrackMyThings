@@ -38,7 +38,7 @@ class AuthRepository {
         return user;
       } else {
         await UserRepository().getCurrentUserDetails(userId);
-      
+
         return UserModel();
       }
     } catch (e) {
@@ -50,7 +50,7 @@ class AuthRepository {
   Future<bool> signOutFromGoogle() async {
     try {
       await FirebaseAuth.instance.signOut();
-      
+      await GoogleSignIn().signOut();
       await AppPrefHelper.signOut();
       return true;
     } on Exception catch (_) {

@@ -99,7 +99,7 @@ class _AddProductState extends State<AddProduct> {
                   child: Column(
                     children: [
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       ValueListenableBuilder(
                         valueListenable: billImageNotifier,
