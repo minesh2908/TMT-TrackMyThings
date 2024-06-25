@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:warranty_tracker/constants/auth_slider_data.dart';
 import 'package:warranty_tracker/gen/assets.gen.dart';
+import 'package:warranty_tracker/routes/routes_names.dart';
 import 'package:warranty_tracker/views/components/body_widget.dart';
 import 'package:warranty_tracker/views/screens/auth/bloc/auth_bloc.dart';
 
@@ -22,10 +23,9 @@ class _GoogleSignInState extends State<GoogleSignIn> {
       listener: (context, state) {
         //print(state.runtimeType);
         if (state.runtimeType == AuthSuccessState) {
-          Navigator.pushNamedAndRemoveUntil(
+          Navigator.pushReplacementNamed(
             context,
-            '/dashboard',
-            (route) => false,
+            RoutesName.dashboard,
           );
         }
       },
@@ -70,7 +70,7 @@ class _GoogleSignInState extends State<GoogleSignIn> {
                                     ),
                                   ),
                                   const SizedBox(
-                                    height: 10,
+                                    height: 5,
                                   ),
                                   Text(
                                     sliderData[index].body,
@@ -90,16 +90,13 @@ class _GoogleSignInState extends State<GoogleSignIn> {
                       },
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 40),
-                    child: ValueListenableBuilder<int>(
-                      valueListenable: count,
-                      builder: (context, value, _) {
-                        return BuildDot(
-                          index: value,
-                        );
-                      },
-                    ),
+                  ValueListenableBuilder<int>(
+                    valueListenable: count,
+                    builder: (context, value, _) {
+                      return BuildDot(
+                        index: value,
+                      );
+                    },
                   ),
                   Expanded(
                     child: Column(

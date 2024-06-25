@@ -34,3 +34,5 @@ final class SearchProductEvent extends ProductEvent {
   SearchProductEvent({required this.searchProductName});
   final String searchProductName;
 }
+
+

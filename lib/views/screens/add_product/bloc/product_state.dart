@@ -18,3 +18,5 @@ final class ProductFailureState extends ProductState {
   const ProductFailureState({required this.errorMsg});
   final String errorMsg;
 }
+
+

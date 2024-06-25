@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:warranty_tracker/routes/routes_names.dart';
 import 'package:warranty_tracker/views/screens/auth/bloc/auth_bloc.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -38,11 +39,13 @@ Future<void> isUserAuthenticated(BuildContext context) async {
   if (isUserAvailable != null) {
     Future.delayed(const Duration(milliseconds: 1500), () {
       context.read<AuthBloc>().add(GetCurrentUserData());
-      Navigator.pushNamed(context, '/dashboard');
+      //Navigator.pushNamed(context, '/dashboard');
+      Navigator.pushReplacementNamed(context, RoutesName.dashboard);
     });
   } else {
     Future.delayed(const Duration(milliseconds: 1500), () {
-      Navigator.pushNamed(context, '/');
+      //Navigator.pushNamed(context, '/');
+      Navigator.pushReplacementNamed(context, RoutesName.authScreen);
     });
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:warranty_tracker/modal/user_model.dart';
+import 'package:warranty_tracker/routes/routes_names.dart';
 import 'package:warranty_tracker/service/shared_prefrence.dart';
 import 'package:warranty_tracker/views/components/button.dart';
 import 'package:warranty_tracker/views/components/input_field_form.dart';
@@ -31,7 +32,7 @@ class _AccountDetailsState extends State<AccountDetails> {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthSuccessState) {
-          Navigator.pushNamed(context, '/');
+          Navigator.pushReplacementNamed(context, RoutesName.authScreen);
         }
         if (state is AuthFailureState) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -39,7 +40,7 @@ class _AccountDetailsState extends State<AccountDetails> {
           );
         }
         if (state is AccountDeletedState) {
-          Navigator.pushNamed(context, '/');
+          Navigator.pushReplacementNamed(context, RoutesName.authScreen);
         }
       },
       builder: (context, state) {

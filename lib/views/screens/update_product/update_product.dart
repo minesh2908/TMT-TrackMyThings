@@ -180,13 +180,16 @@ class _UpdateProductState extends State<UpdateProduct> {
                                     ),
                                   ),
                                 )
-                              : Assets.images.addImage.image(fit: BoxFit.cover),
+                              : Assets.images.noImage.image(fit: BoxFit.cover),
                         ),
                       ),
-                      Text(
-                        context.lang.addProductBillAndWeWillAutoFill,
-                        // '*Add Product Bill and we will auto fill the details',
-                      ),
+                      if (widget.productModal!.billImage != null)
+                        const Text('')
+                      else
+                        const Text(
+                          'Product Bill is not available',
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -333,9 +336,6 @@ class _UpdateProductState extends State<UpdateProduct> {
                       const SizedBox(
                         height: 20,
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
                       InkWell(
                         onTap: () async {
                           if (_formKey.currentState!.validate()) {
@@ -368,6 +368,15 @@ class _UpdateProductState extends State<UpdateProduct> {
                         child: SubmitButton(
                           heading: context.lang.updateProduct,
                           //  heading: 'Update Product',
+                        ),
+                      ),
+                      Text(
+                        context.lang.imagesCanNotBeUpdated,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSecondaryFixedVariant,
                         ),
                       ),
                     ],

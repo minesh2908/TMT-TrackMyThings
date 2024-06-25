@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class InputFieldForm extends StatelessWidget {
   const InputFieldForm({
@@ -27,9 +28,15 @@ class InputFieldForm extends StatelessWidget {
   final String? errorText;
   final void Function(String)? onSubmit;
   final int? maxLength;
+  final bool digitOnly = false;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      inputFormatters: digitOnly
+          ? <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly,
+            ]
+          : <TextInputFormatter>[],
       style: TextStyle(
         fontWeight: FontWeight.bold,
         color: Theme.of(context).colorScheme.onSecondaryFixedVariant,

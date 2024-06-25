@@ -10,6 +10,7 @@ import 'package:warranty_tracker/service/shared_prefrence.dart';
 import 'package:warranty_tracker/util/extension.dart';
 import 'package:warranty_tracker/views/components/side_nav_bar.dart';
 import 'package:warranty_tracker/views/screens/add_product/bloc/product_bloc.dart';
+import 'package:warranty_tracker/views/screens/fetch_image_data/bloc/fetch_image_data_bloc.dart';
 
 class MyDashboard extends StatefulWidget {
   const MyDashboard({super.key});
@@ -26,9 +27,21 @@ class _MyDashboardState extends State<MyDashboard> {
 
   @override
   void initState() {
+    super.initState();
     _focusNode = FocusNode();
     _controller = TextEditingController();
-    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+
+    super.didChangeDependencies();
+    _controller.addListener(() {
+      context
+          .read<ProductBloc>()
+          .add(SearchProductEvent(searchProductName: _controller.text));
+    });
   }
 
   @override
@@ -49,6 +62,7 @@ class _MyDashboardState extends State<MyDashboard> {
             centerTitle: true,
             title: (_focusNode.hasFocus || _controller.text.isNotEmpty)
                 ? TextField(
+                    autofocus: true,
                     cursorColor: Colors.white,
                     focusNode: _focusNode,
                     controller: _controller,
@@ -59,28 +73,40 @@ class _MyDashboardState extends State<MyDashboard> {
                     style: const TextStyle(
                       color: Colors.white,
                     ),
-                    onChanged: (value) {
-                      context
-                          .read<ProductBloc>()
-                          .add(SearchProductEvent(searchProductName: value));
-                    },
                   )
                 : Text(
                     '''${AppLocalizations.of(context)!.welcome} ${AppPrefHelper.getDisplayName()}''',
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
             actions: [
-              IconButton(
-                onPressed: () {
-                  if (!_focusNode.hasFocus) {
-                    FocusScope.of(context).requestFocus(_focusNode);
-                  }
-                },
-                icon: const Icon(
-                  Icons.search,
-                  color: Colors.white,
+              if (_focusNode.hasFocus)
+                IconButton(
+                  onPressed: () {
+                    _controller.clear();
+                    _focusNode.unfocus();
+                  },
+                  icon: const Icon(
+                    Icons.cancel,
+                    color: Colors.white,
+                  ),
+                )
+              else
+                IconButton(
+                  onPressed: () {
+                    if (!_focusNode.hasFocus) {
+                      Future.delayed(
+                          const Duration(
+                            microseconds: 50,
+                          ), () {
+                        FocusScope.of(context).requestFocus(_focusNode);
+                      });
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
             ],
           ),
           drawer: SizedBox(
@@ -98,6 +124,7 @@ class _MyDashboardState extends State<MyDashboard> {
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            //Text(_controller.text),
                             SizedBox(
                               height: 200,
                               width: 200,
@@ -430,15 +457,16 @@ class _MyDashboardState extends State<MyDashboard> {
                     context,
                     RoutesName.addProduct,
                   );
+                  context.read<FetchImageDataBloc>().add(ChangeStateEvent());
                   if (!mounted) return;
                   //print('======== $result');
                   if (result == true) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text('Product Added Succesfully'),
+                        content: Text('Product Added Successfully'),
                       ),
                     );
-                  }
+                  } else {}
                 },
                 child: Icon(
                   Icons.add,

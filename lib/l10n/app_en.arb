@@ -12,7 +12,7 @@
     "clickToAdd":"Click + for adding product now",
     "oops":"Oops! Something went wrong.",
     "retry":"Please retry after sometime",
-    "enterProductName":"Enter Product Name",
+    "enterProductName":"Search Product Here",
     "settings":"Settings",
     "account":"Account",
     "language":"Language",
@@ -32,16 +32,16 @@
     "areYouSure":"Are you sure you want to delete",
     "cancel":"Cancel",
     "delete":"Delete",
-    "addProductBillAndWeWillAutoFill":"*Add Product Bill and we will auto fill the details",
+    "addProductBillAndWeWillAutoFill":"*Add Product Bill/Receipt here and we will try to auto fill the details",
     "productName":"Product Name",
     "productNameRequired":"Product Name is required",
     "purchasedDate":"Purchased Date",
     "selectPurchasedDate":"Select Purchased Date",
     "warrantyPeriod":"Warranty Period(in months)",
-    "imageAvailable":"Image Available",
+    "imageAvailable":"Product Image Available",
     "noImage":"No Product Image",
     "imageAdded":"Image Added",
-    "productImage":"Product Image",
+    "productImage":"Product Image(for your reference)",
     "note":"Note",
     "addProduct":"Add Product",
     "sortItemBy":"Sort Item By",
@@ -53,7 +53,10 @@
     "thankYou":"Thank You",
     "settingsUpdatedSuccess":"Settings Updated Succesfully",
     "defaultWarrantyCanNotBeEmpty":"Default Warranty Period can not be empty",
-    "warrantyEndDate":"Warranty End Date"
+    "warrantyEndDate":"Warranty End Date",
+    "productBillNotAvailable":"Product Bill is not Available",
+    "verifyDetails":"*Please verify all details before adding!",
+    "imagesCanNotBeUpdated":"Images can not be updated!"
     
     
     

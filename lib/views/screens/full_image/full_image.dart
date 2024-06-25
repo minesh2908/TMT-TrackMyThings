@@ -5,37 +5,57 @@ class FullImage extends StatelessWidget {
   final String imageUrl;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.cancel_sharp,
-              size: 28,
-              color: Theme.of(context).colorScheme.scrim,
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            // Network image covering whole area
+            Positioned.fill(
+              child: Image.network(
+                imageUrl,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
+            // Top left corner with cross icon
+            Positioned(
+              top: 16,
+              left: 16,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  ),
+                  child: const Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: 28,
+                  ),
+                ),
+              ),
+            ),
+            // Top right corner with download icon
+            // Positioned(
+            //   top: 16,
+            //   right: 16,
+            //   child: GestureDetector(
+            //     onTap: () {
+            //       // Add your download functionality here
+            //       print('Download button tapped');
+            //     },
+            //     child: const Icon(
+            //       Icons.file_download,
+            //       color: Colors.white,
+            //     ),
+            //   ),
+            // ),
+          ],
         ),
-        backgroundColor: Colors.transparent,
-        // actions: [
-        //   Padding(
-        //     padding: const EdgeInsets.symmetric(horizontal: 12),
-        //     child: Icon(
-        //       Icons.download,
-        //       size: 28,
-        //       color: Theme.of(context).colorScheme.scrim,
-        //     ),
-        //   ),
-        // ],
-      ),
-      body: Image.network(
-        imageUrl,
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
       ),
     );
   }
