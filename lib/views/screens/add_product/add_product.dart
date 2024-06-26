@@ -233,6 +233,7 @@ class _AddProductState extends State<AddProduct> {
                                         appLocalization.selectPurchasedDate,
                                         DateTime(2000),
                                       );
+                                      calculateEndDate();
                                     },
                                     readOnly: true,
                                   ),

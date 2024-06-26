@@ -252,9 +252,28 @@ class _MyDashboardState extends State<MyDashboard> {
                                                           ),
                                                         ),
                                                       )
-                                                    : Assets.images.noImage
-                                                        .image(
-                                                        fit: BoxFit.cover,
+                                                    : Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(12),
+                                                          child: Assets
+                                                              .images.noImage
+                                                              .image(
+                                                            fit: BoxFit.cover,
+                                                            height: 140,
+                                                            width:
+                                                                MediaQuery.of(
+                                                                      context,
+                                                                    )
+                                                                        .size
+                                                                        .width *
+                                                                    0.30,
+                                                          ),
+                                                        ),
                                                       ),
                                               ),
                                               const SizedBox(
