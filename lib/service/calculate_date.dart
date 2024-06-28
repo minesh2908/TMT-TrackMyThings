@@ -15,10 +15,10 @@ String calculateDateDifference(String warrantEndDate) {
 
   if (differenceInDays > 30) {
     final differenceInMonths = (differenceInDays / 30).floor();
-    return '$differenceInMonths months';
+    return '$differenceInMonths months left';
   }
 
-  return '$differenceInDays days';
+  return '$differenceInDays days left';
 }
 
 double calculateWarrantyPercentage(
