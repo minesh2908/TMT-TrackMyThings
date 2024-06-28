@@ -330,32 +330,50 @@ class _MyDashboardState extends State<MyDashboard> {
                                                         fontSize: 18,
                                                       ),
                                                     ),
-                                                    LinearPercentIndicator(
-                                                      padding: EdgeInsets.zero,
-                                                      width: MediaQuery.of(
-                                                            context,
-                                                          ).size.width *
-                                                          0.40,
-                                                      lineHeight: 12,
-                                                      percent:
-                                                          calculateWarrantyPercentage(
-                                                        productData
-                                                            .purchasedDate!,
-                                                        productData
-                                                            .warrantyEndsDate!,
+                                                    TweenAnimationBuilder<
+                                                        double>(
+                                                      tween: Tween<double>(
+                                                        begin: 0,
+                                                        end:
+                                                            calculateWarrantyPercentage(
+                                                          productData
+                                                              .purchasedDate!,
+                                                          productData
+                                                              .warrantyEndsDate!,
+                                                        ),
                                                       ),
-                                                      barRadius:
-                                                          const Radius.circular(
-                                                        10,
+                                                      duration: const Duration(
+                                                        seconds: 1,
                                                       ),
-                                                      progressColor:
-                                                          Theme.of(context)
-                                                              .colorScheme
-                                                              .onPrimary,
-                                                      backgroundColor:
-                                                          Theme.of(context)
-                                                              .colorScheme
-                                                              .surface,
+                                                      builder: (
+                                                        BuildContext context,
+                                                        double percentage,
+                                                        Widget? child,
+                                                      ) {
+                                                        return LinearPercentIndicator(
+                                                          padding:
+                                                              EdgeInsets.zero,
+                                                          width: MediaQuery.of(
+                                                                context,
+                                                              ).size.width *
+                                                              0.40,
+                                                          lineHeight: 12,
+                                                          percent: percentage,
+                                                          barRadius:
+                                                              const Radius
+                                                                  .circular(
+                                                            10,
+                                                          ),
+                                                          progressColor:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .onPrimary,
+                                                          backgroundColor:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .surface,
+                                                        );
+                                                      },
                                                     ),
                                                   ],
                                                 ),

@@ -32,6 +32,7 @@ class _UpdateProductState extends State<UpdateProduct> {
 
   @override
   void initState() {
+    print('Product Id - ${widget.productModal!.productId}');
     productNameController =
         TextEditingController(text: widget.productModal?.productName);
     purchasedDateController = TextEditingController(
@@ -62,7 +63,7 @@ class _UpdateProductState extends State<UpdateProduct> {
         if (state is ProductFailureState) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Product Added Failed : ${state.errorMsg}'),
+              content: Text('Error Occurred : ${state.errorMsg}'),
             ),
           );
         }
@@ -223,6 +224,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                               //'Select Purchased Date',
                               DateTime(2000),
                             );
+                            calculateEndDate();
                           },
                           readOnly: true,
                         ),

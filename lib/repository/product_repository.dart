@@ -12,8 +12,6 @@ class ProductRepository {
       FirebaseFirestore.instance.collection('productCollection');
 
   Future<void> addProduct(ProductModal? productModal, String uid) async {
-    
-
     try {
       await productCollection.doc(uid).set(productModal!.toMap());
     } catch (e) {
@@ -54,18 +52,29 @@ class ProductRepository {
 
   Future<void> updateProduct(ProductModal productModal) async {
     try {
-    
       await productCollection
           .doc(productModal.productId)
           .set(productModal.toMap());
     } catch (e) {
-      
       throw Exception();
     }
   }
 
   Future<void> deleteProduct(ProductModal productModal) async {
+    print('Delete called');
     try {
+      if (productModal.billImage != null) {
+        final billImage =
+            FirebaseStorage.instance.refFromURL(productModal.billImage!);
+        await billImage.delete();
+      }
+
+      if (productModal.productImage != null) {
+        final productImage =
+            FirebaseStorage.instance.refFromURL(productModal.productImage!);
+        await productImage.delete();
+      }
+
       await productCollection.doc(productModal.productId).delete();
     } catch (e) {
       throw Exception();
@@ -75,8 +84,18 @@ class ProductRepository {
   Future<void> deleteAllProduct(List<ProductModal> productModal) async {
     try {
       for (final product in productModal) {
+        if (product.billImage != null) {
+          final billImage =
+              FirebaseStorage.instance.refFromURL(product.billImage!);
+          await billImage.delete();
+        }
+
+        if (product.productImage != null) {
+          final productImage =
+              FirebaseStorage.instance.refFromURL(product.productImage!);
+          await productImage.delete();
+        }
         await productCollection.doc(product.productId).delete();
-       
       }
     } catch (e) {
       throw Exception();

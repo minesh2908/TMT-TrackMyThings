@@ -8,6 +8,7 @@ class UserModel {
     this.userId,
     this.defaultWarrantyPeriod,
     this.sortItemBy,
+    this.pushToken,
   });
 
   factory UserModel.fromSnapshot(
@@ -21,6 +22,7 @@ class UserModel {
       phoneNumber: data['phoneNumber'] as String?,
       defaultWarrantyPeriod: data['defaultWarrantyPeriod'] as String?,
       sortItemBy: data['sortItemBy'] as String?,
+      pushToken: data['pushToken'] as String?,
     );
   }
 
@@ -32,6 +34,7 @@ class UserModel {
       userId: json['userId'] as String,
       defaultWarrantyPeriod: json['defaultWarrantyPeriod'] as String,
       sortItemBy: json['sortItemBy'] as String,
+      pushToken: json['pushToken'] as String,
     );
   }
   String? email;
@@ -40,6 +43,7 @@ class UserModel {
   String? userId;
   String? defaultWarrantyPeriod;
   String? sortItemBy;
+  String? pushToken;
   UserModel copyWith({
     String? email,
     String? name,
@@ -47,6 +51,7 @@ class UserModel {
     String? userId,
     String? defaultWarrantyPeriod,
     String? sortItemBy,
+    String? pushToken,
   }) {
     return UserModel(
       email: email ?? this.email,
@@ -56,6 +61,7 @@ class UserModel {
       defaultWarrantyPeriod:
           defaultWarrantyPeriod ?? this.defaultWarrantyPeriod,
       sortItemBy: sortItemBy ?? this.sortItemBy,
+      pushToken: pushToken ?? this.pushToken,
     );
   }
 
@@ -67,11 +73,12 @@ class UserModel {
       'userId': userId,
       'defaultWarrantyPeriod': defaultWarrantyPeriod,
       'sortItemBy': sortItemBy,
+      'pushToken': pushToken,
     };
   }
 
   @override
   String toString() {
-    return '''User(email: $email, name: $name, phoneNumber: $phoneNumber, userId: $userId, defaultWarrantyPeriod : $defaultWarrantyPeriod, sortItemBy:$sortItemBy)''';
+    return '''User(email: $email, name: $name, phoneNumber: $phoneNumber, userId: $userId, defaultWarrantyPeriod : $defaultWarrantyPeriod, sortItemBy:$sortItemBy, pushToken:$pushToken)''';
   }
 }

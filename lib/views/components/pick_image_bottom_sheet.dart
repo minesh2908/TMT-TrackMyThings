@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:warranty_tracker/service/image_picker.';
+import 'package:warranty_tracker/service/image_picker.dart';
 
 class PickImageBottomSheet {
   Future<dynamic> showBottomSheet(
