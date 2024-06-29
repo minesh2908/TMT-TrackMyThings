@@ -18,3 +18,8 @@ final class AuthFailureState extends AuthState {
 final class AccountUpdatedState extends AuthState {}
 
 final class AccountDeletedState extends AuthState {}
+
+final class UserDateFetchedSuccessfullyState extends AuthState {
+  UserDateFetchedSuccessfullyState({this.userModel});
+  final UserModel? userModel;
+}

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:warranty_tracker/modal/user_model.dart';
 import 'package:warranty_tracker/routes/routes_names.dart';
 import 'package:warranty_tracker/service/shared_prefrence.dart';
 import 'package:warranty_tracker/views/components/button.dart';
@@ -24,6 +23,7 @@ class _AccountDetailsState extends State<AccountDetails> {
   final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
+    context.read<AuthBloc>().add(GetCurrentUserData());
     super.initState();
   }
 
@@ -31,6 +31,7 @@ class _AccountDetailsState extends State<AccountDetails> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
+        print('State - $State');
         if (state is AuthSuccessState) {
           Navigator.pushReplacementNamed(context, RoutesName.authScreen);
         }
@@ -113,6 +114,7 @@ class _AccountDetailsState extends State<AccountDetails> {
             child: Center(
               child: BlocConsumer<AuthBloc, AuthState>(
                 listener: (context, state) {
+                  print(state.runtimeType);
                   if (state is AccountUpdatedState) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
@@ -124,93 +126,107 @@ class _AccountDetailsState extends State<AccountDetails> {
                   }
                 },
                 builder: (context, state) {
-                  return Column(
-                    children: [
-                      Text(
-                        AppPrefHelper.getEmail(),
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                  if (state is UserDateFetchedSuccessfullyState) {
+                    return Column(
+                      children: [
+                        Text(
+                          AppPrefHelper.getEmail(),
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            InputFieldForm(
-                              fieldName: AppLocalizations.of(context)!.name,
-                              controller: nameController,
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            InputFieldForm(
-                              keyboardType: TextInputType.number,
-                              maxLength: 10,
-                              fieldName:
-                                  AppLocalizations.of(context)!.phoneNumber,
-                              controller: phoneController,
-                              validator: (value) {
-                                if (value!.isNotEmpty) {
-                                  if (value.length != 10) {
-                                    return 'Phone Number must be of 10 digits';
-                                  } else if (!RegExp(r'^[0-9]+$')
-                                      .hasMatch(value)) {
-                                    return '''Phone Number must contain only digits''';
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              InputFieldForm(
+                                fieldName: AppLocalizations.of(context)!.name,
+                                controller: nameController,
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              InputFieldForm(
+                                keyboardType: TextInputType.number,
+                                maxLength: 10,
+                                fieldName:
+                                    AppLocalizations.of(context)!.phoneNumber,
+                                controller: phoneController,
+                                validator: (value) {
+                                  if (value!.isNotEmpty) {
+                                    if (value.length != 10) {
+                                      return 'Phone Number must be of 10 digits';
+                                    } else if (!RegExp(r'^[0-9]+$')
+                                        .hasMatch(value)) {
+                                      return '''Phone Number must contain only digits''';
+                                    }
                                   }
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            InkWell(
-                              onTap: () async {
-                                if (_formKey.currentState!.validate()) {
-                                  context.read<AuthBloc>().add(
-                                        UpdateUserAccountDetails(
-                                          userModel: UserModel(
-                                            email: AppPrefHelper.getEmail(),
-                                            userId: AppPrefHelper.getUID(),
-                                            name: nameController.text.isEmpty
-                                                ? AppPrefHelper.getDisplayName()
-                                                : nameController.text,
-                                            phoneNumber: phoneController
-                                                    .text.isEmpty
-                                                ? AppPrefHelper.getPhoneNumber()
-                                                : phoneController.text,
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  if (_formKey.currentState!.validate()) {
+                                    print(state.userModel);
+                                    context.read<AuthBloc>().add(
+                                          UpdateUserAccountDetails(
+                                            userModel:
+                                                state.userModel!.copyWith(
+                                              name: nameController.text.isEmpty
+                                                  ? AppPrefHelper
+                                                      .getDisplayName()
+                                                  : nameController.text,
+                                              phoneNumber:
+                                                  phoneController.text.isEmpty
+                                                      ? AppPrefHelper
+                                                          .getPhoneNumber()
+                                                      : phoneController.text,
+                                            ),
                                           ),
-                                        ),
+                                        );
+                                    context
+                                        .read<AuthBloc>()
+                                        .add(GetCurrentUserData());
+                                    if (nameController.text.isNotEmpty) {
+                                      await AppPrefHelper.setDisplayName(
+                                        displayName: nameController.text,
                                       );
-                                  if (nameController.text.isNotEmpty) {
-                                    await AppPrefHelper.setDisplayName(
-                                      displayName: nameController.text,
-                                    );
-                                  }
+                                    }
 
-                                  if (phoneController.text.isNotEmpty) {
-                                    await AppPrefHelper.setPhoneNumber(
-                                      phoneNumber: phoneController.text,
-                                    );
+                                    if (phoneController.text.isNotEmpty) {
+                                      await AppPrefHelper.setPhoneNumber(
+                                        phoneNumber: phoneController.text,
+                                      );
+                                    }
                                   }
-                                }
-                              },
-                              child: state.runtimeType == AuthLoadingState
-                                  ? const CircularProgressIndicator()
-                                  : SubmitButton(
-                                      heading: AppLocalizations.of(context)!
-                                          .updateAccount,
-                                    ),
-                            ),
-                          ],
+                                },
+                                child: state.runtimeType == AuthLoadingState
+                                    ? const CircularProgressIndicator()
+                                    : SubmitButton(
+                                        heading: AppLocalizations.of(context)!
+                                            .updateAccount,
+                                      ),
+                              ),
+                            ],
+                          ),
                         ),
+                      ],
+                    );
+                  } else if (state is AuthLoadingState) {
+                    return const Scaffold(
+                      body: Center(
+                        child: CircularProgressIndicator(),
                       ),
-                    ],
-                  );
+                    );
+                  }
+                  return const SizedBox();
                 },
               ),
             ),

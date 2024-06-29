@@ -32,7 +32,7 @@ class _UpdateProductState extends State<UpdateProduct> {
 
   @override
   void initState() {
-    print('Product Id - ${widget.productModal!.productId}');
+    //print('Product Id - ${widget.productModal!.productId}');
     productNameController =
         TextEditingController(text: widget.productModal?.productName);
     purchasedDateController = TextEditingController(
@@ -99,7 +99,6 @@ class _UpdateProductState extends State<UpdateProduct> {
                             ),
                             content: Text(
                               '''${context.lang.areYouSure} ${widget.productModal!.productName}''',
-                              //'Are you sure you want to delete ${widget.productModal!.productName} ',
                             ),
                             actions: [
                               TextButton(
@@ -216,8 +215,8 @@ class _UpdateProductState extends State<UpdateProduct> {
                           // fieldName: 'Purchased Date',
                           controller: purchasedDateController,
                           icon: Icons.calendar_month,
-                          function: () {
-                            _showDatePicker(
+                          function: () async {
+                            await _showDatePicker(
                               context,
                               purchasedDateController,
                               context.lang.selectPurchasedDate,

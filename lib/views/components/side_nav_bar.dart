@@ -73,14 +73,14 @@ class _SideNavBarState extends State<SideNavBar> {
                       const SizedBox(
                         height: 20,
                       ),
-                      sideNavBarItem(
+                      SideNavBarItem(
                         title: AppLocalizations.of(context)!.home,
                         icon: Icons.home,
                         function: () {
                           Navigator.pushNamed(context, RoutesName.dashboard);
                         },
                       ),
-                      sideNavBarItem(
+                      SideNavBarItem(
                         title: AppLocalizations.of(context)!.account,
                         icon: Icons.person,
                         function: () {
@@ -90,7 +90,7 @@ class _SideNavBarState extends State<SideNavBar> {
                           );
                         },
                       ),
-                      sideNavBarItem(
+                      SideNavBarItem(
                         title: AppLocalizations.of(context)!.language,
                         icon: Icons.language,
                         function: () {
@@ -100,14 +100,14 @@ class _SideNavBarState extends State<SideNavBar> {
                           );
                         },
                       ),
-                      sideNavBarItem(
+                      SideNavBarItem(
                         function: () {
                           Navigator.pushNamed(context, RoutesName.settings);
                         },
                         title: AppLocalizations.of(context)!.generalSetting,
                         icon: Icons.settings,
                       ),
-                      sideNavBarItem(
+                      SideNavBarItem(
                         title: AppLocalizations.of(context)!.darkTheme,
                         icon: Icons.dark_mode,
                         widget: Switch(
@@ -116,36 +116,45 @@ class _SideNavBarState extends State<SideNavBar> {
                             setState(() {
                               dark = value;
                             });
+                            final themeCubit = context.read<ThemeCubit>();
                             await AppPrefHelper.setDarkTheme(darkTheme: value);
                             // print(AppPrefHelper.getDarkTheme());
-                            context.read<ThemeCubit>().changeTheme(value);
+                            await themeCubit.changeTheme(value);
                           },
                         ),
                       ),
-                      sideNavBarItem(
+                      SideNavBarItem(
                         title: AppLocalizations.of(context)!.rateApp,
                         icon: Icons.star,
                       ),
-                      sideNavBarItem(
+                      SideNavBarItem(
                         title: AppLocalizations.of(context)!.aboutUs,
                         icon: Icons.code,
                         function: () {
                           Navigator.pushNamed(context, RoutesName.aboutMe);
                         },
                       ),
-                      sideNavBarItem(
+                      SideNavBarItem(
                         title: AppLocalizations.of(context)!.logOut,
                         icon: Icons.logout,
                         color: Theme.of(context).colorScheme.error,
                         widget: const SizedBox(),
                         function: () async {
-                          context
-                              .read<SelectLanguageCubit>()
-                              .updateAppLanguage('en');
-                          context.read<ThemeCubit>().changeTheme(false);
-                          context.read<AuthBloc>().add(GoogleSignOutEvent());
-                          if (state.runtimeType == AuthSuccessState) {
-                            await AppPrefHelper.signOut();
+                          final selectLanguageCubit =
+                              context.read<SelectLanguageCubit>();
+                          final themeCubit = context.read<ThemeCubit>();
+                          final authBloc = context.read<AuthBloc>();
+
+                          await selectLanguageCubit.updateAppLanguage('en');
+                          await themeCubit.changeTheme(false);
+                          authBloc.add(GoogleSignOutEvent());
+
+                          if (mounted) {
+                            // Check if the widget is still mounted
+                            final state = authBloc.state;
+                            if (state is AuthSuccessState) {
+                              await AppPrefHelper.signOut();
+                            }
                           }
                         },
                       ),
@@ -161,8 +170,8 @@ class _SideNavBarState extends State<SideNavBar> {
   }
 }
 
-class sideNavBarItem extends StatelessWidget {
-  const sideNavBarItem({
+class SideNavBarItem extends StatelessWidget {
+  const SideNavBarItem({
     required this.title,
     required this.icon,
     super.key,
@@ -181,7 +190,7 @@ class sideNavBarItem extends StatelessWidget {
     return InkWell(
       onTap: function,
       child: ListTile(
-        contentPadding: const EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         leading: Icon(
           icon,
           color: color ?? Theme.of(context).colorScheme.onSecondaryFixedVariant,

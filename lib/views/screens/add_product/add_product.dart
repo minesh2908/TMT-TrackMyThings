@@ -48,8 +48,6 @@ class _AddProductState extends State<AddProduct> {
 
   @override
   void initState() {
-    // TODO: implement initState
-
     productNameController = TextEditingController();
     purchasedDateController = TextEditingController(
       text: DateTime.now().toFormattedDate,
@@ -65,7 +63,6 @@ class _AddProductState extends State<AddProduct> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     productNameController.clear();
     purchasedDateController.clear();
     warrantyEndDateController.clear();
@@ -82,9 +79,7 @@ class _AddProductState extends State<AddProduct> {
   Widget build(BuildContext context) {
     final appLocalization = AppLocalizations.of(context)!;
     return BlocConsumer<FetchImageDataBloc, FetchImageDataState>(
-      listener: (context, ImageDataState) {
-        // TODO: implement listener
-      },
+      listener: (context, ImageDataState) {},
       builder: (context, ImageDataState) {
         print(ImageDataState.runtimeType);
         final isFetchingData =
@@ -226,8 +221,8 @@ class _AddProductState extends State<AddProduct> {
                                     fieldName: appLocalization.purchasedDate,
                                     controller: purchasedDateController,
                                     icon: Icons.calendar_month,
-                                    function: () {
-                                      _showDatePicker(
+                                    function: () async {
+                                      await _showDatePicker(
                                         context,
                                         purchasedDateController,
                                         appLocalization.selectPurchasedDate,

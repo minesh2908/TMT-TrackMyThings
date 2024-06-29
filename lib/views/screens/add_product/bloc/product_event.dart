@@ -15,9 +15,8 @@ final class AddProductEvent extends ProductEvent {
 }
 
 final class GetAllProductEvent extends ProductEvent {
-  GetAllProductEvent({this.test = 'Test Data'});
-
-  final String test;
+  GetAllProductEvent({required this.filterValue});
+  final String filterValue;
 }
 
 final class UpdateProductEvent extends ProductEvent {
@@ -34,5 +33,3 @@ final class SearchProductEvent extends ProductEvent {
   SearchProductEvent({required this.searchProductName});
   final String searchProductName;
 }
-
-

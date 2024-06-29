@@ -31,7 +31,7 @@ class PickImageBottomSheet {
                 InkWell(
                   onTap: () async {
                     final returnedImage =
-                        await PickImage().pickImageFromGalllery();
+                        await PickImage().pickImageFromGallery();
                     if (returnedImage != null) {
                       onImageSelected(File(returnedImage.path));
                     }

@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:warranty_tracker/modal/user_model.dart';
 import 'package:warranty_tracker/repository/user_repository.dart';
+import 'package:warranty_tracker/service/notification_service.dart';
 import 'package:warranty_tracker/service/shared_prefrence.dart';
 
 class AuthRepository {
@@ -18,12 +19,16 @@ class AuthRepository {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
+
       final userData =
           await FirebaseAuth.instance.signInWithCredential(credential);
+
       await AppPrefHelper.setUID(uid: userData.user!.uid);
       final userId = userData.user!.uid;
       if (userData.additionalUserInfo!.isNewUser) {
         final user = await UserRepository().createUser(userData.user);
+        final phoneToken = await NotificationService().getDeviceToken();
+        log('Phone Token already - $phoneToken');
         await AppPrefHelper.setDisplayName(
           displayName: userData.user!.displayName!,
         );
@@ -37,7 +42,10 @@ class AuthRepository {
         // print('From new user -${AppPrefHelper.getDefaultWarrantyPeriod()}');
         return user;
       } else {
-        await UserRepository().getCurrentUserDetails(userId);
+        final phoneToken = await NotificationService().getDeviceToken();
+        log('Phone Token - $phoneToken');
+        final data = await UserRepository().getCurrentUserDetails(userId);
+        await UserRepository().updateUser(data.copyWith(pushToken: phoneToken));
 
         return UserModel();
       }
@@ -48,6 +56,7 @@ class AuthRepository {
   }
 
   Future<bool> signOutFromGoogle() async {
+  //  print('Sign out called');
     try {
       await FirebaseAuth.instance.signOut();
       await GoogleSignIn().signOut();

@@ -77,7 +77,7 @@ class BodyWidget extends StatelessWidget {
                     ),
                     if (AppPrefHelper.getDisplayName() != '')
                       Text(
-                        '${AppPrefHelper.getDisplayName().beforeFirstSpace} Please wait',
+                        '''${AppPrefHelper.getDisplayName().beforeFirstSpace} Please wait''',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,

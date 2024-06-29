@@ -63,6 +63,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       await UserRepository().updateUser(event.userModel);
       emit(AccountUpdatedState());
+      emit(UserDateFetchedSuccessfullyState());
       // print(state.runtimeType);
     } catch (e) {
       throw Exception(e);
@@ -91,11 +92,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     try {
+      emit(AuthLoadingState());
       final currentUser = FirebaseAuth.instance.currentUser?.uid;
       final userData =
           await UserRepository().getCurrentUserDetails(currentUser!);
-      // print(userData);
+      print(currentUser);
+      emit(UserDateFetchedSuccessfullyState(userModel: userData));
+      print(userData);
     } catch (e) {
+      emit(AuthFailureState(e.toString()));
       throw Exception(e);
     }
   }

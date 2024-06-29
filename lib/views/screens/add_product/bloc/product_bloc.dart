@@ -5,7 +5,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:warranty_tracker/modal/product_modal.dart';
-import 'package:warranty_tracker/repository/gemini_repository.dart';
 import 'package:warranty_tracker/repository/product_repository.dart';
 import 'package:warranty_tracker/service/shared_prefrence.dart';
 import 'package:warranty_tracker/service/sort_product.dart';
@@ -21,7 +20,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<UpdateProductEvent>(updateProductEvent);
     on<DeleteProductEvent>(deleteProductEvent);
     on<SearchProductEvent>(searchProductEvent);
-    
   }
 
   FutureOr<void> addProductEvent(
@@ -62,10 +60,40 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     Emitter<ProductState> emit,
   ) async {
     emit(ProductLoadingState());
+    var filterProductList = <ProductModal>[];
     try {
       final productList = await ProductRepository().getAllProducts();
+      if (event.filterValue == '1') {
+        filterProductList = productList;
+      } else if (event.filterValue == '2') {
+        filterProductList = productList
+            .where(
+              (value) =>
+                  value.warrantyEndsDate != null &&
+                  DateTime.parse(value.warrantyEndsDate!)
+                          .compareTo(DateTime.now()) >=
+                      0,
+            )
+            .toList();
+        if (filterProductList.isEmpty && productList.isNotEmpty) {
+          filterProductList = productList;
+        }
+      } else {
+        filterProductList = productList
+            .where(
+              (value) =>
+                  value.warrantyEndsDate != null &&
+                  DateTime.parse(value.warrantyEndsDate!)
+                          .compareTo(DateTime.now()) <=
+                      0,
+            )
+            .toList();
+        if (filterProductList.isEmpty && productList.isNotEmpty) {
+          filterProductList = productList;
+        }
+      }
       final sortedProductList =
-          sortProductList(productList, AppPrefHelper.getSortProductBy());
+          sortProductList(filterProductList, AppPrefHelper.getSortProductBy());
       emit(ProductSuccessState(productList: sortedProductList));
     } catch (e) {
       emit(ProductFailureState(errorMsg: e.toString()));
@@ -122,6 +150,4 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       emit(ProductFailureState(errorMsg: e.toString()));
     }
   }
-
-  
 }

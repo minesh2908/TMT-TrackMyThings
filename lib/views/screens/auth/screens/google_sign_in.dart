@@ -164,19 +164,17 @@ class BuildDot extends StatelessWidget {
   final int index;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: List.generate(
-          sliderData.length,
-          (index) => Container(
-            height: 10,
-            width: this.index == index ? 20 : 10,
-            margin: const EdgeInsets.only(right: 5),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.tertiary,
-              borderRadius: BorderRadius.circular(20),
-            ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(
+        sliderData.length,
+        (index) => Container(
+          height: 10,
+          width: this.index == index ? 20 : 10,
+          margin: const EdgeInsets.only(right: 5),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.tertiary,
+            borderRadius: BorderRadius.circular(20),
           ),
         ),
       ),

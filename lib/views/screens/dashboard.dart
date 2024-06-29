@@ -8,6 +8,7 @@ import 'package:warranty_tracker/routes/routes_names.dart';
 import 'package:warranty_tracker/service/calculate_date.dart';
 import 'package:warranty_tracker/service/shared_prefrence.dart';
 import 'package:warranty_tracker/util/extension.dart';
+import 'package:warranty_tracker/views/components/button.dart';
 import 'package:warranty_tracker/views/components/side_nav_bar.dart';
 import 'package:warranty_tracker/views/screens/add_product/bloc/product_bloc.dart';
 import 'package:warranty_tracker/views/screens/fetch_image_data/bloc/fetch_image_data_bloc.dart';
@@ -25,17 +26,18 @@ class _MyDashboardState extends State<MyDashboard> {
   late final FocusNode _focusNode;
   late final TextEditingController _controller;
 
+  //radio value
+  final selectedValue = ValueNotifier<String>('1');
   @override
   void initState() {
     super.initState();
+
     _focusNode = FocusNode();
     _controller = TextEditingController();
   }
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-
     super.didChangeDependencies();
     _controller.addListener(() {
       context
@@ -153,7 +155,154 @@ class _MyDashboardState extends State<MyDashboard> {
                             right: 16,
                           ),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Icon(
+                                    Icons.sort,
+                                    size: 20,
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      showModalBottomSheet<dynamic>(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Padding(
+                                            padding: const EdgeInsets.only(
+                                              left: 8,
+                                              right: 8,
+                                            ),
+                                            child: SizedBox(
+                                              height: 300,
+                                              width: double.infinity,
+                                              child: ValueListenableBuilder(
+                                                valueListenable: selectedValue,
+                                                builder: (context, value, _) {
+                                                  return Column(
+                                                    children: [
+                                                      const SizedBox(
+                                                        height: 20,
+                                                      ),
+                                                      const Text(
+                                                        'Filter Product',
+                                                        style: TextStyle(
+                                                          fontSize: 24,
+                                                        ),
+                                                      ),
+                                                      const Divider(
+                                                        indent: 12,
+                                                        endIndent: 12,
+                                                      ),
+                                                      RadioListTile(
+                                                        contentPadding:
+                                                            EdgeInsets.zero,
+                                                        title: const Text(
+                                                          'All Products',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                        value: '1',
+                                                        groupValue: value,
+                                                        onChanged: (value) {
+                                                          selectedValue.value =
+                                                              value.toString();
+                                                        },
+                                                      ),
+                                                      RadioListTile(
+                                                        contentPadding:
+                                                            EdgeInsets.zero,
+                                                        title: const Text(
+                                                          '''Product under warranty''',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                        value: '2',
+                                                        groupValue: value,
+                                                        onChanged: (value) {
+                                                          selectedValue.value =
+                                                              value.toString();
+                                                        },
+                                                      ),
+                                                      RadioListTile(
+                                                        contentPadding:
+                                                            EdgeInsets.zero,
+                                                        title: const Text(
+                                                          '''Warranty Expired Product''',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                        value: '3',
+                                                        groupValue: value,
+                                                        onChanged: (value) {
+                                                          selectedValue.value =
+                                                              value.toString();
+                                                        },
+                                                      ),
+                                                      InkWell(
+                                                        onTap: () {
+                                                          context
+                                                              .read<
+                                                                  ProductBloc>()
+                                                              .add(
+                                                                // ignore: lines_longer_than_80_chars
+                                                                GetAllProductEvent(
+                                                                  filterValue:
+                                                                      // ignore: lines_longer_than_80_chars
+                                                                      selectedValue
+                                                                          // ignore: lines_longer_than_80_chars
+                                                                          .value,
+                                                                ),
+                                                              );
+                                                          AppPrefHelper
+                                                              .setFilterValue(
+                                                            filterValue:
+                                                                selectedValue
+                                                                    .value,
+                                                          );
+
+                                                          Navigator.pop(
+                                                            context,
+                                                          );
+                                                        },
+                                                        child:
+                                                            const SubmitButton(
+                                                          heading:
+                                                              'Apply Filter',
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: Text(
+                                      'Filter',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                               Expanded(
                                 child: ListView.builder(
                                   itemCount: state.productList.length,
@@ -186,8 +335,9 @@ class _MyDashboardState extends State<MyDashboard> {
                                               const SnackBar(
                                                 content: Text(
                                                   // context
+                                                  // ignore: lines_longer_than_80_chars
                                                   //     .lang.productAddSuccess,
-                                                  'Product Updated Succesfully!',
+                                                  '''Product Updated Successfully!''',
                                                 ),
                                               ),
                                             );
@@ -197,7 +347,7 @@ class _MyDashboardState extends State<MyDashboard> {
                                                 content: Text(
                                                   // AppLocalizations.of(context)!
                                                   //     .productDeleteSuccess,
-                                                  'Product Deleted succesfully!',
+                                                  '''Product Deleted successfully!''',
                                                 ),
                                               ),
                                             );

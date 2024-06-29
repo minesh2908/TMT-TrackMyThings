@@ -27,7 +27,7 @@ class GeminiRepository {
         }
 
         final result = outputBuffer.toString().trim();
-        print('result: $result');
+        //print('result: $result');
         final jsonStartIndex = result.indexOf('{');
 
         final jsonEndIndex = result.lastIndexOf('}') + 1;
@@ -35,7 +35,7 @@ class GeminiRepository {
         if (jsonStartIndex != -1 && jsonEndIndex != -1) {
           final jsonString = result.substring(jsonStartIndex, jsonEndIndex);
           final parsedResult = parseResult(jsonString);
-          print('parsedResult: $parsedResult');
+          //print('parsedResult: $parsedResult');
           productName = parsedResult['productName'] as String?;
           purchasedDate = parsedResult['purchasedDate'] as String?;
           warrantyPeriod = parsedResult['warrantyPeriod'] as int? ?? 12;
@@ -58,8 +58,8 @@ class GeminiRepository {
     try {
       return jsonDecode(result) as Map<String, dynamic>;
     } catch (e) {
-      print('Error parsing JSON: $e');
-      return {};
+      throw Exception(e);
+      // print('Error parsing JSON: $e');
     }
   }
 }

@@ -16,7 +16,7 @@ class SharedPrefrence {
     return pref.remove('userName');
   }
 
-  Future<void> setLoggedIn(bool loggedIn) async {
+  Future<void> setLoggedIn({required bool loggedIn}) async {
     final pref = await SharedPreferences.getInstance();
     await pref.setBool('loggedIn', loggedIn);
   }
@@ -88,7 +88,8 @@ enum AppPrefKey {
   defaultWarrantyPeriod('defaultWarrantyPeriod'),
   sortProductBy('sortProductBy'),
   darkTheme('darkTheme'),
-  language('language');
+  language('language'),
+  filterValue('filterValue');
 
   const AppPrefKey(this.name);
 
@@ -154,6 +155,16 @@ class AppPrefHelper {
     final language = AppPref.get(AppPrefKey.language, 'en') as String;
 
     return language;
+  }
+
+  static Future<bool> setFilterValue({required String filterValue}) async {
+    return AppPref.save(AppPrefKey.filterValue, filterValue);
+  }
+
+  static String getFilterValue() {
+    final filterValue = AppPref.get(AppPrefKey.filterValue, '1') as String;
+
+    return filterValue;
   }
 
   static Future<bool> setSortProductBy({required String sortProductBy}) async {

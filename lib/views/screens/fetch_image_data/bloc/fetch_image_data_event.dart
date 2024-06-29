@@ -8,4 +8,4 @@ final class FetchDetailsFromBillImageEvent extends FetchImageDataEvent {
   final File? billImage;
 }
 
-final class ChangeStateEvent extends FetchImageDataEvent{}
+final class ChangeStateEvent extends FetchImageDataEvent {}

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +12,7 @@ import 'package:warranty_tracker/constants/api_key.dart';
 import 'package:warranty_tracker/firebase_options.dart';
 import 'package:warranty_tracker/routes/routes.dart';
 import 'package:warranty_tracker/routes/routes_names.dart';
+import 'package:warranty_tracker/service/notification_service.dart';
 import 'package:warranty_tracker/service/shared_prefrence.dart';
 import 'package:warranty_tracker/theme/color_sceme.dart';
 import 'package:warranty_tracker/theme/cubit/theme_cubit.dart';
@@ -18,10 +22,44 @@ import 'package:warranty_tracker/views/screens/add_product/bloc/product_bloc.dar
 import 'package:warranty_tracker/views/screens/auth/bloc/auth_bloc.dart';
 import 'package:warranty_tracker/views/screens/fetch_image_data/bloc/fetch_image_data_bloc.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  //Initializing firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await AppPref.init();
+  //initializing firebase messaging for notification
+
+  await NotificationService.requestNotificationPermission();
+  await NotificationService.initLocalNotification();
+  FirebaseMessaging.onBackgroundMessage(
+    NotificationService.firebaseBackgroundMessageNotification,
+  );
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    if (message.notification != null) {
+      //print('Background message tapped');
+      navigatorKey.currentState!
+          .pushNamed(RoutesName.aboutMe, arguments: message);
+    }
+  });
+
+  //to handle Foreground notifications
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    final payloadData = jsonEncode(message.data);
+    // print('Got a foreground message');
+    if (message.notification != null) {
+      NotificationService.showSimpleNotification(
+        title: message.notification!.title!,
+        body: message.notification!.body!,
+        payload: payloadData,
+      );
+    }
+  });
+  //to handle terminated message
+  await NotificationService.firebaseTerminatedMessageNotification();
+  //Initializing Gemini
   Gemini.init(apiKey: geminiApiKey);
   // print('here I am');
   runApp(const MyApp());
@@ -38,7 +76,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<AuthBloc>(create: (context) => AuthBloc()),
         BlocProvider<ProductBloc>(
           create: (context) =>
-              ProductBloc()..add(GetAllProductEvent(test: 'From Main')),
+              ProductBloc()..add(GetAllProductEvent(filterValue: '1')),
         ),
         BlocProvider<SelectLanguageCubit>.value(
           value: SelectLanguageCubit(),
@@ -55,6 +93,7 @@ class MyApp extends StatelessWidget {
             builder: (context, state) {
               // print('From language state');
               return MaterialApp(
+                navigatorKey: navigatorKey,
                 debugShowCheckedModeBanner: false,
                 title: 'Warranty Tracker App',
                 themeMode: themeSate ? ThemeMode.dark : ThemeMode.light,
