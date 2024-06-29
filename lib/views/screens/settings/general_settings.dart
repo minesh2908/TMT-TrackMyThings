@@ -23,7 +23,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
 
   final defaultWarrantyController =
       TextEditingController(text: AppPrefHelper.getDefaultWarrantyPeriod());
-  String? _selectedValue;
+
   final _formKey = GlobalKey<FormState>();
   final sortByNotifier =
       ValueNotifier<String>(AppPrefHelper.getSortProductBy());

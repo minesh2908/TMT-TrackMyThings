@@ -61,6 +61,7 @@ dependencies:
   firebase_messaging: ^15.0.2
   app_settings: ^5.1.1
   flutter_local_notifications: ^17.1.2
+  logger: ^2.3.0
   
    
 

@@ -4,7 +4,14 @@ final Uri linkedin = Uri(
   path: '/in/minesh-sarawogi-4787401a1/',
 );
 
-final Uri github = Uri(scheme: 'https', host: 'github.com', path: 'minesh2908');
+final Uri github = Uri(
+  scheme: 'https',
+  host: 'github.com',
+  path: 'minesh2908',
+);
 
-final Uri portfolio =
-    Uri(scheme: 'https', host: 'mineshsarawogi.online', path: 'mineshsarawogi');
+final Uri portfolio = Uri(
+  scheme: 'https',
+  host: 'mineshsarawogi.online',
+  path: 'mineshsarawogi',
+);

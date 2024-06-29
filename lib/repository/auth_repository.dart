@@ -39,7 +39,6 @@ class AuthRepository {
         await AppPrefHelper.setPhoneNumber(
           phoneNumber: userData.user?.phoneNumber ?? '',
         );
-        // print('From new user -${AppPrefHelper.getDefaultWarrantyPeriod()}');
         return user;
       } else {
         final phoneToken = await NotificationService().getDeviceToken();
@@ -56,7 +55,7 @@ class AuthRepository {
   }
 
   Future<bool> signOutFromGoogle() async {
-  //  print('Sign out called');
+    //  print('Sign out called');
     try {
       await FirebaseAuth.instance.signOut();
       await GoogleSignIn().signOut();
