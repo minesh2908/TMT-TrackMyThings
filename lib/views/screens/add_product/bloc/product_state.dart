@@ -19,4 +19,4 @@ final class ProductFailureState extends ProductState {
   final String errorMsg;
 }
 
-
+final class NoFilterProductAvailableState extends ProductState {}

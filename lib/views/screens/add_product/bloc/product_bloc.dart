@@ -75,9 +75,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
                       0,
             )
             .toList();
-        if (filterProductList.isEmpty && productList.isNotEmpty) {
-          filterProductList = productList;
-        }
       } else {
         filterProductList = productList
             .where(
@@ -88,13 +85,16 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
                       0,
             )
             .toList();
-        if (filterProductList.isEmpty && productList.isNotEmpty) {
-          filterProductList = productList;
-        }
       }
-      final sortedProductList =
-          sortProductList(filterProductList, AppPrefHelper.getSortProductBy());
-      emit(ProductSuccessState(productList: sortedProductList));
+      if (filterProductList.isEmpty && productList.isNotEmpty) {
+        emit(NoFilterProductAvailableState());
+      } else {
+        final sortedProductList = sortProductList(
+          filterProductList,
+          AppPrefHelper.getSortProductBy(),
+        );
+        emit(ProductSuccessState(productList: sortedProductList));
+      }
     } catch (e) {
       emit(ProductFailureState(errorMsg: e.toString()));
     }

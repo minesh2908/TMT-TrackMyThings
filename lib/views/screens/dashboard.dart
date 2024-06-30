@@ -255,12 +255,9 @@ class _MyDashboardState extends State<MyDashboard> {
                                                               .read<
                                                                   ProductBloc>()
                                                               .add(
-                                                                // ignore: lines_longer_than_80_chars
                                                                 GetAllProductEvent(
                                                                   filterValue:
-                                                                      // ignore: lines_longer_than_80_chars
                                                                       selectedValue
-                                                                          // ignore: lines_longer_than_80_chars
                                                                           .value,
                                                                 ),
                                                               );
@@ -374,7 +371,9 @@ class _MyDashboardState extends State<MyDashboard> {
                                                       .colorScheme
                                                       .onSurface,
                                                   borderRadius:
-                                                      BorderRadius.circular(12),
+                                                      BorderRadius.circular(
+                                                    12,
+                                                  ),
                                                 ),
                                                 child: productData
                                                             .productImage !=
@@ -386,7 +385,9 @@ class _MyDashboardState extends State<MyDashboard> {
                                                         child: ClipRRect(
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(12),
+                                                                  .circular(
+                                                            12,
+                                                          ),
                                                           child: Image.network(
                                                             productData
                                                                 .productImage!,
@@ -409,7 +410,9 @@ class _MyDashboardState extends State<MyDashboard> {
                                                         child: ClipRRect(
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(12),
+                                                                  .circular(
+                                                            12,
+                                                          ),
                                                           child: Assets
                                                               .images.noImage
                                                               .image(
@@ -448,10 +451,9 @@ class _MyDashboardState extends State<MyDashboard> {
                                                         style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .colorScheme
-                                                                  .surface,
+                                                          color: Theme.of(
+                                                            context,
+                                                          ).colorScheme.surface,
                                                           fontSize: 22,
                                                         ),
                                                       ),
@@ -474,9 +476,9 @@ class _MyDashboardState extends State<MyDashboard> {
                                                     Text(
                                                       remainingTime,
                                                       style: TextStyle(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .surface,
+                                                        color: Theme.of(
+                                                          context,
+                                                        ).colorScheme.surface,
                                                         fontSize: 18,
                                                       ),
                                                     ),
@@ -519,9 +521,9 @@ class _MyDashboardState extends State<MyDashboard> {
                                                                   .colorScheme
                                                                   .onPrimary,
                                                           backgroundColor:
-                                                              Theme.of(context)
-                                                                  .colorScheme
-                                                                  .surface,
+                                                              Theme.of(
+                                                            context,
+                                                          ).colorScheme.surface,
                                                         );
                                                       },
                                                     ),
@@ -539,6 +541,75 @@ class _MyDashboardState extends State<MyDashboard> {
                             ],
                           ),
                         ),
+                );
+              } else if (state is NoFilterProductAvailableState) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 100,
+                      width: MediaQuery.sizeOf(context).width,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 8,
+                          left: 8,
+                          right: 8,
+                        ),
+                        child: Column(
+                          children: [
+                            if (selectedValue.value == '3')
+                              Text(
+                                'There are no product whose warrannty has ended. Tap cancel to see all the product!',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Theme.of(context).colorScheme.surface,
+                                ),
+                              )
+                            else if (selectedValue.value == '2')
+                              Text(
+                                'There are no product which are currently in warranty. Tap cancel to see all the product!',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Theme.of(context).colorScheme.surface,
+                                ),
+                              ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    context.read<ProductBloc>().add(
+                                          GetAllProductEvent(
+                                            filterValue: '1',
+                                          ),
+                                        );
+                                    selectedValue.value = '1';
+                                    AppPrefHelper.setFilterValue(
+                                      filterValue: selectedValue.value,
+                                    );
+                                  },
+                                  child: Text(
+                                    'Cancel',
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 );
               } else if (state is ProductLoadingState) {
                 return Shimmer.fromColors(
