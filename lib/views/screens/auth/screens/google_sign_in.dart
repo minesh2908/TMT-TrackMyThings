@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:warranty_tracker/constants/auth_slider_data.dart';
-import 'package:warranty_tracker/gen/assets.gen.dart';
-import 'package:warranty_tracker/routes/routes_names.dart';
-import 'package:warranty_tracker/views/components/body_widget.dart';
-import 'package:warranty_tracker/views/screens/auth/bloc/auth_bloc.dart';
+import 'package:track_my_things/constants/auth_slider_data.dart';
+import 'package:track_my_things/gen/assets.gen.dart';
+import 'package:track_my_things/routes/routes_names.dart';
+import 'package:track_my_things/views/components/body_widget.dart';
+import 'package:track_my_things/views/screens/auth/bloc/auth_bloc.dart';
 
 class GoogleSignIn extends StatefulWidget {
   const GoogleSignIn({super.key});
@@ -57,17 +57,25 @@ class _GoogleSignInState extends State<GoogleSignIn> {
                                 children: [
                                   Image.asset(
                                     sliderData[index].image,
-                                    height: 400,
+                                    height: MediaQuery.sizeOf(context).height /
+                                                MediaQuery.sizeOf(context)
+                                                    .width <=
+                                            2
+                                        ? 300
+                                        : 400,
                                     fit: BoxFit.fitHeight,
                                   ),
                                   Text(
                                     sliderData[index].title,
-                                    style: TextStyle(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold,
-                                      color:
-                                          Theme.of(context).colorScheme.scrim,
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall!
+                                        .copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .scrim,
+                                        ),
                                   ),
                                   const SizedBox(
                                     height: 5,
@@ -75,12 +83,15 @@ class _GoogleSignInState extends State<GoogleSignIn> {
                                   Text(
                                     sliderData[index].body,
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
-                                      color:
-                                          Theme.of(context).colorScheme.scrim,
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .scrim,
+                                        ),
                                   ),
                                 ],
                               ),
@@ -90,17 +101,18 @@ class _GoogleSignInState extends State<GoogleSignIn> {
                       },
                     ),
                   ),
-                  ValueListenableBuilder<int>(
-                    valueListenable: count,
-                    builder: (context, value, _) {
-                      return BuildDot(
-                        index: value,
-                      );
-                    },
-                  ),
                   Expanded(
+                    flex: 2,
                     child: Column(
                       children: [
+                        ValueListenableBuilder<int>(
+                          valueListenable: count,
+                          builder: (context, value, _) {
+                            return BuildDot(
+                              index: value,
+                            );
+                          },
+                        ),
                         const Spacer(),
                         InkWell(
                           onTap: () {
@@ -139,9 +151,11 @@ class _GoogleSignInState extends State<GoogleSignIn> {
                         ),
                         Text(
                           AppLocalizations.of(context)!.bySiginigIn,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.scrim,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                    color: Theme.of(context).colorScheme.scrim,
+                                  ),
                         ),
                         const SizedBox(
                           height: 10,

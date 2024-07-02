@@ -3,15 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:warranty_tracker/gen/assets.gen.dart';
-import 'package:warranty_tracker/routes/routes_names.dart';
-import 'package:warranty_tracker/service/calculate_date.dart';
-import 'package:warranty_tracker/service/shared_prefrence.dart';
-import 'package:warranty_tracker/util/extension.dart';
-import 'package:warranty_tracker/views/components/button.dart';
-import 'package:warranty_tracker/views/components/side_nav_bar.dart';
-import 'package:warranty_tracker/views/screens/add_product/bloc/product_bloc.dart';
-import 'package:warranty_tracker/views/screens/fetch_image_data/bloc/fetch_image_data_bloc.dart';
+import 'package:track_my_things/gen/assets.gen.dart';
+import 'package:track_my_things/routes/routes_names.dart';
+import 'package:track_my_things/service/calculate_date.dart';
+import 'package:track_my_things/service/shared_prefrence.dart';
+import 'package:track_my_things/util/extension.dart';
+import 'package:track_my_things/views/components/button.dart';
+import 'package:track_my_things/views/components/side_nav_bar.dart';
+import 'package:track_my_things/views/screens/add_product/bloc/product_bloc.dart';
+import 'package:track_my_things/views/screens/fetch_image_data/bloc/fetch_image_data_bloc.dart';
 
 class MyDashboard extends StatefulWidget {
   const MyDashboard({super.key});
@@ -158,147 +158,288 @@ class _MyDashboardState extends State<MyDashboard> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Icon(
-                                    Icons.sort,
-                                    size: 20,
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      showModalBottomSheet<dynamic>(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return Padding(
-                                            padding: const EdgeInsets.only(
-                                              left: 8,
-                                              right: 8,
-                                            ),
-                                            child: SizedBox(
-                                              height: 300,
-                                              width: double.infinity,
-                                              child: ValueListenableBuilder(
-                                                valueListenable: selectedValue,
-                                                builder: (context, value, _) {
-                                                  return Column(
-                                                    children: [
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      const Text(
-                                                        'Filter Product',
-                                                        style: TextStyle(
-                                                          fontSize: 24,
-                                                        ),
-                                                      ),
-                                                      const Divider(
-                                                        indent: 12,
-                                                        endIndent: 12,
-                                                      ),
-                                                      RadioListTile(
-                                                        contentPadding:
-                                                            EdgeInsets.zero,
-                                                        title: const Text(
-                                                          'All Products',
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                          ),
-                                                        ),
-                                                        value: '1',
-                                                        groupValue: value,
-                                                        onChanged: (value) {
-                                                          selectedValue.value =
-                                                              value.toString();
-                                                        },
-                                                      ),
-                                                      RadioListTile(
-                                                        contentPadding:
-                                                            EdgeInsets.zero,
-                                                        title: const Text(
-                                                          '''Product under warranty''',
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                          ),
-                                                        ),
-                                                        value: '2',
-                                                        groupValue: value,
-                                                        onChanged: (value) {
-                                                          selectedValue.value =
-                                                              value.toString();
-                                                        },
-                                                      ),
-                                                      RadioListTile(
-                                                        contentPadding:
-                                                            EdgeInsets.zero,
-                                                        title: const Text(
-                                                          '''Warranty Expired Product''',
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                          ),
-                                                        ),
-                                                        value: '3',
-                                                        groupValue: value,
-                                                        onChanged: (value) {
-                                                          selectedValue.value =
-                                                              value.toString();
-                                                        },
-                                                      ),
-                                                      InkWell(
-                                                        onTap: () {
-                                                          context
-                                                              .read<
-                                                                  ProductBloc>()
-                                                              .add(
-                                                                GetAllProductEvent(
-                                                                  filterValue:
-                                                                      selectedValue
-                                                                          .value,
-                                                                ),
-                                                              );
-                                                          AppPrefHelper
-                                                              .setFilterValue(
-                                                            filterValue:
-                                                                selectedValue
-                                                                    .value,
-                                                          );
-
-                                                          Navigator.pop(
-                                                            context,
-                                                          );
-                                                        },
-                                                        child:
-                                                            const SubmitButton(
-                                                          heading:
-                                                              'Apply Filter',
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
+                              InkWell(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        showModalBottomSheet<dynamic>(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Padding(
+                                              padding: const EdgeInsets.only(
+                                                left: 8,
+                                                right: 8,
                                               ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                    child: Text(
-                                      'Filter',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
+                                              child: SizedBox(
+                                                height: 300,
+                                                width: double.infinity,
+                                                child: ValueListenableBuilder(
+                                                  valueListenable:
+                                                      selectedValue,
+                                                  builder: (context, value, _) {
+                                                    return Column(
+                                                      children: [
+                                                        const SizedBox(
+                                                          height: 20,
+                                                        ),
+                                                        const Text(
+                                                          'Filter Product',
+                                                          style: TextStyle(
+                                                            fontSize: 24,
+                                                          ),
+                                                        ),
+                                                        const Divider(
+                                                          indent: 12,
+                                                          endIndent: 12,
+                                                        ),
+                                                        RadioListTile(
+                                                          contentPadding:
+                                                              EdgeInsets.zero,
+                                                          title: const Text(
+                                                            'All Products',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                          value: '1',
+                                                          groupValue: value,
+                                                          onChanged: (value) {
+                                                            selectedValue
+                                                                    .value =
+                                                                value
+                                                                    .toString();
+                                                          },
+                                                        ),
+                                                        RadioListTile(
+                                                          contentPadding:
+                                                              EdgeInsets.zero,
+                                                          title: const Text(
+                                                            '''Product under warranty''',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                          value: '2',
+                                                          groupValue: value,
+                                                          onChanged: (value) {
+                                                            selectedValue
+                                                                    .value =
+                                                                value
+                                                                    .toString();
+                                                          },
+                                                        ),
+                                                        RadioListTile(
+                                                          contentPadding:
+                                                              EdgeInsets.zero,
+                                                          title: const Text(
+                                                            '''Warranty Expired Product''',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                          value: '3',
+                                                          groupValue: value,
+                                                          onChanged: (value) {
+                                                            selectedValue
+                                                                    .value =
+                                                                value
+                                                                    .toString();
+                                                          },
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            context
+                                                                .read<
+                                                                    ProductBloc>()
+                                                                .add(
+                                                                  GetAllProductEvent(
+                                                                    filterValue:
+                                                                        selectedValue
+                                                                            .value,
+                                                                  ),
+                                                                );
+                                                            AppPrefHelper
+                                                                .setFilterValue(
+                                                              filterValue:
+                                                                  selectedValue
+                                                                      .value,
+                                                            );
+
+                                                            Navigator.pop(
+                                                              context,
+                                                            );
+                                                          },
+                                                          child:
+                                                              const SubmitButton(
+                                                            heading:
+                                                                'Apply Filter',
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Icon(
+                                        Icons.sort,
+                                        size: 20,
                                         color: Theme.of(context)
                                             .colorScheme
                                             .onPrimary,
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        showModalBottomSheet<dynamic>(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Padding(
+                                              padding: const EdgeInsets.only(
+                                                left: 8,
+                                                right: 8,
+                                              ),
+                                              child: SizedBox(
+                                                height: 300,
+                                                width: double.infinity,
+                                                child: ValueListenableBuilder(
+                                                  valueListenable:
+                                                      selectedValue,
+                                                  builder: (context, value, _) {
+                                                    return Column(
+                                                      children: [
+                                                        const SizedBox(
+                                                          height: 20,
+                                                        ),
+                                                        const Text(
+                                                          'Filter Product',
+                                                          style: TextStyle(
+                                                            fontSize: 24,
+                                                          ),
+                                                        ),
+                                                        const Divider(
+                                                          indent: 12,
+                                                          endIndent: 12,
+                                                        ),
+                                                        RadioListTile(
+                                                          contentPadding:
+                                                              EdgeInsets.zero,
+                                                          title: const Text(
+                                                            'All Products',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                          value: '1',
+                                                          groupValue: value,
+                                                          onChanged: (value) {
+                                                            selectedValue
+                                                                    .value =
+                                                                value
+                                                                    .toString();
+                                                          },
+                                                        ),
+                                                        RadioListTile(
+                                                          contentPadding:
+                                                              EdgeInsets.zero,
+                                                          title: const Text(
+                                                            '''Product under warranty''',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                          value: '2',
+                                                          groupValue: value,
+                                                          onChanged: (value) {
+                                                            selectedValue
+                                                                    .value =
+                                                                value
+                                                                    .toString();
+                                                          },
+                                                        ),
+                                                        RadioListTile(
+                                                          contentPadding:
+                                                              EdgeInsets.zero,
+                                                          title: const Text(
+                                                            '''Warranty Expired Product''',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                          value: '3',
+                                                          groupValue: value,
+                                                          onChanged: (value) {
+                                                            selectedValue
+                                                                    .value =
+                                                                value
+                                                                    .toString();
+                                                          },
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            context
+                                                                .read<
+                                                                    ProductBloc>()
+                                                                .add(
+                                                                  GetAllProductEvent(
+                                                                    filterValue:
+                                                                        selectedValue
+                                                                            .value,
+                                                                  ),
+                                                                );
+                                                            AppPrefHelper
+                                                                .setFilterValue(
+                                                              filterValue:
+                                                                  selectedValue
+                                                                      .value,
+                                                            );
+
+                                                            Navigator.pop(
+                                                              context,
+                                                            );
+                                                          },
+                                                          child:
+                                                              const SubmitButton(
+                                                            heading:
+                                                                'Apply Filter',
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Text(
+                                        'Filter',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimary,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               Expanded(
                                 child: ListView.builder(
@@ -378,28 +519,30 @@ class _MyDashboardState extends State<MyDashboard> {
                                                 child: productData
                                                             .productImage !=
                                                         null
-                                                    ? Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8),
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                            12,
-                                                          ),
-                                                          child: Image.network(
-                                                            productData
-                                                                .productImage!,
-                                                            fit: BoxFit.cover,
-                                                            height: 140,
-                                                            width:
-                                                                MediaQuery.of(
-                                                                      context,
-                                                                    )
-                                                                        .size
-                                                                        .width *
-                                                                    0.30,
+                                                    ? Hero(
+                                                        tag: 'productImage',
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                              12,
+                                                            ),
+                                                            child:
+                                                                Image.network(
+                                                              productData
+                                                                  .productImage!,
+                                                              fit: BoxFit.cover,
+                                                              height: 140,
+                                                              width: MediaQuery
+                                                                      .of(
+                                                                    context,
+                                                                  ).size.width *
+                                                                  0.30,
+                                                            ),
                                                           ),
                                                         ),
                                                       )

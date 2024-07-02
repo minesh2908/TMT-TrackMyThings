@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:warranty_tracker/service/shared_prefrence.dart';
-import 'package:warranty_tracker/util/extension.dart';
+import 'package:track_my_things/service/shared_prefrence.dart';
+import 'package:track_my_things/util/extension.dart';
 
 /// A widget representing the body of a screen with optional loading indicator.
 class BodyWidget extends StatelessWidget {

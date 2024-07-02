@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:warranty_tracker/modal/product_modal.dart';
-import 'package:warranty_tracker/service/shared_prefrence.dart';
+import 'package:track_my_things/modal/product_modal.dart';
+import 'package:track_my_things/service/shared_prefrence.dart';
 
 class ProductRepository {
   CollectionReference<Map<String, dynamic>> productCollection =

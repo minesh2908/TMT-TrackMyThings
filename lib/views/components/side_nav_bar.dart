@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:warranty_tracker/routes/routes_names.dart';
-import 'package:warranty_tracker/service/shared_prefrence.dart';
-import 'package:warranty_tracker/theme/cubit/theme_cubit.dart';
-import 'package:warranty_tracker/views/components/body_widget.dart';
-import 'package:warranty_tracker/views/screens/Language/cubit/select_language_cubit.dart';
-import 'package:warranty_tracker/views/screens/auth/bloc/auth_bloc.dart';
+import 'package:track_my_things/routes/routes_names.dart';
+import 'package:track_my_things/service/shared_prefrence.dart';
+import 'package:track_my_things/theme/cubit/theme_cubit.dart';
+import 'package:track_my_things/views/components/body_widget.dart';
+import 'package:track_my_things/views/screens/Language/cubit/select_language_cubit.dart';
+import 'package:track_my_things/views/screens/auth/bloc/auth_bloc.dart';
 
 class SideNavBar extends StatefulWidget {
   const SideNavBar({super.key});
@@ -61,11 +61,10 @@ class _SideNavBarState extends State<SideNavBar> {
                             onTap: () {
                               Navigator.pop(context);
                             },
-                            child: Icon(
-                              Icons.close,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSecondaryFixedVariant,
+                            child: Image.asset(
+                              'assets/images/tmt_logo.png',
+                              height: 30,
+                              fit: BoxFit.fitHeight,
                             ),
                           ),
                         ],

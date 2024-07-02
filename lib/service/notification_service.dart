@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:app_settings/app_settings.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:warranty_tracker/main.dart';
-import 'package:warranty_tracker/routes/routes_names.dart';
+import 'package:track_my_things/main.dart';
+import 'package:track_my_things/routes/routes_names.dart';
 
 class NotificationService {
   static final FirebaseMessaging _firebaseMessaging =

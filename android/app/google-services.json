@@ -7,12 +7,25 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1061664889869:android:bf6a6e87b8303157644944",
+        "mobilesdk_app_id": "1:1061664889869:android:2043ab47479d6229644944",
         "android_client_info": {
-          "package_name": "com.example.warranty_tracker"
+          "package_name": "online.mineshsarawogi.track_my_things"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1061664889869-ffae9j3gpkr40gsqjbbnvfk5grcmmg7j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "online.mineshsarawogi.track_my_things",
+            "certificate_hash": "6701267e29b4fcbbd2d9c34d50d9625181a14652"
+          }
+        },
+        {
+          "client_id": "1061664889869-ct3oh49dvfhqnn3svm5s5t8r31qh0t2q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCOX7TNgTUmj2SLITWS7iHjR0iD6d1y3VI"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1061664889869-ct3oh49dvfhqnn3svm5s5t8r31qh0t2q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1061664889869-l805hr78ohkthpm65ehi6i0pectofb02.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.warrantyTracker"
+              }
+            }
+          ]
         }
       }
     }

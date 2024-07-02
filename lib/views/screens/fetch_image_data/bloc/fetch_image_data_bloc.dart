@@ -4,8 +4,8 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:warranty_tracker/modal/product_modal.dart';
-import 'package:warranty_tracker/repository/gemini_repository.dart';
+import 'package:track_my_things/modal/product_modal.dart';
+import 'package:track_my_things/repository/gemini_repository.dart';
 
 part 'fetch_image_data_event.dart';
 part 'fetch_image_data_state.dart';

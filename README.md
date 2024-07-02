@@ -1,4 +1,4 @@
-# warranty_tracker
+# track_my_things
 
 A new Flutter project.
 

@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:warranty_tracker/routes/routes_names.dart';
-import 'package:warranty_tracker/views/screens/auth/bloc/auth_bloc.dart';
+import 'package:track_my_things/routes/routes_names.dart';
+import 'package:track_my_things/views/screens/auth/bloc/auth_bloc.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -21,11 +21,37 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      body: const Center(
-        child: Text(
-          'Warranty Tracker',
-          style: TextStyle(fontSize: 36, color: Colors.white),
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/tmt_logo.png',
+              height: 150,
+              fit: BoxFit.fitHeight,
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              'TRACK MY THINGS',
+              style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFF727376),
+                  ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              'TMT',
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFFF58634),
+                  ),
+            ),
+          ],
         ),
       ),
     );

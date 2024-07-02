@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:warranty_tracker/service/shared_prefrence.dart';
+import 'package:track_my_things/service/shared_prefrence.dart';
 
 part 'select_language_state.dart';
 

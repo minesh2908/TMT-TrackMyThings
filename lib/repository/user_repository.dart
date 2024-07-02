@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:warranty_tracker/modal/user_model.dart';
-import 'package:warranty_tracker/repository/auth_repository.dart';
-import 'package:warranty_tracker/service/notification_service.dart';
-import 'package:warranty_tracker/service/shared_prefrence.dart';
+import 'package:track_my_things/modal/user_model.dart';
+import 'package:track_my_things/repository/auth_repository.dart';
+import 'package:track_my_things/service/notification_service.dart';
+import 'package:track_my_things/service/shared_prefrence.dart';
 
 class UserRepository {
   CollectionReference<Map<String, dynamic>> userCollection =

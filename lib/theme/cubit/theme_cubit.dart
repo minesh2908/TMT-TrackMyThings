@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:warranty_tracker/service/shared_prefrence.dart';
+import 'package:track_my_things/service/shared_prefrence.dart';
 
 part 'theme_state.dart';
 

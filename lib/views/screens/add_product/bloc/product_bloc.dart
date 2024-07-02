@@ -4,10 +4,10 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:warranty_tracker/modal/product_modal.dart';
-import 'package:warranty_tracker/repository/product_repository.dart';
-import 'package:warranty_tracker/service/shared_prefrence.dart';
-import 'package:warranty_tracker/service/sort_product.dart';
+import 'package:track_my_things/modal/product_modal.dart';
+import 'package:track_my_things/repository/product_repository.dart';
+import 'package:track_my_things/service/shared_prefrence.dart';
+import 'package:track_my_things/service/sort_product.dart';
 
 part 'product_event.dart';
 part 'product_state.dart';

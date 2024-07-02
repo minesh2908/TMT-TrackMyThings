@@ -10,7 +10,7 @@
     
     
     <application
-        android:label="warranty_tracker"
+        android:label="TMT"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

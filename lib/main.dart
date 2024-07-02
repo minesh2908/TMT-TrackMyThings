@@ -8,19 +8,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:warranty_tracker/constants/api_key.dart';
-import 'package:warranty_tracker/firebase_options.dart';
-import 'package:warranty_tracker/routes/routes.dart';
-import 'package:warranty_tracker/routes/routes_names.dart';
-import 'package:warranty_tracker/service/notification_service.dart';
-import 'package:warranty_tracker/service/shared_prefrence.dart';
-import 'package:warranty_tracker/theme/color_sceme.dart';
-import 'package:warranty_tracker/theme/cubit/theme_cubit.dart';
-import 'package:warranty_tracker/theme/theme_manager.dart';
-import 'package:warranty_tracker/views/screens/Language/cubit/select_language_cubit.dart';
-import 'package:warranty_tracker/views/screens/add_product/bloc/product_bloc.dart';
-import 'package:warranty_tracker/views/screens/auth/bloc/auth_bloc.dart';
-import 'package:warranty_tracker/views/screens/fetch_image_data/bloc/fetch_image_data_bloc.dart';
+import 'package:track_my_things/constants/api_key.dart';
+import 'package:track_my_things/firebase_options.dart';
+import 'package:track_my_things/routes/routes.dart';
+import 'package:track_my_things/routes/routes_names.dart';
+import 'package:track_my_things/service/notification_service.dart';
+import 'package:track_my_things/service/shared_prefrence.dart';
+import 'package:track_my_things/theme/color_sceme.dart';
+import 'package:track_my_things/theme/cubit/theme_cubit.dart';
+import 'package:track_my_things/theme/theme_manager.dart';
+import 'package:track_my_things/views/screens/Language/cubit/select_language_cubit.dart';
+import 'package:track_my_things/views/screens/add_product/bloc/product_bloc.dart';
+import 'package:track_my_things/views/screens/auth/bloc/auth_bloc.dart';
+import 'package:track_my_things/views/screens/fetch_image_data/bloc/fetch_image_data_bloc.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
@@ -29,7 +29,7 @@ void main() async {
   //Initializing firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await AppPref.init();
-  //initializing firebase messaging for notification
+  //initializing firebase messaging for notification b
 
   await NotificationService.requestNotificationPermission();
   await NotificationService.initLocalNotification();

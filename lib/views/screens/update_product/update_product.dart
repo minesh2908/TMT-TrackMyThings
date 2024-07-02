@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:warranty_tracker/gen/assets.gen.dart';
-import 'package:warranty_tracker/l10n/l10n.dart';
-import 'package:warranty_tracker/modal/product_modal.dart';
-import 'package:warranty_tracker/routes/routes_names.dart';
-import 'package:warranty_tracker/service/shared_prefrence.dart';
-import 'package:warranty_tracker/util/extension.dart';
-import 'package:warranty_tracker/views/components/body_widget.dart';
-import 'package:warranty_tracker/views/components/button.dart';
-import 'package:warranty_tracker/views/components/input_field_form.dart';
-import 'package:warranty_tracker/views/screens/add_product/bloc/product_bloc.dart';
+import 'package:track_my_things/gen/assets.gen.dart';
+import 'package:track_my_things/l10n/l10n.dart';
+import 'package:track_my_things/modal/product_modal.dart';
+import 'package:track_my_things/routes/routes_names.dart';
+import 'package:track_my_things/service/shared_prefrence.dart';
+import 'package:track_my_things/util/extension.dart';
+import 'package:track_my_things/views/components/body_widget.dart';
+import 'package:track_my_things/views/components/button.dart';
+import 'package:track_my_things/views/components/input_field_form.dart';
+import 'package:track_my_things/views/screens/add_product/bloc/product_bloc.dart';
 
 class UpdateProduct extends StatefulWidget {
   const UpdateProduct({super.key, this.productModal});
@@ -294,8 +294,11 @@ class _UpdateProductState extends State<UpdateProduct> {
                                                 .productModal?.productImage,
                                           );
                                         },
-                                        child: Image.network(
-                                          widget.productModal!.productImage!,
+                                        child: Hero(
+                                          tag: 'productImage',
+                                          child: Image.network(
+                                            widget.productModal!.productImage!,
+                                          ),
                                         ),
                                       )
                                     else

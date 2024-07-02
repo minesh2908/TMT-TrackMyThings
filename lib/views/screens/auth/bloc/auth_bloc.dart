@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
-import 'package:warranty_tracker/modal/user_model.dart';
-import 'package:warranty_tracker/repository/auth_repository.dart';
-import 'package:warranty_tracker/repository/product_repository.dart';
-import 'package:warranty_tracker/repository/user_repository.dart';
-import 'package:warranty_tracker/service/shared_prefrence.dart';
+import 'package:track_my_things/modal/user_model.dart';
+import 'package:track_my_things/repository/auth_repository.dart';
+import 'package:track_my_things/repository/product_repository.dart';
+import 'package:track_my_things/repository/user_repository.dart';
+import 'package:track_my_things/service/shared_prefrence.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

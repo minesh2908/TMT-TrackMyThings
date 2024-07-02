@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:warranty_tracker/routes/routes_names.dart';
-import 'package:warranty_tracker/service/shared_prefrence.dart';
-import 'package:warranty_tracker/views/components/button.dart';
-import 'package:warranty_tracker/views/components/input_field_form.dart';
-import 'package:warranty_tracker/views/screens/auth/bloc/auth_bloc.dart';
+import 'package:track_my_things/routes/routes_names.dart';
+import 'package:track_my_things/service/shared_prefrence.dart';
+import 'package:track_my_things/views/components/button.dart';
+import 'package:track_my_things/views/components/input_field_form.dart';
+import 'package:track_my_things/views/screens/auth/bloc/auth_bloc.dart';
 
 class AccountDetails extends StatefulWidget {
   const AccountDetails({super.key});

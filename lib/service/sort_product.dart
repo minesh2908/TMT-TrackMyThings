@@ -1,4 +1,4 @@
-import 'package:warranty_tracker/modal/product_modal.dart';
+import 'package:track_my_things/modal/product_modal.dart';
 
 List<ProductModal> sortProductList(
   List<ProductModal> productList,

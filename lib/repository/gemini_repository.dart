@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter_gemini/flutter_gemini.dart';
-import 'package:warranty_tracker/modal/product_modal.dart';
+import 'package:track_my_things/modal/product_modal.dart';
 
 class GeminiRepository {
   final Gemini gemini = Gemini.instance;

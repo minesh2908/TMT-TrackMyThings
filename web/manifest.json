@@ -1,6 +1,6 @@
 {
-    "name": "warranty_tracker",
-    "short_name": "warranty_tracker",
+    "name": "track_my_things",
+    "short_name": "track_my_things",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -52,7 +52,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCOX7TNgTUmj2SLITWS7iHjR0iD6d1y3VI',
-    appId: '1:1061664889869:android:bf6a6e87b8303157644944',
+    appId: '1:1061664889869:android:2043ab47479d6229644944',
     messagingSenderId: '1061664889869',
     projectId: 'track-warranty-78ded',
     storageBucket: 'track-warranty-78ded.appspot.com',

@@ -14,18 +14,18 @@ List<AuthSliderData> sliderData = [
     image: 'assets/images/1.png',
     title: 'Never miss Warranty',
     body:
-        '''Warranty tracker app helps you in claiming your product warranty by reminding you of the last date of claiming warrant. So, you never miss your any product warranty.''',
+        '''Track My Things (TMT) reminds you of product warranty expiration dates, ensuring you never miss one.''',
   ),
   const AuthSliderData(
     image: 'assets/images/2.png',
     title: 'Add Product easily',
     body:
-        '''You cna easily add any product and its warranty to app by just clicking its picture. Others things will be automatically done.''',
+        '''Add products and warranties by snapping a photo - the app takes care of the rest!''',
   ),
   const AuthSliderData(
     image: 'assets/images/3.png',
     title: 'Claim Warranty easily',
     body:
-        '''At the time of claiming or checking the warranty you just need to search the product and you will have your product with its all details to you''',
+        '''Search, find, and access product details instantly when claiming or checking warranty.''',
   ),
 ];

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:warranty_tracker/views/screens/Language/cubit/select_language_cubit.dart';
+import 'package:track_my_things/views/screens/Language/cubit/select_language_cubit.dart';
 
 class SelectLanguage extends StatefulWidget {
   const SelectLanguage({super.key});

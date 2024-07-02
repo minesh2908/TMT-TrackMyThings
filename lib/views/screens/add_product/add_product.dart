@@ -5,17 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
-import 'package:warranty_tracker/gen/assets.gen.dart';
-import 'package:warranty_tracker/l10n/l10n.dart';
-import 'package:warranty_tracker/modal/product_modal.dart';
-import 'package:warranty_tracker/service/shared_prefrence.dart';
-import 'package:warranty_tracker/util/extension.dart';
-import 'package:warranty_tracker/views/components/body_widget.dart';
-import 'package:warranty_tracker/views/components/button.dart';
-import 'package:warranty_tracker/views/components/input_field_form.dart';
-import 'package:warranty_tracker/views/components/pick_image_bottom_sheet.dart';
-import 'package:warranty_tracker/views/screens/add_product/bloc/product_bloc.dart';
-import 'package:warranty_tracker/views/screens/fetch_image_data/bloc/fetch_image_data_bloc.dart';
+import 'package:track_my_things/gen/assets.gen.dart';
+import 'package:track_my_things/l10n/l10n.dart';
+import 'package:track_my_things/modal/product_modal.dart';
+import 'package:track_my_things/service/shared_prefrence.dart';
+import 'package:track_my_things/util/extension.dart';
+import 'package:track_my_things/views/components/body_widget.dart';
+import 'package:track_my_things/views/components/button.dart';
+import 'package:track_my_things/views/components/input_field_form.dart';
+import 'package:track_my_things/views/components/pick_image_bottom_sheet.dart';
+import 'package:track_my_things/views/screens/add_product/bloc/product_bloc.dart';
+import 'package:track_my_things/views/screens/fetch_image_data/bloc/fetch_image_data_bloc.dart';
 
 class AddProduct extends StatefulWidget {
   const AddProduct({
