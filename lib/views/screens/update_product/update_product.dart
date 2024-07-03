@@ -21,6 +21,7 @@ class UpdateProduct extends StatefulWidget {
 
 class _UpdateProductState extends State<UpdateProduct> {
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final productStateNotifier = ValueNotifier<String>('updated');
 
@@ -55,7 +56,7 @@ class _UpdateProductState extends State<UpdateProduct> {
       listener: (context, state) {
         if (state is ProductSuccessState) {
           if (productStateNotifier.value == 'deleted') {
-            Navigator.pop(context, 'deleted');
+            Navigator.pushReplacementNamed(context, RoutesName.dashboard);
           } else {
             Navigator.pop(context, 'updated');
           }
@@ -72,6 +73,7 @@ class _UpdateProductState extends State<UpdateProduct> {
         return BodyWidget(
           isLoading: state.runtimeType == ProductLoadingState,
           child: Scaffold(
+            key: _scaffoldKey,
             appBar: AppBar(
               backgroundColor: Theme.of(context).colorScheme.primary,
               leading: const BackButton(),
@@ -174,13 +176,28 @@ class _UpdateProductState extends State<UpdateProduct> {
                                   },
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(14),
-                                    child: Image.network(
-                                      widget.productModal!.billImage!,
-                                      fit: BoxFit.cover,
+                                    child: InkWell(
+                                      child: Image.network(
+                                        widget.productModal!.billImage!,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                 )
-                              : Assets.images.noImage.image(fit: BoxFit.cover),
+                              : InkWell(
+                                  onTap: () {
+                                    print('------');
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Bill Image can not be updated',
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Assets.images.noImage
+                                      .image(fit: BoxFit.cover),
+                                ),
                         ),
                       ),
                       if (widget.productModal!.billImage != null)
@@ -268,63 +285,75 @@ class _UpdateProductState extends State<UpdateProduct> {
                         child: Padding(
                           padding: const EdgeInsets.all(10),
                           child: widget.productModal!.productImage != null
-                              ? Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      context.lang.imageAvailable,
-                                      // 'Image Available',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSecondaryFixedVariant,
+                              ? InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      RoutesName.fullImage,
+                                      arguments:
+                                          widget.productModal?.productImage,
+                                    );
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        context.lang.imageAvailable,
+                                        // 'Image Available',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSecondaryFixedVariant,
+                                        ),
                                       ),
-                                    ),
-                                    if (widget.productModal!.productImage !=
-                                        null)
-                                      InkWell(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                            context,
-                                            RoutesName.fullImage,
-                                            arguments: widget
-                                                .productModal?.productImage,
-                                          );
-                                        },
-                                        child: Hero(
+                                      if (widget.productModal!.productImage !=
+                                          null)
+                                        Hero(
                                           tag: 'productImage',
                                           child: Image.network(
                                             widget.productModal!.productImage!,
                                           ),
+                                        )
+                                      else
+                                        Text(
+                                          context.lang.noImage,
+                                          //'No Image',
                                         ),
-                                      )
-                                    else
+                                      const SizedBox(),
+                                    ],
+                                  ),
+                                )
+                              : InkWell(
+                                  onTap: () {
+                                    print('------');
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Product Image can not be updated',
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
                                       Text(
                                         context.lang.noImage,
-                                        //'No Image',
+                                        //'Image Added',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSecondaryFixedVariant,
+                                        ),
                                       ),
-                                    const SizedBox(),
-                                  ],
-                                )
-                              : Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      context.lang.noImage,
-                                      //'Image Added',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSecondaryFixedVariant,
-                                      ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                         ),
                       ),
@@ -372,15 +401,6 @@ class _UpdateProductState extends State<UpdateProduct> {
                         child: SubmitButton(
                           heading: context.lang.updateProduct,
                           //  heading: 'Update Product',
-                        ),
-                      ),
-                      Text(
-                        context.lang.imagesCanNotBeUpdated,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSecondaryFixedVariant,
                         ),
                       ),
                     ],

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:track_my_things/modal/user_model.dart';
 import 'package:track_my_things/repository/auth_repository.dart';
-import 'package:track_my_things/service/notification_service.dart';
+import 'package:track_my_things/service/fcm_token.dart';
 import 'package:track_my_things/service/shared_prefrence.dart';
 
 class UserRepository {
@@ -11,7 +11,7 @@ class UserRepository {
 
   Future<UserModel> createUser(User? user) async {
     try {
-      final phoneToken = await NotificationService().getDeviceToken();
+      final phoneToken = await FCMToken().getDeviceToken();
       //print('Phone Token - $phoneToken');
       await userCollection.doc(AppPrefHelper.getUID()).set({
         'userId': user?.uid,
@@ -74,11 +74,16 @@ class UserRepository {
   Future<void> deleteUser(String userId) async {
     //print('Delete User');
     try {
-      await userCollection.doc(userId).delete();
-
-      await FirebaseAuth.instance.currentUser!.delete();
-
-      await AuthRepository().signOutFromGoogle();
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        await user.delete();
+        print(AppPrefHelper.getUID());
+        await userCollection.doc(userId).delete();
+        await AuthRepository().signOutFromGoogle();
+        print('user here'); // Then delete the user
+      } else {
+        throw Exception();
+      }
     } catch (e) {
       throw Exception(e);
     }

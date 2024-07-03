@@ -11,9 +11,11 @@ class FullImage extends StatelessWidget {
           children: [
             // Network image covering whole area
             Positioned.fill(
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
+              child: InteractiveViewer(
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
             // Top left corner with cross icon

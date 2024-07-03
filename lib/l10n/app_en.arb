@@ -26,7 +26,7 @@
     "productAddSuccess":"Product Updated Successfully",
     "productDeleteSuccess":"Product Deleted Successfully",
     "home":"Home",
-    "aboutUs":"About Me",
+    "aboutUs":"About Us",
     "updateProduct":"Update Product",
     "deleteProduct":"Delete Product",
     "areYouSure":"Are you sure you want to delete",
@@ -56,8 +56,13 @@
     "warrantyEndDate":"Warranty End Date",
     "productBillNotAvailable":"Product Bill is not Available",
     "verifyDetails":"*Please verify all details before adding!",
-    "imagesCanNotBeUpdated":"Images can not be updated!"
-    
+    "imagesCanNotBeUpdated":"Images can not be updated!",
+    "noWarrantyEndItem":"It seems that none of your products have an expired warranty. Click 'Cancel' to view all your products!",
+    "noProductUnderWarranty":"It appears that none of your products are currently under warranty. Click 'Cancel' to view all your products!",
+    "allProducts":"All Products",
+    "warrantyExpiredProduct":"Warranty Expired Product",
+    "productUnderWarranty":"Product under warranty",
+    "filter":"Filter"
     
     
     

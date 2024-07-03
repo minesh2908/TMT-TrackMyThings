@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:track_my_things/gen/assets.gen.dart';
+import 'package:track_my_things/l10n/l10n.dart';
 import 'package:track_my_things/routes/routes_names.dart';
 import 'package:track_my_things/service/calculate_date.dart';
 import 'package:track_my_things/service/shared_prefrence.dart';
@@ -335,9 +336,11 @@ class _MyDashboardState extends State<MyDashboard> {
                                                         RadioListTile(
                                                           contentPadding:
                                                               EdgeInsets.zero,
-                                                          title: const Text(
-                                                            'All Products',
-                                                            style: TextStyle(
+                                                          title: Text(
+                                                            context.lang
+                                                                .allProducts,
+                                                            style:
+                                                                const TextStyle(
                                                               color:
                                                                   Colors.black,
                                                             ),
@@ -354,9 +357,11 @@ class _MyDashboardState extends State<MyDashboard> {
                                                         RadioListTile(
                                                           contentPadding:
                                                               EdgeInsets.zero,
-                                                          title: const Text(
-                                                            '''Product under warranty''',
-                                                            style: TextStyle(
+                                                          title: Text(
+                                                            context.lang
+                                                                .productUnderWarranty,
+                                                            style:
+                                                                const TextStyle(
                                                               color:
                                                                   Colors.black,
                                                             ),
@@ -373,9 +378,11 @@ class _MyDashboardState extends State<MyDashboard> {
                                                         RadioListTile(
                                                           contentPadding:
                                                               EdgeInsets.zero,
-                                                          title: const Text(
-                                                            '''Warranty Expired Product''',
-                                                            style: TextStyle(
+                                                          title: Text(
+                                                            context.lang
+                                                                .warrantyExpiredProduct,
+                                                            style:
+                                                                const TextStyle(
                                                               color:
                                                                   Colors.black,
                                                             ),
@@ -428,7 +435,7 @@ class _MyDashboardState extends State<MyDashboard> {
                                         );
                                       },
                                       child: Text(
-                                        'Filter',
+                                        context.lang.filter,
                                         style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
@@ -464,7 +471,7 @@ class _MyDashboardState extends State<MyDashboard> {
                                           final result =
                                               await Navigator.pushNamed(
                                             context,
-                                            RoutesName.updateProduct,
+                                            RoutesName.productDetails,
                                             arguments: productData,
                                           );
                                           // print('======== $result');
@@ -472,9 +479,6 @@ class _MyDashboardState extends State<MyDashboard> {
                                             scaffoldMessenger.showSnackBar(
                                               const SnackBar(
                                                 content: Text(
-                                                  // context
-                                                  // ignore: lines_longer_than_80_chars
-                                                  //     .lang.productAddSuccess,
                                                   '''Product Updated Successfully!''',
                                                 ),
                                               ),
@@ -483,8 +487,6 @@ class _MyDashboardState extends State<MyDashboard> {
                                             scaffoldMessenger.showSnackBar(
                                               const SnackBar(
                                                 content: Text(
-                                                  // AppLocalizations.of(context)!
-                                                  //     .productDeleteSuccess,
                                                   '''Product Deleted successfully!''',
                                                 ),
                                               ),
@@ -690,7 +692,7 @@ class _MyDashboardState extends State<MyDashboard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height: 100,
+                      height: 120,
                       width: MediaQuery.sizeOf(context).width,
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.secondary,
@@ -705,7 +707,7 @@ class _MyDashboardState extends State<MyDashboard> {
                           children: [
                             if (selectedValue.value == '3')
                               Text(
-                                'There are no product whose warrannty has ended. Tap cancel to see all the product!',
+                                context.lang.noWarrantyEndItem,
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Theme.of(context).colorScheme.surface,
@@ -713,7 +715,7 @@ class _MyDashboardState extends State<MyDashboard> {
                               )
                             else if (selectedValue.value == '2')
                               Text(
-                                'There are no product which are currently in warranty. Tap cancel to see all the product!',
+                                context.lang.noProductUnderWarranty,
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Theme.of(context).colorScheme.surface,
@@ -723,7 +725,7 @@ class _MyDashboardState extends State<MyDashboard> {
                               height: 10,
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 InkWell(
                                   onTap: () {
@@ -737,12 +739,12 @@ class _MyDashboardState extends State<MyDashboard> {
                                       filterValue: selectedValue.value,
                                     );
                                   },
-                                  child: Text(
-                                    'Cancel',
-                                    style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary,
+                                  child: SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.95,
+                                    height: 40,
+                                    child: SubmitButton(
+                                      heading: context.lang.cancel,
                                     ),
                                   ),
                                 ),

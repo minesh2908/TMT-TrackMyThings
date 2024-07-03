@@ -18,4 +18,6 @@ class RoutesName {
   static const String aboutMe = '/about-me';
 
   static const String fullImage = '/full-Image';
+
+  static const String productDetails = '/product-details';
 }

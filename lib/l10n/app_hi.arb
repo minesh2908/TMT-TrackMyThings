@@ -27,7 +27,7 @@
     "productAddSuccess":"उत्पाद सफलतापूर्वक अपडेट किया गया", 
     "productDeleteSuccess":"उत्पाद सफलतापूर्वक हटा दिया गया",
     "home":"होम",
-    "aboutUs":"अबाउट में ",
+    "aboutUs":"अबाउट उस  ",
     "updateProduct": "उत्पाद अपडेट करें",
     "deleteProduct": "उत्पाद हटाएं",
     "areYouSure": "क्या आप निश्चित हैं कि आप हटाना चाहते हैं",
@@ -57,5 +57,11 @@
     "warrantyEndDate": "वारंटी समाप्ति तिथि",
     "productBillNotAvailable":"उत्पाद बिल उपलब्ध नहीं है",
     "verifyDetails":"*कृपया जोड़ने से पहले सभी विवरण सत्यापित करें!",
-    "imagesCanNotBeUpdated":"छवियाँ अद्यतन नहीं की जा सकतीं!"
+    "imagesCanNotBeUpdated":"छवियाँ अद्यतन नहीं की जा सकतीं!",
+    "noWarrantyEndItem":"आपके किसी उत्पाद की वारंटी समाप्त नहीं हुई है. सभी उत्पाद देखने के लिए 'रद्द करें' पर क्लिक करें!",
+    "noProductUnderWarranty":"आपके किसी उत्पाद की वारंटी में नहीं है. सभी उत्पाद देखने के लिए 'रद्द करें' पर क्लिक करें!",
+    "allProducts":"सभी उत्पाद",
+    "warrantyExpiredProduct":"वारंटी समाप्त उत्पाद",
+    "productUnderWarranty":"वारंटी में उत्पाद",
+    "filter":"फ़िल्टर"  
 }

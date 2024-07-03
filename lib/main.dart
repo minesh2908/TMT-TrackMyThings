@@ -12,12 +12,11 @@ import 'package:track_my_things/constants/api_key.dart';
 import 'package:track_my_things/firebase_options.dart';
 import 'package:track_my_things/routes/routes.dart';
 import 'package:track_my_things/routes/routes_names.dart';
-import 'package:track_my_things/service/notification_service.dart';
 import 'package:track_my_things/service/shared_prefrence.dart';
 import 'package:track_my_things/theme/color_sceme.dart';
 import 'package:track_my_things/theme/cubit/theme_cubit.dart';
 import 'package:track_my_things/theme/theme_manager.dart';
-import 'package:track_my_things/views/screens/Language/cubit/select_language_cubit.dart';
+import 'package:track_my_things/views/screens/language/cubit/select_language_cubit.dart';
 import 'package:track_my_things/views/screens/add_product/bloc/product_bloc.dart';
 import 'package:track_my_things/views/screens/auth/bloc/auth_bloc.dart';
 import 'package:track_my_things/views/screens/fetch_image_data/bloc/fetch_image_data_bloc.dart';
@@ -29,39 +28,10 @@ void main() async {
   //Initializing firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await AppPref.init();
-  //initializing firebase messaging for notification b
 
-  await NotificationService.requestNotificationPermission();
-  await NotificationService.initLocalNotification();
-  FirebaseMessaging.onBackgroundMessage(
-    NotificationService.firebaseBackgroundMessageNotification,
-  );
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    if (message.notification != null) {
-      //print('Background message tapped');
-      navigatorKey.currentState!
-          .pushNamed(RoutesName.aboutMe, arguments: message);
-    }
-  });
-
-  //to handle Foreground notifications
-
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    final payloadData = jsonEncode(message.data);
-    // print('Got a foreground message');
-    if (message.notification != null) {
-      NotificationService.showSimpleNotification(
-        title: message.notification!.title!,
-        body: message.notification!.body!,
-        payload: payloadData,
-      );
-    }
-  });
-  //to handle terminated message
-  await NotificationService.firebaseTerminatedMessageNotification();
   //Initializing Gemini
   Gemini.init(apiKey: geminiApiKey);
-  // print('here I am');
+
   runApp(const MyApp());
 }
 

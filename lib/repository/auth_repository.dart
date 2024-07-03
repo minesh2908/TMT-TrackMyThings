@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:track_my_things/modal/user_model.dart';
 import 'package:track_my_things/repository/user_repository.dart';
-import 'package:track_my_things/service/notification_service.dart';
+import 'package:track_my_things/service/fcm_token.dart';
 import 'package:track_my_things/service/shared_prefrence.dart';
 
 class AuthRepository {
@@ -27,7 +27,7 @@ class AuthRepository {
       final userId = userData.user!.uid;
       if (userData.additionalUserInfo!.isNewUser) {
         final user = await UserRepository().createUser(userData.user);
-        final phoneToken = await NotificationService().getDeviceToken();
+        final phoneToken = await FCMToken().getDeviceToken();
         log('Phone Token already - $phoneToken');
         await AppPrefHelper.setDisplayName(
           displayName: userData.user!.displayName!,
@@ -41,7 +41,7 @@ class AuthRepository {
         );
         return user;
       } else {
-        final phoneToken = await NotificationService().getDeviceToken();
+        final phoneToken = await FCMToken().getDeviceToken();
         log('Phone Token - $phoneToken');
         final data = await UserRepository().getCurrentUserDetails(userId);
         await UserRepository().updateUser(data.copyWith(pushToken: phoneToken));
