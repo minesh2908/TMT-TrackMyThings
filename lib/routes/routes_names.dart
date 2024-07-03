@@ -20,4 +20,6 @@ class RoutesName {
   static const String fullImage = '/full-Image';
 
   static const String productDetails = '/product-details';
+
+ 
 }

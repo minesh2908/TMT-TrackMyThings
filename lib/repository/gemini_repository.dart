@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -40,7 +41,8 @@ class GeminiRepository {
           purchasedDate = parsedResult['purchasedDate'] as String?;
           warrantyPeriod = parsedResult['warrantyPeriod'] as int? ?? 12;
         }
-
+        log(productName.toString());
+        log(purchasedDate.toString());
         return ProductModal().copyWith(
           productName: productName,
           purchasedDate: purchasedDate,
@@ -58,8 +60,8 @@ class GeminiRepository {
     try {
       return jsonDecode(result) as Map<String, dynamic>;
     } catch (e) {
+      print('Error parsing JSON: $e');
       throw Exception(e);
-      // print('Error parsing JSON: $e');
     }
   }
 }

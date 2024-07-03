@@ -15,8 +15,8 @@ import 'package:track_my_things/views/screens/add_product/bloc/product_bloc.dart
 import 'package:track_my_things/views/screens/fetch_image_data/bloc/fetch_image_data_bloc.dart';
 
 class MyDashboard extends StatefulWidget {
-  const MyDashboard({super.key});
-
+  const MyDashboard({super.key, this.message});
+  final String? message;
   @override
   State<MyDashboard> createState() => _MyDashboardState();
 }
@@ -45,6 +45,12 @@ class _MyDashboardState extends State<MyDashboard> {
           .read<ProductBloc>()
           .add(SearchProductEvent(searchProductName: _controller.text));
     });
+    if (widget.message != null && widget.message!.isNotEmpty) {
+      Future.delayed(const Duration(seconds: 1), () {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(widget.message!)));
+      });
+    }
   }
 
   @override

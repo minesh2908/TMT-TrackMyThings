@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:track_my_things/constants/urls.dart';
 import 'package:track_my_things/routes/routes_names.dart';
 import 'package:track_my_things/service/shared_prefrence.dart';
 import 'package:track_my_things/theme/cubit/theme_cubit.dart';
 import 'package:track_my_things/views/components/body_widget.dart';
-import 'package:track_my_things/views/screens/language/cubit/select_language_cubit.dart';
 import 'package:track_my_things/views/screens/auth/bloc/auth_bloc.dart';
+import 'package:track_my_things/views/screens/language/cubit/select_language_cubit.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SideNavBar extends StatefulWidget {
   const SideNavBar({super.key});
@@ -73,13 +75,6 @@ class _SideNavBarState extends State<SideNavBar> {
                         height: 20,
                       ),
                       SideNavBarItem(
-                        title: AppLocalizations.of(context)!.home,
-                        icon: Icons.home,
-                        function: () {
-                          Navigator.pushNamed(context, RoutesName.dashboard);
-                        },
-                      ),
-                      SideNavBarItem(
                         title: AppLocalizations.of(context)!.account,
                         icon: Icons.person,
                         function: () {
@@ -125,6 +120,20 @@ class _SideNavBarState extends State<SideNavBar> {
                       SideNavBarItem(
                         title: AppLocalizations.of(context)!.rateApp,
                         icon: Icons.star,
+                      ),
+                      SideNavBarItem(
+                        title: AppLocalizations.of(context)!.privacyPolicy,
+                        icon: Icons.privacy_tip,
+                        function: () {
+                          launchUrl(privacyPolicy);
+                        },
+                      ),
+                      SideNavBarItem(
+                        title: AppLocalizations.of(context)!.termsCondition,
+                        icon: Icons.gavel,
+                        function: () {
+                          launchUrl(termsCondition);
+                        },
                       ),
                       SideNavBarItem(
                         title: AppLocalizations.of(context)!.aboutUs,
