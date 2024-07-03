@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:track_my_things/modal/product_modal.dart';
 import 'package:track_my_things/routes/routes_names.dart';
-import 'package:track_my_things/views/screens/language/select_language.dart';
 import 'package:track_my_things/views/screens/about_me/about_me.dart';
 import 'package:track_my_things/views/screens/add_product/add_product.dart';
 import 'package:track_my_things/views/screens/auth/screens/account.dart';
 import 'package:track_my_things/views/screens/auth/screens/google_sign_in.dart';
 import 'package:track_my_things/views/screens/dashboard.dart';
 import 'package:track_my_things/views/screens/full_image/full_image.dart';
+import 'package:track_my_things/views/screens/language/select_language.dart';
 import 'package:track_my_things/views/screens/product_details/product_details.dart';
 import 'package:track_my_things/views/screens/settings/general_settings.dart';
 import 'package:track_my_things/views/screens/splash_screen/splash_screen.dart';
@@ -17,9 +17,10 @@ class Routes {
   static Route<dynamic> generateRoute(RouteSettings setting) {
     switch (setting.name) {
       case RoutesName.dashboard:
+        final message = setting.arguments as String?;
         return MaterialPageRoute(
           builder: (context) {
-            return const MyDashboard();
+            return MyDashboard(message: message);
           },
         );
       case RoutesName.authScreen:
@@ -45,9 +46,11 @@ class Routes {
         );
       case RoutesName.productDetails:
         final productModal = setting.arguments! as ProductModal;
-        return MaterialPageRoute(builder: (context) {
-          return ProductDetails(productModal: productModal);
-        });
+        return MaterialPageRoute(
+          builder: (context) {
+            return ProductDetails(productModal: productModal);
+          },
+        );
       case RoutesName.fullImage:
         final imageUrl = setting.arguments! as String;
         return MaterialPageRoute(
@@ -88,6 +91,7 @@ class Routes {
             return const AboutMe();
           },
         );
+
       default:
         return MaterialPageRoute(
           builder: (context) {

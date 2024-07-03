@@ -56,9 +56,17 @@ class _UpdateProductState extends State<UpdateProduct> {
       listener: (context, state) {
         if (state is ProductSuccessState) {
           if (productStateNotifier.value == 'deleted') {
-            Navigator.pushReplacementNamed(context, RoutesName.dashboard);
-          } else {
-            Navigator.pop(context, 'updated');
+            Navigator.pushReplacementNamed(
+              context,
+              RoutesName.dashboard,
+              arguments: 'Product deleted successfully!',
+            );
+          } else if (productStateNotifier.value == 'updated') {
+            Navigator.pushReplacementNamed(
+              context,
+              RoutesName.dashboard,
+              arguments: 'Product updated successfully!',
+            );
           }
         }
         if (state is ProductFailureState) {
@@ -125,7 +133,6 @@ class _UpdateProductState extends State<UpdateProduct> {
                                         ),
                                       );
                                   productStateNotifier.value = 'deleted';
-                                  Navigator.pop(context);
                                 },
                                 child: Text(
                                   context.lang.delete,

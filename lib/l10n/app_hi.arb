@@ -63,5 +63,7 @@
     "allProducts":"सभी उत्पाद",
     "warrantyExpiredProduct":"वारंटी समाप्त उत्पाद",
     "productUnderWarranty":"वारंटी में उत्पाद",
-    "filter":"फ़िल्टर"  
+    "filter":"फ़िल्टर",
+    "privacyPolicy":"गोपनीयता नीति",
+    "termsCondition":"नियम और शर्त"
 }

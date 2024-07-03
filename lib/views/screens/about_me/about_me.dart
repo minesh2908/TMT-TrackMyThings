@@ -160,7 +160,7 @@ class _AboutMeState extends State<AboutMe> {
                 ),
               ],
             ),
-            const Text('Made with 💙 in India'),
+             Text('Made with 💙 in India',style:TextStyle(color: Theme.of(context).colorScheme.scrim)),
           ],
         ),
       ),
