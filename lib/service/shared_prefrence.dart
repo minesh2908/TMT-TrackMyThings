@@ -200,5 +200,7 @@ class AppPrefHelper {
     await AppPref.remove(AppPrefKey.email);
     await AppPref.remove(AppPrefKey.phoneNumber);
     await AppPref.remove(AppPrefKey.defaultWarrantyPeriod);
+    await AppPrefHelper.setLanguage(language: 'en');
+  
   }
 }
