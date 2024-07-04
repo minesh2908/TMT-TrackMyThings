@@ -10,7 +10,7 @@
     
     
     <application
-        android:label="TMT"
+        android:label="TMT : Track My Things"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

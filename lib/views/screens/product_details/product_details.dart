@@ -169,11 +169,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                                     arguments: widget.productModal.productImage,
                                   );
                                 },
-                                child: Hero(
-                                  tag: 'productImage',
-                                  child: Image.network(
-                                    widget.productModal.productImage!,
-                                  ),
+                                child: Image.network(
+                                  widget.productModal.productImage!,
                                 ),
                               )
                             else

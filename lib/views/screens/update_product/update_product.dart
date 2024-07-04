@@ -318,11 +318,8 @@ class _UpdateProductState extends State<UpdateProduct> {
                                       ),
                                       if (widget.productModal!.productImage !=
                                           null)
-                                        Hero(
-                                          tag: 'productImage',
-                                          child: Image.network(
-                                            widget.productModal!.productImage!,
-                                          ),
+                                        Image.network(
+                                          widget.productModal!.productImage!,
                                         )
                                       else
                                         Text(

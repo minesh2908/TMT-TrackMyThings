@@ -527,30 +527,28 @@ class _MyDashboardState extends State<MyDashboard> {
                                                 child: productData
                                                             .productImage !=
                                                         null
-                                                    ? Hero(
-                                                        tag: 'productImage',
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8),
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                              12,
-                                                            ),
-                                                            child:
-                                                                Image.network(
-                                                              productData
-                                                                  .productImage!,
-                                                              fit: BoxFit.cover,
-                                                              height: 140,
-                                                              width: MediaQuery
-                                                                      .of(
-                                                                    context,
-                                                                  ).size.width *
-                                                                  0.30,
-                                                            ),
+                                                    ? Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                            12,
+                                                          ),
+                                                          child: Image.network(
+                                                            productData
+                                                                .productImage!,
+                                                            fit: BoxFit.cover,
+                                                            height: 140,
+                                                            width:
+                                                                MediaQuery.of(
+                                                                      context,
+                                                                    )
+                                                                        .size
+                                                                        .width *
+                                                                    0.30,
                                                           ),
                                                         ),
                                                       )

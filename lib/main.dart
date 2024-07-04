@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,10 +13,10 @@ import 'package:track_my_things/service/shared_prefrence.dart';
 import 'package:track_my_things/theme/color_sceme.dart';
 import 'package:track_my_things/theme/cubit/theme_cubit.dart';
 import 'package:track_my_things/theme/theme_manager.dart';
-import 'package:track_my_things/views/screens/language/cubit/select_language_cubit.dart';
 import 'package:track_my_things/views/screens/add_product/bloc/product_bloc.dart';
 import 'package:track_my_things/views/screens/auth/bloc/auth_bloc.dart';
 import 'package:track_my_things/views/screens/fetch_image_data/bloc/fetch_image_data_bloc.dart';
+import 'package:track_my_things/views/screens/language/cubit/select_language_cubit.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
@@ -63,9 +60,9 @@ class MyApp extends StatelessWidget {
             builder: (context, state) {
               // print('From language state');
               return MaterialApp(
+                title: 'TMT : Track My Things',
                 navigatorKey: navigatorKey,
                 debugShowCheckedModeBanner: false,
-                title: 'Warranty Tracker App',
                 themeMode: themeSate ? ThemeMode.dark : ThemeMode.light,
                 theme: appTheme(
                   context,
