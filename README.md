@@ -1,16 +1,13 @@
-# track_my_things
+# Track My Things
 
-A new Flutter project.
+Stay on top of your product warranties with Track My Things, a cutting-edge Flutter app that utilizes AI capabilities to make tracking and managing warranties a breeze. This innovative app not only reminds you of upcoming warranty expirations but also simplifies the process of adding new products with its intelligent AI-powered features
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## Screenshots
 
-A few resources to get you started if this is your first Flutter project:
+![1](https://github.com/user-attachments/assets/7502e3a5-a9ee-44f4-98c1-bbcca82f6ce7)
+![2](https://github.com/user-attachments/assets/6005f3a6-1a61-41d3-8b06-95a6644ff30b)
+![3](https://github.com/user-attachments/assets/efbedd0e-2f11-4006-b5e8-c16043d26810)
+![4](https://github.com/user-attachments/assets/c25b09f6-027e-4564-bebc-1dc41f91b03e)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
