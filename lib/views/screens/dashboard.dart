@@ -84,7 +84,7 @@ class _MyDashboardState extends State<MyDashboard> {
                     ),
                   )
                 : Text(
-                    '''${AppLocalizations.of(context)!.welcome} ${AppPrefHelper.getDisplayName()}''',
+                    '''${AppLocalizations.of(context)!.welcome} ${AppPrefHelper.getDisplayName().truncateAtFirstSpace()}''',
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
             actions: [

@@ -45,4 +45,13 @@ extension StringExtensions on String {
     final spaceIndex = indexOf(' ');
     return spaceIndex == -1 ? this : substring(0, spaceIndex);
   }
+
+String truncateAtFirstSpace() {
+    int spaceIndex = this.indexOf(' ');
+    if (spaceIndex != -1) {
+      return this.substring(0, spaceIndex);
+    } else {
+      return this;
+    }
+  }
 }
