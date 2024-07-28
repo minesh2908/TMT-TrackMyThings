@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -28,6 +29,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ) async {
     emit(ProductLoadingState());
     try {
+      
       String? productImageRef;
       String? billImageRef;
       final uid = DateTime.now().microsecondsSinceEpoch.toString();

@@ -91,7 +91,9 @@ class _AddProductState extends State<AddProduct> {
             productNameController.text =
                 ImageDataState.productModal!.productName!;
           }
-          if (ImageDataState.productModal!.purchasedDate!.isNotEmpty) {
+          if (ImageDataState.productModal!.purchasedDate!.isNotEmpty &&
+              RegExp(r'^\d{2} \w{3} \d{4}$')
+                  .hasMatch(ImageDataState.productModal!.purchasedDate!)) {
             purchasedDateController.text =
                 ImageDataState.productModal!.purchasedDate!;
             calculateEndDate();

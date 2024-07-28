@@ -114,7 +114,7 @@ class _AccountDetailsState extends State<AccountDetails> {
             child: Center(
               child: BlocConsumer<AuthBloc, AuthState>(
                 listener: (context, state) {
-                  print(state.runtimeType);
+            
                   if (state is AccountUpdatedState) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

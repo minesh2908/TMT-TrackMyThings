@@ -57,7 +57,8 @@ dependencies:
   flutter_svg: ^2.0.10+1  
   webview_flutter: ^4.8.0
   url_launcher: ^6.2.5
-  flutter_gemini: ^2.0.4
+  flutter_gemini: 
+    path: ./flutter_gemini
   firebase_messaging: ^15.0.2
   logger: ^2.3.0
   
