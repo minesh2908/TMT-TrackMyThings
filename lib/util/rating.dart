@@ -90,7 +90,7 @@ class showRating {
                         width: 90,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: Colors.green,
+                          color: const Color(0xFF546FFF),
                         ),
                         child: const Center(
                           child: Text(
