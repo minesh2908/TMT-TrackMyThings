@@ -73,7 +73,7 @@ class showRating {
                     ),
                     InkWell(
                       onTap: () {
-                        print(currentRating);
+                        
                         if (currentRating < 3) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(

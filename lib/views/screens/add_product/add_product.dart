@@ -81,12 +81,12 @@ class _AddProductState extends State<AddProduct> {
     return BlocConsumer<FetchImageDataBloc, FetchImageDataState>(
       listener: (context, ImageDataState) {},
       builder: (context, ImageDataState) {
-        print(ImageDataState.runtimeType);
+    
         final isFetchingData =
             ImageDataState.runtimeType == FetchingImageDataLoadingState;
 
         if (ImageDataState is FetchingImageDataSuccessState) {
-          print('Image Data - ${ImageDataState.productModal!.productName!}');
+          
           if (ImageDataState.productModal!.productName!.isNotEmpty) {
             productNameController.text =
                 ImageDataState.productModal!.productName!;
@@ -392,9 +392,7 @@ class _AddProductState extends State<AddProduct> {
                                                   productImageNotifier.value,
                                             ),
                                           );
-                                      print(
-                                        '------${ImageDataState.runtimeType}',
-                                      );
+                                   
                                     }
                                   },
                                   child: SubmitButton(

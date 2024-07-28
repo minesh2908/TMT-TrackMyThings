@@ -193,7 +193,6 @@ class _UpdateProductState extends State<UpdateProduct> {
                                 )
                               : InkWell(
                                   onTap: () {
-                                    print('------');
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                         content: Text(
@@ -332,7 +331,6 @@ class _UpdateProductState extends State<UpdateProduct> {
                                 )
                               : InkWell(
                                   onTap: () {
-                                    print('------');
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                         content: Text(

@@ -15,6 +15,7 @@ ThemeData appTheme(
     useMaterial3: true,
     textTheme: GoogleFonts.ptSansNarrowTextTheme(baseTheme.textTheme),
   ).copyWith(
-      scaffoldBackgroundColor: colorScheme.surface,
-      dialogTheme: DialogTheme(backgroundColor: colorScheme.surface));
+    scaffoldBackgroundColor: colorScheme.surface,
+    dialogTheme: DialogTheme(backgroundColor: colorScheme.surface),
+  );
 }

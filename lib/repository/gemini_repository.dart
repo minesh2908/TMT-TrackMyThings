@@ -60,7 +60,7 @@ class GeminiRepository {
     try {
       return jsonDecode(result) as Map<String, dynamic>;
     } catch (e) {
-      print('Error parsing JSON: $e');
+  
       throw Exception(e);
     }
   }

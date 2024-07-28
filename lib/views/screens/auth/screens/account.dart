@@ -31,7 +31,6 @@ class _AccountDetailsState extends State<AccountDetails> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        print('State - $State');
         if (state is AuthSuccessState) {
           Navigator.pushReplacementNamed(context, RoutesName.authScreen);
         }
@@ -114,7 +113,6 @@ class _AccountDetailsState extends State<AccountDetails> {
             child: Center(
               child: BlocConsumer<AuthBloc, AuthState>(
                 listener: (context, state) {
-            
                   if (state is AccountUpdatedState) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
@@ -174,7 +172,6 @@ class _AccountDetailsState extends State<AccountDetails> {
                               InkWell(
                                 onTap: () async {
                                   if (_formKey.currentState!.validate()) {
-                                    print(state.userModel);
                                     context.read<AuthBloc>().add(
                                           UpdateUserAccountDetails(
                                             userModel:
