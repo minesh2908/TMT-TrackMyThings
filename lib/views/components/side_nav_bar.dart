@@ -5,6 +5,7 @@ import 'package:track_my_things/constants/urls.dart';
 import 'package:track_my_things/routes/routes_names.dart';
 import 'package:track_my_things/service/shared_prefrence.dart';
 import 'package:track_my_things/theme/cubit/theme_cubit.dart';
+import 'package:track_my_things/util/rating.dart';
 import 'package:track_my_things/views/components/body_widget.dart';
 import 'package:track_my_things/views/screens/auth/bloc/auth_bloc.dart';
 import 'package:track_my_things/views/screens/language/cubit/select_language_cubit.dart';
@@ -118,9 +119,11 @@ class _SideNavBarState extends State<SideNavBar> {
                         ),
                       ),
                       SideNavBarItem(
-                        title: AppLocalizations.of(context)!.rateApp,
-                        icon: Icons.star,
-                      ),
+                          title: AppLocalizations.of(context)!.rateApp,
+                          icon: Icons.star,
+                          function: () async {
+                            await showRating.launchRatingBar(context);
+                          }),
                       SideNavBarItem(
                         title: AppLocalizations.of(context)!.privacyPolicy,
                         icon: Icons.privacy_tip,

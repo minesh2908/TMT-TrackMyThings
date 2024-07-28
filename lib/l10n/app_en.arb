@@ -64,7 +64,13 @@
     "productUnderWarranty":"Product under warranty",
     "filter":"Filter",
     "privacyPolicy":"Privacy Policy",
-    "termsCondition":"Terms & Condition"
+    "termsCondition":"Terms & Condition",
+    "filterProduct":"Filter Product",
+    "applyFilter":"Apply Filter",
+    "warrantyEndsOn":"Warranty end on",
+    "monthsLeft":"months left",
+    "daysLeft":"days left",
+    "warrantyHasExpired":"Warranty has expired"
     
     
     

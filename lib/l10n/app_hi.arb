@@ -65,5 +65,11 @@
     "productUnderWarranty":"वारंटी में उत्पाद",
     "filter":"फ़िल्टर",
     "privacyPolicy":"गोपनीयता नीति",
-    "termsCondition":"नियम और शर्त"
+    "termsCondition":"नियम और शर्त",
+    "filterProduct": "उत्पाद छांटें",
+    "applyFilter": "फिल्टर लागू करें",
+    "warrantyEndsOn": "वारंटी समाप्ति",
+    "monthsLeft": "महीने बचे",
+    "daysLeft": "दिन बचे",
+    "warrantyHasExpired": "वारंटी समाप्त"
 }

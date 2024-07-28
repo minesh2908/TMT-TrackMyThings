@@ -61,6 +61,7 @@ dependencies:
     path: ./flutter_gemini
   firebase_messaging: ^15.0.2
   logger: ^2.3.0
+  flutter_rating_bar: ^4.0.1
   
    
 

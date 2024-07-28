@@ -1,4 +1,7 @@
-String calculateDateDifference(String warrantEndDate) {
+import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+String calculateDateDifference(String warrantEndDate, BuildContext context) {
   DateTime endDate;
   try {
     endDate = DateTime.parse(warrantEndDate);
@@ -10,15 +13,15 @@ String calculateDateDifference(String warrantEndDate) {
   final differenceInDays = endDate.difference(now).inDays;
 
   if (differenceInDays < 0) {
-    return 'Warranty has expired';
+    return AppLocalizations.of(context)!.warrantyHasExpired;
   }
 
   if (differenceInDays > 30) {
     final differenceInMonths = (differenceInDays / 30).floor();
-    return '$differenceInMonths months left';
+    return '$differenceInMonths ${AppLocalizations.of(context)!.monthsLeft}';
   }
 
-  return '$differenceInDays days left';
+  return '$differenceInDays ${AppLocalizations.of(context)!.daysLeft}';
 }
 
 double calculateWarrantyPercentage(
