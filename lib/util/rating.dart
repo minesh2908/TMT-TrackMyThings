@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class showRating {
   static Future<void> launchRatingBar(BuildContext context) async {
-    const rating = 3;
+    var currentRating = 3.0;
     await showDialog<void>(
       context: context,
       builder: (context) {
@@ -33,12 +33,13 @@ class showRating {
                 initialRating: 3,
                 minRating: 1,
                 itemPadding: const EdgeInsets.symmetric(horizontal: 4),
+                itemSize: MediaQuery.of(context).size.width * .08,
                 itemBuilder: (context, _) => const Icon(
                   Icons.star,
                   color: Colors.amber,
                 ),
                 onRatingUpdate: (rating) {
-                  rating = rating;
+                  currentRating = rating;
                 },
                 unratedColor: Colors.black.withOpacity(0.5),
               ),
@@ -72,17 +73,16 @@ class showRating {
                     ),
                     InkWell(
                       onTap: () {
-                        print(rating);
-                        if (rating < 3) {
+                        print(currentRating);
+                        if (currentRating < 3) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Thank you for rating us!'),
                             ),
                           );
                           Navigator.pop(context);
-                        } else if (rating >= 3) {
+                        } else if (currentRating >= 3) {
                           launchUrl(tmtApp);
-                          Navigator.pushReplacementNamed(context, '/dashboard');
                         }
                       },
                       child: Container(
