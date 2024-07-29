@@ -28,6 +28,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ) async {
     emit(ProductLoadingState());
     try {
+      
       String? productImageRef;
       String? billImageRef;
       final uid = DateTime.now().microsecondsSinceEpoch.toString();

@@ -449,10 +449,9 @@ packages:
   flutter_gemini:
     dependency: "direct main"
     description:
-      name: flutter_gemini
-      sha256: c6079dc6f95c6191e609e9cc627c268ef0bf2526cbba6a2f61aa41ea0053e9a0
-      url: "https://pub.dev"
-    source: hosted
+      path: flutter_gemini
+      relative: true
+    source: path
     version: "2.0.4"
   flutter_gen_core:
     dependency: transitive
@@ -491,6 +490,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.20"
+  flutter_rating_bar:
+    dependency: "direct main"
+    description:
+      name: flutter_rating_bar
+      sha256: d2af03469eac832c591a1eba47c91ecc871fe5708e69967073c043b2d775ed93
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.1"
   flutter_svg:
     dependency: "direct main"
     description:

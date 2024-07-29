@@ -84,7 +84,7 @@ class _MyDashboardState extends State<MyDashboard> {
                     ),
                   )
                 : Text(
-                    '''${AppLocalizations.of(context)!.welcome} ${AppPrefHelper.getDisplayName()}''',
+                    '''${AppLocalizations.of(context)!.welcome} ${AppPrefHelper.getDisplayName().truncateAtFirstSpace()}''',
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
             actions: [
@@ -191,9 +191,13 @@ class _MyDashboardState extends State<MyDashboard> {
                                                         const SizedBox(
                                                           height: 20,
                                                         ),
-                                                        const Text(
-                                                          'Filter Product',
-                                                          style: TextStyle(
+                                                        Text(
+                                                          AppLocalizations.of(
+                                                            context,
+                                                          )!
+                                                              .filterProduct,
+                                                          style:
+                                                              const TextStyle(
                                                             fontSize: 24,
                                                           ),
                                                         ),
@@ -329,9 +333,13 @@ class _MyDashboardState extends State<MyDashboard> {
                                                         const SizedBox(
                                                           height: 20,
                                                         ),
-                                                        const Text(
-                                                          'Filter Product',
-                                                          style: TextStyle(
+                                                        Text(
+                                                          AppLocalizations.of(
+                                                            context,
+                                                          )!
+                                                              .filterProduct,
+                                                          style:
+                                                              const TextStyle(
                                                             fontSize: 24,
                                                           ),
                                                         ),
@@ -425,10 +433,13 @@ class _MyDashboardState extends State<MyDashboard> {
                                                               context,
                                                             );
                                                           },
-                                                          child:
-                                                              const SubmitButton(
+                                                          child: SubmitButton(
                                                             heading:
-                                                                'Apply Filter',
+                                                                AppLocalizations
+                                                                        .of(
+                                                              context,
+                                                            )!
+                                                                    .applyFilter,
                                                           ),
                                                         ),
                                                       ],
@@ -463,6 +474,7 @@ class _MyDashboardState extends State<MyDashboard> {
                                     final remainingTime =
                                         calculateDateDifference(
                                       productData.warrantyEndsDate!,
+                                      context
                                     );
 
                                     return Padding(
@@ -609,7 +621,7 @@ class _MyDashboardState extends State<MyDashboard> {
                                                     ),
                                                     Expanded(
                                                       child: Text(
-                                                        '''Warranty ends on ${productData.warrantyEndsDate!.toDateTime()!.toFormattedDate}''',
+                                                        '''${AppLocalizations.of(context)!.warrantyEndsOn} ${productData.warrantyEndsDate!.toDateTime()!.toFormattedDate}''',
                                                         maxLines: 1,
                                                         style: TextStyle(
                                                           color: Theme.of(

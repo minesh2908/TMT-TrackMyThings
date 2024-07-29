@@ -55,6 +55,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                     ),
                   ),
                 );
+                
               }
             },
             builder: (context, state) {

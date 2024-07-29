@@ -13,7 +13,9 @@ class ProductRepository {
 
   Future<void> addProduct(ProductModal? productModal, String uid) async {
     try {
+      log('I am here');
       await productCollection.doc(uid).set(productModal!.toMap());
+      log('2');
     } catch (e) {
       log(e.toString());
       throw Exception();

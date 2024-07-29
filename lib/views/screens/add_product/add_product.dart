@@ -81,17 +81,19 @@ class _AddProductState extends State<AddProduct> {
     return BlocConsumer<FetchImageDataBloc, FetchImageDataState>(
       listener: (context, ImageDataState) {},
       builder: (context, ImageDataState) {
-        print(ImageDataState.runtimeType);
+    
         final isFetchingData =
             ImageDataState.runtimeType == FetchingImageDataLoadingState;
 
         if (ImageDataState is FetchingImageDataSuccessState) {
-          print('Image Data - ${ImageDataState.productModal!.productName!}');
+          
           if (ImageDataState.productModal!.productName!.isNotEmpty) {
             productNameController.text =
                 ImageDataState.productModal!.productName!;
           }
-          if (ImageDataState.productModal!.purchasedDate!.isNotEmpty) {
+          if (ImageDataState.productModal!.purchasedDate!.isNotEmpty &&
+              RegExp(r'^\d{2} \w{3} \d{4}$')
+                  .hasMatch(ImageDataState.productModal!.purchasedDate!)) {
             purchasedDateController.text =
                 ImageDataState.productModal!.purchasedDate!;
             calculateEndDate();
@@ -390,9 +392,7 @@ class _AddProductState extends State<AddProduct> {
                                                   productImageNotifier.value,
                                             ),
                                           );
-                                      print(
-                                        '------${ImageDataState.runtimeType}',
-                                      );
+                                   
                                     }
                                   },
                                   child: SubmitButton(

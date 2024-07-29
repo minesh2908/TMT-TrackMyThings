@@ -51,11 +51,11 @@
     "flutterDeveloper":"Flutter Developer",
     "aboutMeText":" This app is developed and maintained by Minesh Sarawogi(Me). I am a 2 years experienced Flutter developer with experience of multiple apps. If this app helps you any way them please rate app 5 star to support us. And if you face any issue while working using app you can directly message us.  Thank You!",
     "thankYou":"Thank You",
-    "settingsUpdatedSuccess":"Settings Updated Succesfully",
+    "settingsUpdatedSuccess":"Settings Updated Successfully",
     "defaultWarrantyCanNotBeEmpty":"Default Warranty Period can not be empty",
     "warrantyEndDate":"Warranty End Date",
     "productBillNotAvailable":"Product Bill is not Available",
-    "verifyDetails":"*Please verify all details before adding!",
+    "verifyDetails":"*Please Verify all details before adding as its been fetched by AI!",
     "imagesCanNotBeUpdated":"Images can not be updated!",
     "noWarrantyEndItem":"It seems that none of your products have an expired warranty. Click 'Cancel' to view all your products!",
     "noProductUnderWarranty":"It appears that none of your products are currently under warranty. Click 'Cancel' to view all your products!",
@@ -64,7 +64,13 @@
     "productUnderWarranty":"Product under warranty",
     "filter":"Filter",
     "privacyPolicy":"Privacy Policy",
-    "termsCondition":"Terms & Condition"
+    "termsCondition":"Terms & Condition",
+    "filterProduct":"Filter Product",
+    "applyFilter":"Apply Filter",
+    "warrantyEndsOn":"Warranty end on",
+    "monthsLeft":"months left",
+    "daysLeft":"days left",
+    "warrantyHasExpired":"Warranty has expired"
     
     
     

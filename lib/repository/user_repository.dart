@@ -77,10 +77,9 @@ class UserRepository {
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
         await user.delete();
-        print(AppPrefHelper.getUID());
         await userCollection.doc(userId).delete();
         await AuthRepository().signOutFromGoogle();
-        print('user here'); // Then delete the user
+        // Then delete the user
       } else {
         throw Exception();
       }

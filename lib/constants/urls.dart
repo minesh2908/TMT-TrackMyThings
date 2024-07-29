@@ -29,3 +29,7 @@ final Uri termsCondition = Uri(
   path:
       'document/d/1-6XolOwZVjdDf6ZKO9gpfv2GntKITAL7K3MTUDsCRtA/edit?usp=sharing',
 );
+
+final Uri tmtApp = Uri.parse(
+  'https://play.google.com/store/apps/details?id=online.mineshsarawogi.track_my_things',
+);
