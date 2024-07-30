@@ -3,6 +3,8 @@
 <plist version="1.0">
 <dict>
     
+	 <key>NSPhotoLibraryAddUsageDescription</key>
+	 <string>photo</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Used to Picking Image from camera</string>
 	<key>NSCameraUsageDescription</key>
