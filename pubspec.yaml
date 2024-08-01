@@ -67,6 +67,7 @@ dependencies:
   saver_gallery: ^3.0.5
   permission_handler: ^11.3.1
   device_info_plus: ^10.1.0
+  firebase_crashlytics: ^4.0.4
   
    
 

@@ -43,6 +43,7 @@ class GeminiRepository {
         }
         log(productName.toString());
         log(purchasedDate.toString());
+        log(warrantyPeriod.toString());
         return ProductModal().copyWith(
           productName: productName,
           purchasedDate: purchasedDate,
