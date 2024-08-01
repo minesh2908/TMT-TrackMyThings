@@ -12,7 +12,7 @@ class UserRepository {
   Future<UserModel> createUser(User? user) async {
     try {
       final phoneToken = await FCMToken().getDeviceToken();
-      //print('Phone Token - $phoneToken');
+
       await userCollection.doc(AppPrefHelper.getUID()).set({
         'userId': user?.uid,
         'email': user?.email,
@@ -39,7 +39,7 @@ class UserRepository {
 
   Future<void> updateUser(UserModel user) async {
     try {
-      // print('update user called');
+
       await userCollection
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .set(user.toMap());
@@ -72,7 +72,7 @@ class UserRepository {
   }
 
   Future<void> deleteUser(String userId) async {
-    //print('Delete User');
+
     try {
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {

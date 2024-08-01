@@ -33,7 +33,6 @@ class _UpdateProductState extends State<UpdateProduct> {
 
   @override
   void initState() {
-    //print('Product Id - ${widget.productModal!.productId}');
     productNameController =
         TextEditingController(text: widget.productModal?.productName);
     purchasedDateController = TextEditingController(

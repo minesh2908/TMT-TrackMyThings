@@ -21,7 +21,7 @@ class _GoogleSignInState extends State<GoogleSignIn> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        //print(state.runtimeType);
+      
         if (state.runtimeType == AuthSuccessState) {
           Navigator.pushReplacementNamed(
             context,
@@ -44,7 +44,7 @@ class _GoogleSignInState extends State<GoogleSignIn> {
                         return PageView.builder(
                           onPageChanged: (int index) {
                             count.value = index;
-                            // print(count.value);
+                      
                           },
                           itemCount: sliderData.length,
                           itemBuilder: (context, index) {

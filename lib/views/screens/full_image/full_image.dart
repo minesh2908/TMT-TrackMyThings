@@ -1,63 +1,124 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
+import 'dart:io';
 
-class FullImage extends StatelessWidget {
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:saver_gallery/saver_gallery.dart';
+import 'package:track_my_things/util/permission.dart';
+
+class FullImage extends StatefulWidget {
   const FullImage({required this.imageUrl, super.key});
   final String imageUrl;
+
+  @override
+  State<FullImage> createState() => _FullImageState();
+}
+
+class _FullImageState extends State<FullImage> {
+  double _progress = 0;
+  bool _isDownloading = false;
+
+  Future<void> downloadImage(String imageUrl, BuildContext context) async {
+    try {
+      final hasPermission = await requestStoragePermission();
+      if (hasPermission) {
+        final tempDir = await getTemporaryDirectory();
+        // log(tempDir.path);
+        final tempPath = tempDir.path;
+        final fileName = 'downloaded_image-${DateTime.now()}';
+        final fullPath = '$tempPath/$fileName';
+        // log(fullPath);
+
+        final dio = Dio();
+        final response = await dio.get(
+          imageUrl,
+          options: Options(responseType: ResponseType.bytes),
+          onReceiveProgress: (received, total) {
+            if (total != -1) {
+              setState(() {
+                _progress = received / total;
+                _isDownloading = true;
+              });
+            }
+          },
+        );
+
+        final file = File(fullPath);
+        await file.writeAsBytes(response.data as List<int>);
+
+        final imageBytes = await file.readAsBytes();
+
+        final success = await SaverGallery.saveImage(
+          imageBytes,
+          name: fileName,
+          androidExistNotSave: false,
+        );
+
+        if (success.isSuccess) {
+          setState(() {
+            _isDownloading = false;
+          });
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Image saved to gallery!')),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Failed to save image to gallery!')),
+          );
+        }
+        log(success.toString());
+      }
+    } catch (e) {
+      setState(() {
+        _isDownloading = false;
+      });
+      log('Exception: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Stack(
-          children: [
-            // Network image covering whole area
-            Positioned.fill(
-              child: InteractiveViewer(
-                child: Image.network(
-                  imageUrl,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-            // Top left corner with cross icon
-            Positioned(
-              top: 16,
-              left: 16,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          leading: const BackButton(),
+          elevation: 2,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: InkWell(
+                onTap: () async {
+                  // Add your download functionality here
+                  await downloadImage(widget.imageUrl, context);
                 },
-                child: Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary,
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  ),
-                  child: const Icon(
-                    Icons.close,
-                    color: Colors.white,
-                    size: 28,
-                  ),
+                child: const Text(
+                  'Download',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                 ),
               ),
             ),
-            // Top right corner with download icon
-            // Positioned(
-            //   top: 16,
-            //   right: 16,
-            //   child: GestureDetector(
-            //     onTap: () {
-            //       // Add your download functionality here
-            //       print('Download button tapped');
-            //     },
-            //     child: const Icon(
-            //       Icons.file_download,
-            //       color: Colors.white,
-            //     ),
-            //   ),
-            // ),
           ],
         ),
+        body: Center(
+          child: InteractiveViewer(
+            child: Image.network(
+              widget.imageUrl,
+              fit: BoxFit.contain,
+              height: MediaQuery.of(context).size.height,
+            ),
+          ),
+        ),
+        bottomNavigationBar: _isDownloading
+            ? SizedBox(
+                height: 15,
+                child: LinearProgressIndicator(
+                  value: _progress,
+                ),
+              )
+            : const SizedBox(),
       ),
     );
   }

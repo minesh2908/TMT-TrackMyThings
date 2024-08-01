@@ -1,4 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,6 +32,14 @@ void main() async {
   Gemini.init(apiKey: geminiApiKey);
 
   runApp(const MyApp());
+  FlutterError.onError = (errorDetails) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  };
+
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
 }
 
 class MyApp extends StatelessWidget {
@@ -55,10 +65,10 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocBuilder<ThemeCubit, bool>(
         builder: (context, themeSate) {
-          // print('From theme state');
+         
           return BlocBuilder<SelectLanguageCubit, String>(
             builder: (context, state) {
-              // print('From language state');
+             
               return MaterialApp(
                 title: 'TMT : Track My Things',
                 navigatorKey: navigatorKey,

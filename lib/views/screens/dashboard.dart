@@ -474,7 +474,7 @@ class _MyDashboardState extends State<MyDashboard> {
                                     final remainingTime =
                                         calculateDateDifference(
                                       productData.warrantyEndsDate!,
-                                      context
+                                      context,
                                     );
 
                                     return Padding(
@@ -492,7 +492,7 @@ class _MyDashboardState extends State<MyDashboard> {
                                             RoutesName.productDetails,
                                             arguments: productData,
                                           );
-                                          // print('======== $result');
+
                                           if (result == 'updated') {
                                             scaffoldMessenger.showSnackBar(
                                               const SnackBar(
@@ -878,7 +878,7 @@ class _MyDashboardState extends State<MyDashboard> {
                   );
                   context.read<FetchImageDataBloc>().add(ChangeStateEvent());
                   if (!mounted) return;
-                  //print('======== $result');
+
                   if (result == true) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

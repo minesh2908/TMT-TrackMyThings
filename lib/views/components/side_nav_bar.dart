@@ -113,17 +113,18 @@ class _SideNavBarState extends State<SideNavBar> {
                             });
                             final themeCubit = context.read<ThemeCubit>();
                             await AppPrefHelper.setDarkTheme(darkTheme: value);
-                            // print(AppPrefHelper.getDarkTheme());
+
                             await themeCubit.changeTheme(value);
                           },
                         ),
                       ),
                       SideNavBarItem(
-                          title: AppLocalizations.of(context)!.rateApp,
-                          icon: Icons.star,
-                          function: () async {
-                            await showRating.launchRatingBar(context);
-                          }),
+                        title: AppLocalizations.of(context)!.rateApp,
+                        icon: Icons.star,
+                        function: () async {
+                          await showRating.launchRatingBar(context);
+                        },
+                      ),
                       SideNavBarItem(
                         title: AppLocalizations.of(context)!.privacyPolicy,
                         icon: Icons.privacy_tip,
