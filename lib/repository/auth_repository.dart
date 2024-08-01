@@ -55,7 +55,7 @@ class AuthRepository {
   }
 
   Future<bool> signOutFromGoogle() async {
-    //  print('Sign out called');
+   
     try {
       await FirebaseAuth.instance.signOut();
       await GoogleSignIn().signOut();

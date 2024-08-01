@@ -63,7 +63,7 @@ class ProductRepository {
   }
 
   Future<void> deleteProduct(ProductModal productModal) async {
-    //print('Delete called');
+  
     try {
       if (productModal.billImage != null) {
         final billImage =

@@ -65,10 +65,10 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocBuilder<ThemeCubit, bool>(
         builder: (context, themeSate) {
-          // print('From theme state');
+         
           return BlocBuilder<SelectLanguageCubit, String>(
             builder: (context, state) {
-              // print('From language state');
+             
               return MaterialApp(
                 title: 'TMT : Track My Things',
                 navigatorKey: navigatorKey,

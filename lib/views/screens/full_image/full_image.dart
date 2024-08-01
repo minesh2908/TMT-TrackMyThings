@@ -94,7 +94,10 @@ class _FullImageState extends State<FullImage> {
                   // Add your download functionality here
                   await downloadImage(widget.imageUrl, context);
                 },
-                child: const Text('Download'),
+                child: const Text(
+                  'Download',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                ),
               ),
             ),
           ],
@@ -104,6 +107,7 @@ class _FullImageState extends State<FullImage> {
             child: Image.network(
               widget.imageUrl,
               fit: BoxFit.contain,
+              height: MediaQuery.of(context).size.height,
             ),
           ),
         ),

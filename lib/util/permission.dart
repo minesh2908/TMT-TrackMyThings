@@ -12,10 +12,8 @@ Future<bool> requestStoragePermission() async {
       await openAppSettings();
       final result = await Permission.photos.request();
       if (result.isGranted) {
-        print('Photos permission granted');
         return true;
       } else {
-        print('Photos permission denied');
         return false;
       }
     } else if (status.isPermanentlyDenied) {
@@ -30,10 +28,8 @@ Future<bool> requestStoragePermission() async {
     if (status.isDenied || status.isRestricted) {
       final result = await Permission.storage.request();
       if (result.isGranted) {
-        print('Storage permission granted');
         return true;
       } else {
-        print('Storage permission denied');
         return false;
       }
     } else if (status.isPermanentlyDenied) {
@@ -59,7 +55,6 @@ Future<bool> _isAndroid13OrAbove() async {
       return false;
     }
   } catch (e) {
-    print('Failed to get Android version: $e');
     return false;
   }
 }
