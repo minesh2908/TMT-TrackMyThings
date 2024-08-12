@@ -1,0 +1,16 @@
+{
+  "name": "warranty_tracker",
+  "version": "1.0.0",
+  "description": "Stay on top of your product warranties with Track My Things, a cutting-edge Flutter app that utilizes AI capabilities to make tracking and managing warranties a breeze. This innovative app not only reminds you of upcoming warranty expirations but also simplifies the process of adding new products with its intelligent AI-powered features",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
