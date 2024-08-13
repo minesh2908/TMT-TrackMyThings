@@ -1,3 +1,5 @@
+const admin = require('firebase-admin'); 
+
 exports.handler = async (event, context)=>{
     try {
       console.log('I am in Try');
