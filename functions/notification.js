@@ -1,10 +1,11 @@
 const admin = require('firebase-admin'); 
+const serviceAccount = process.env.SERVICE_ACCOUNT_KEY;
 
+admin.initializeApp({credential:admin.credential.cert(serviceAccount),});
+const firestore = admin.firestore();
 exports.handler = async (event, context)=>{
     try {
-     const serviceAccount = process.env.SERVICE_ACCOUNT_KEY;
-      console.log('I am in Try');
-      console.log(`service Account : ${serviceAccount}`);
+      console.log(`firestore: ${firestore}`);
       return {
          
           statusCode: 200,
