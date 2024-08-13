@@ -1,6 +1,15 @@
+const admin = require('firebase-admin');
+const serviceAccount = require('./serviceAccountKey.json');
+
+admin.initializeApp({credential:admin.credential.cert(serviceAccount),});
+const firestore = admin.firestore();
+
 exports.handler = async (event, context)=>{
   try {
     console.log('I am in Try');
+    console.log(`firestore: ${firestore}`);
+    const snapshot = await firestore.collection('productCollection').get();
+    console.log(`snapshot data: ${snapshot}`);
     return {
         statusCode: 200,
         body: JSON.stringify({ message: 'Notification scheduled successfully' })
