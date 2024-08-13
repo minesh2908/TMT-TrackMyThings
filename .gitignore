@@ -45,5 +45,4 @@ app.*.map.json
 lib/constants/api_key.dart
 
 /node_modules
-/package-lock.json
 /functions/serviceAccountKey.json
