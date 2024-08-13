@@ -6,7 +6,7 @@ const firestore = admin.firestore();
 
 exports.handler = async (event, context)=>{
   try {
-    console.log('I am in Try');
+    console.log('I am in Try block');
     console.log(`firestore: ${firestore}`);
     const snapshot = await firestore.collection('productCollection').get();
     console.log(`snapshot data: ${snapshot}`);
