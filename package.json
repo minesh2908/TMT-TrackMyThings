@@ -12,5 +12,9 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "admin": "^1.4.1",
+    "firebase": "^10.12.5"
+  }
 }
