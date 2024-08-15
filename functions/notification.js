@@ -16,8 +16,8 @@ exports.handler = async (event, context) => {
     // Calculate the target date (3 days from now)
     const today = new Date();
     today.setDate(today.getDate() + 3);
-    const targetDate = today.toISOString().split('T')[0]; // Format as 'YYYY-MM-DD'
-
+    const targetDate = today.toISOString(); // Format as 'YYYY-MM-DD'
+    console.log(targetDate);
     // Fetch products whose warranty ends in 3 days
     const productSnapshot = await firestore.collection("productCollection")
       .where("warrantyEndsDate", "==", targetDate)
