@@ -69,7 +69,8 @@ exports.handler = async (event, context) => {
         userSnapshot.forEach((userDoc) => {
           const userData = userDoc.data();
           const pushToken = userData.pushToken;
-          const productImage = productData.producImage;
+          const productImage = productData.productImage;
+          console.log(`Product Image- ${productImage}`);
           if (pushToken) {
             // Construct the notification message
             const message = {
