@@ -13,9 +13,9 @@ async function retrieveProductData(daysLeft) {
         targetDate.setDate(today.getDate() + daysLeft);
 
         // Format dates as Firestore expects them
-        const startDate = today.toISOString().split('T')[0]; // YYYY-MM-DD
+        const startDate = today.toISOString(); // YYYY-MM-DD
         console.log(`start Date- ${startDate}`);
-        const endDate = targetDate.toISOString().split('T')[0]; // YYYY-MM-DD
+        const endDate = targetDate.toISOString(); // YYYY-MM-DD
         console.log(`end Date- ${endDate}`);
         let productSnapshot;
        
