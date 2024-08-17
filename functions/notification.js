@@ -16,14 +16,31 @@ exports.handler = async (event, context) => {
     // Calculate the target date (3 days from now)
     const today = new Date();
     today.setDate(today.getDate() + 3);
-    const targetDate = today.toISOString(); // Format as 'YYYY-MM-DD'
-    console.log(targetDate);
+    const targetDate = today.toISOString().split('T')[0]; // Format as 'YYYY-MM-DD'
+
+    // Fetch all products
+    const productSnapshot = await firestore.collection("productCollection").get();
+
+    if (productSnapshot.empty) {
+      console.log("No products found.");
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ message: "No products found." }),
+      };
+    }
+
+    // Iterate over each product and print warrantyEndsDate
+    productSnapshot.forEach(productDoc => {
+      const productData = productDoc.data();
+      console.log(`Product: ${productData.productName}, Warranty Ends Date: ${productData.warrantyEndsDate}`);
+    });
+
     // Fetch products whose warranty ends in 3 days
-    const productSnapshot = await firestore.collection("productCollection")
+    const expiringProductsSnapshot = await firestore.collection("productCollection")
       .where("warrantyEndsDate", "==", targetDate)
       .get();
 
-    if (productSnapshot.empty) {
+    if (expiringProductsSnapshot.empty) {
       console.log("No products with expiring warranties found.");
       return {
         statusCode: 200,
@@ -32,7 +49,7 @@ exports.handler = async (event, context) => {
     }
 
     const promises = [];
-    productSnapshot.forEach(async (productDoc) => {
+    expiringProductsSnapshot.forEach(async (productDoc) => {
       const productData = productDoc.data();
       const userId = productData.userId;
 
