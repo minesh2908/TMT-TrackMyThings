@@ -14,7 +14,7 @@ exports.handler = async (event, context) => {
 
         return {
             statusCode: 200,
-            body: JSON.stringify(productData),
+            body: JSON.stringify(productData30),
         };
     } catch (error) {
         console.error('Error fetching product data:', error);
