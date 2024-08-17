@@ -5,7 +5,7 @@ async function retrieveProductData() {
         // Calculate the start and end dates for the 3-day period
         const today = new Date();
         const threeDaysFromNow = new Date(today);
-        threeDaysFromNow.setDate(today.getDate() + 3);
+        threeDaysFromNow.setDate(today.getDate() + 4);
         
         // Format dates as Firestore expects them
         const startDate = today.toISOString().split('T')[0]; // YYYY-MM-DD
@@ -13,7 +13,7 @@ async function retrieveProductData() {
 
         // Query Firestore to get products where warrantyEndsDate is within the next 3 days
         const productSnapshot = await db.collection("productCollection")
-            .where("warrantyEndsDate", ">=", startDate)
+            .where("warrantyEndsDate", ">", startDate)
             .where("warrantyEndsDate", "<=", endDate)
             .get();
         
