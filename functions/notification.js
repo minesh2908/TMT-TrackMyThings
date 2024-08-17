@@ -17,9 +17,13 @@ exports.handler = async (event, context) => {
     const today = new Date();
     today.setDate(today.getDate() + 3);
     const targetDate = today.toISOString().split('T')[0]; // Format as 'YYYY-MM-DD'
-    console.log(`target Date - ${targetDate}`);
+    
+    const oneWeekRemain = new Date();
+    oneWeekRemain.setDate(today.getDate() + 7);
+
+   // console.log(`target Date - ${targetDate}`);
     // Fetch all products
-    const productSnapshot = await firestore.collection("productCollection").get();
+    const productSnapshot = await firestore.collection("productCollection").get();//3 day 1 week 1 month 
 
     if (productSnapshot.empty) {
       console.log("No products found.");
@@ -31,6 +35,7 @@ exports.handler = async (event, context) => {
 
     // Fetch products whose warranty ends in 3 days
    const expiringProductsSnapshot =[];
+ 
     productSnapshot.forEach((productDoc) => {
       const productData = productDoc.data();
       const warrantyEndsDate = new Date(productData.warrantyEndsDate).toISOString().split('T')[0];
@@ -64,13 +69,15 @@ exports.handler = async (event, context) => {
         userSnapshot.forEach((userDoc) => {
           const userData = userDoc.data();
           const pushToken = userData.pushToken;
-
+          const productImage = productData.producImage;
           if (pushToken) {
             // Construct the notification message
             const message = {
               notification: {
+
                 title: "Warranty Expiry Reminder",
                 body: `Your warranty for ${productData.productName} is expiring in 3 days.`,
+                image:productImage
               },
               token: pushToken,
             };
