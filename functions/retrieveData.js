@@ -8,7 +8,12 @@ async function retrieveProductData() {
             return [];
           }
         
-        return productSnapshot.data(); 
+        const products = [];
+        productSnapshot.forEach(doc => {
+            products.push({ id: doc.id, ...doc.data() });
+        });
+        
+        return products;
     } catch (error) {
         console.log(`Error : ${error}`);
         return [];
