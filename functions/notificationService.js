@@ -2,7 +2,7 @@ const { retrieveProductData } = require('./retrieveData');
 
 exports.handler = async (event, context) => {
     try {
-        const dayLeft = 30;
+        const dayLeft = 3;
         const productData = await retrieveProductData(dayLeft);
         console.log('Product Data:', productData);
         
