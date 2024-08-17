@@ -41,11 +41,11 @@ exports.handler = async (event, context) => {
         body: JSON.stringify({ message: "No products with expiring warranties found." }),
       };
     }
-    console.log(`Expiring Product- ${expiringProductsSnapshot}`);
+    
     const promises = [];
     expiringProductsSnapshot.forEach(async (productDoc) => {
       const productData = productDoc.data();
-      console.log(`Product Date- ${productData}`);
+      console.log(`Product Date- ${productData.productName}`);
       const userId = productData.userId;
       console.log(`userId- ${userId}`);
       // Fetch user data using userId
