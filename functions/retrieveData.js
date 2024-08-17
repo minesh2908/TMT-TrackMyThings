@@ -21,7 +21,7 @@ async function retrieveProductData(daysLeft) {
         // Query Firestore to get products where warrantyEndsDate is within the specified period
         if (daysLeft === 30 || daysLeft === 7) {
             productSnapshot = await db.collection("productCollection")
-                // .where("warrantyEndsDate", ">=", startDate)
+                .where("warrantyEndsDate", ">=", startDate)
                 .where("warrantyEndsDate", "==", endDate)
                 .get();
         } else if (daysLeft === 3) {
