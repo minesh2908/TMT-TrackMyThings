@@ -2,10 +2,16 @@ const { retrieveProductData } = require('./retrieveData');
 
 exports.handler = async (event, context) => {
     try {
-        const dayLeft = 30;
-        const productData = await retrieveProductData(dayLeft);
-        console.log('Product Data:', productData);
         
+        const productData30 = await retrieveProductData(30);
+        console.log('Product Data with 30 day warranty:', productData30);
+        
+        const productData7 = await retrieveProductData(7);
+        console.log('Product Data with 7 day warranty:', productData7);
+
+        const productData3 = await retrieveProductData(3);
+        console.log('Product Data with 3 day warranty:', productData3);
+
         return {
             statusCode: 200,
             body: JSON.stringify(productData),
