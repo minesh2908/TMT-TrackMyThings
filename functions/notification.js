@@ -17,11 +17,7 @@ exports.handler = async (event, context) => {
     const today = new Date();
     today.setDate(today.getDate() + 3);
     const targetDate = today.toISOString().split('T')[0]; // Format as 'YYYY-MM-DD'
-    
-    const oneWeekRemain = new Date();
-    oneWeekRemain.setDate(today.getDate() + 7);
 
-   // console.log(`target Date - ${targetDate}`);
     // Fetch all products
     const productSnapshot = await firestore.collection("productCollection").get();//3 day 1 week 1 month 
 
