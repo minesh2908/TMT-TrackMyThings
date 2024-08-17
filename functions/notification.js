@@ -30,9 +30,16 @@ exports.handler = async (event, context) => {
     }
 
     // Fetch products whose warranty ends in 3 days
-    const expiringProductsSnapshot = await firestore.collection("productCollection")
-      .where("warrantyEndsDate", "<=", targetDate)
-      .get();
+   const expiringProductsSnapshot =[];
+    productSnapshot.forEach((productDoc) => {
+      const productData = productDoc.data();
+      const warrantyEndsDate = new Date(productData.warrantyEndsDate).toISOString().split('T')[0];
+      
+      if (warrantyEndsDate === targetDate) {
+        expiringProductsSnapshot.push(productDoc);
+      }
+    });
+   
 
     if (expiringProductsSnapshot.empty) {
       console.log("No products with expiring warranties found.");
