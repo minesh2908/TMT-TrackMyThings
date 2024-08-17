@@ -22,7 +22,7 @@ async function retrieveProductData(daysLeft) {
         if (daysLeft === 30 || daysLeft === 7) {
             productSnapshot = await db.collection("productCollection")
                 .where("warrantyEndsDate", ">=", startDate)
-                .where("warrantyEndsDate", "==", endDate)
+                .where("warrantyEndsDate", "<=", endDate)
                 .get();
         } else if (daysLeft === 3) {
             productSnapshot = await db.collection("productCollection")
