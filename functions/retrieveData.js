@@ -14,16 +14,19 @@ async function retrieveProductData(daysLeft) {
 
         // Format dates as Firestore expects them
         const startDate = today.toISOString().split('T')[0]; // YYYY-MM-DD
+        console.log(`start Date- ${startDate}`);
         const endDate = targetDate.toISOString().split('T')[0]; // YYYY-MM-DD
-
+        console.log(`end Date- ${endDate}`);
         let productSnapshot;
-
+       
         // Query Firestore to get products where warrantyEndsDate is within the specified period
         if (daysLeft === 30 || daysLeft === 7) {
             productSnapshot = await db.collection("productCollection")
                 .where("warrantyEndsDate", ">=", startDate)
                 .where("warrantyEndsDate", "<=", endDate)
                 .get();
+
+               
         } else if (daysLeft === 3) {
             productSnapshot = await db.collection("productCollection")
                 .where("warrantyEndsDate", ">=", startDate)
