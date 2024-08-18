@@ -56,15 +56,18 @@ async function retrieveProductData(daysLeft) {
 
 async function getUserToken(userId) {
     try {
+        console.log("1");
         const userDoc = await db.collection("userCollection").doc(userId).get();
-
+        console.log(`userDoc: ${userDoc} || ${!userDoc.exists}`);
         if (!userDoc.exists) {
             console.log(`No user found with userId: ${userId}`);
             return null; // Return null if no user is found
         }
-
+        console.log("2");
         const userData = userDoc.data();
+        console.log(`userData: ${userData}`);
         const pushToken = userData.pushToken;
+        console.log(`pushToken: ${pushToken}`);
           // Return the pushToken and productImage
         return {pushToken};
     } catch (error) {
