@@ -6,7 +6,7 @@ exports.handler = async (event, context) => {
         const productData30 = await retrieveProductData(30);
         console.log('Product Data with 30 day warranty:', productData30);
         
-        if (productData30 && productData30.length > 0) {
+        if (productData30.length > 0) {
             productData30.forEach(async product => {
                 const userToken = await getUserToken(product.userId);
                 console.log(`user token : ${userToken}`)
