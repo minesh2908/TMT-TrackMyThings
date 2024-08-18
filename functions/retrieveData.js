@@ -2,53 +2,35 @@ const { db } = require('./firebase.js');
 
 async function retrieveProductData(daysLeft) {
     try {
-        // Calculate the start and end dates for the period based on daysLeft
         const today = new Date();
-        today.setHours(0,0,0,0);
+        today.setHours(0, 0, 0, 0);
         const targetDate = new Date(today);
         targetDate.setDate(today.getDate() + daysLeft);
-        targetDate.setHours(0,0,0,0);
-        // Format dates as Firestore expects them
-        const startDate = today.toISOString().slice(0,-1); // YYYY-MM-DD
-        console.log(`start Date- ${startDate}`);
-        const endDate = targetDate.toISOString().slice(0,-1); // YYYY-MM-DD
-        console.log(`end Date- ${endDate}`);
-        let productSnapshot;
-       
-        // Query Firestore to get products where warrantyEndsDate is within the specified period
+        targetDate.setHours(0, 0, 0, 0);
+
+        const startDate = today.toISOString().slice(0, -1);
+        const endDate = targetDate.toISOString().slice(0, -1);
+
+        let query;
         if (daysLeft === 30 || daysLeft === 7) {
-            productSnapshot = await db.collection("productCollection")
-                .where("warrantyEndsDate", "==", endDate)
-                .get();
-
-               
+            query = db.collection("productCollection").where("warrantyEndsDate", "==", endDate);
         } else if (daysLeft === 3) {
-            productSnapshot = await db.collection("productCollection")
+            query = db.collection("productCollection")
                 .where("warrantyEndsDate", ">=", startDate)
-                .where("warrantyEndsDate", "<=", endDate)
-                .get();
+                .where("warrantyEndsDate", "<=", endDate);
         } else {
-            console.log(`No products to retrieve for ${daysLeft} days.`);
             return [];
         }
 
+        const productSnapshot = await query.get();
         if (productSnapshot.empty) {
-            console.log(`No products about to expire in ${daysLeft} days.`);
             return [];
         }
-
-        const products = [];
-        productSnapshot.forEach(doc => {
-            products.push({ id: doc.id, ...doc.data() });
-        });
-
-        return products;
+        return productSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     } catch (error) {
         console.log(`Error: ${error}`);
         return [];
     }
 }
 
-
-
-module.exports = { retrieveProductData};
+module.exports = { retrieveProductData };
