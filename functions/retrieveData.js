@@ -56,8 +56,9 @@ async function retrieveProductData(daysLeft) {
 
 async function getUserToken(userId) {
     try {
-        console.log("1");
+        console.log(`1 ${userId}`);
         const docRef = db.collection("userCollection").doc(userId);
+        console.log(`docRef: ${docRef}`);
         const userDoc = await docRef.get();
         console.log(`userDoc: ${userDoc} || ${!userDoc.exists}`);
         
