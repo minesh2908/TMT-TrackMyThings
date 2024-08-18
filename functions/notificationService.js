@@ -9,6 +9,7 @@ exports.handler = async (event, context) => {
         if (productData30.length > 0) {
             console.log('Test');
             productData30.forEach(async product => {
+                console.log(`User ID: ${product.userId}`)
                 const userToken = await getUserToken(product.userId);
                 console.log(`user token : ${userToken}`)
                 // You can add more actions or data processing here
