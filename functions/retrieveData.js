@@ -5,7 +5,7 @@ async function retrieveProductData(daysLeft) {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         const targetDate = new Date(today);
-        targetDate.setDate(today.getDate() + daysLeft);
+        targetDate.setDate(today.getDate() + (daysLeft-1));
         targetDate.setHours(0, 0, 0, 0);
 
         const startDate = today.toISOString().slice(0, -1);

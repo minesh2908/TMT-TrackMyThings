@@ -18,9 +18,6 @@ exports.handler = async (event, context) => {
             console.log('No products found with 30 day warranty.');
         }
 
-        // const userTokens30 = await getUserToken(productData30);
-        // console.log('Push Tokens: ', userTokens30)
-
         // const productData7 = await retrieveProductData(7);
         // console.log('Product Data with 7 day warranty:', productData7);
         // const userTokens7 = await getUserToken(productData7);
