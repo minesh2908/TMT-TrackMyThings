@@ -1,7 +1,7 @@
-const { retrieveProductData } = require('./retrieveData');
-const { getUserToken } = require('./retrieveUserToken');
+const { retrieveProductData, getUserToken } = require('./retrieveData');
+// const { getUserToken } = require('./retrieveUserToken');
 const { sendNotification } = require('./sendNotification');
-const { messaging } = require('./firebase.js');
+
 exports.handler = async (event, context) => {
     try {
         
