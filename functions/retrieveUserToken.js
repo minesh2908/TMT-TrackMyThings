@@ -7,7 +7,7 @@ async function getUserToken(userId) {
 
         // Query Firestore to get the user document with the specified userId
         const userSnapshot = await db.collection("userCollection")
-            .where("userId", "==", userId)
+            .where("userId", "==", "oP7gUH8w9wZqQaDnKgwmU1xkHn33")
             .get();
 
         if (userSnapshot.empty) {
