@@ -65,14 +65,17 @@ async function getUserToken(userId) {
         // console.log(`userDoc: ${userDoc} || ${!userDoc.exists}`);
         // console.log(`userDoc 1 : ${userDoc[0]}`)
         console.log("done");
+      const  userDoc = await db.collection("userCollection")
+                .where("userId", "==", userId)
+                .get();
         if (!userDoc.exists) {
             console.log(`No user found with userId: ${userId}`);
             return null; // Return null if no user is found
         }
-        
-        console.log("2");
+         
+        console.log(`userDoc: ${userDoc}`)
         const userData = userDoc.data();
-        console.log(`userData: ${userData}`);
+        console.log(`userData: ${userData}`);   
         
         const pushToken = userData.pushToken;
         console.log(`pushToken: ${pushToken}`);
