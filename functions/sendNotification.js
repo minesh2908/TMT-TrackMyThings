@@ -13,7 +13,7 @@ async function sendNotification(pushToken, productData){
      message = {
       notification: {
         title: "Product Warranty Expiry Reminder",
-        body: `Your warranty for ${productData.productName} is expiring in ${daysLeft} days.`,
+        body: `Your warranty for ${productData.productName} is expiring in ${daysLeft+1} days.`,
         image: productData.productImage
       },
       token: pushToken,
