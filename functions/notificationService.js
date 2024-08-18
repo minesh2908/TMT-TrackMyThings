@@ -27,7 +27,7 @@ exports.handler = async (event, context) => {
                   };
       
                  
-                  promises.push(messaging.send(message)
+                  promises.push(messaging().send(message)
                     .then(response => {
                       console.log(`Notification sent for product ${productData30.productName}: ${response}`);
                     })
