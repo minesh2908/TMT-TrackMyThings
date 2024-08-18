@@ -1,17 +1,19 @@
 const { retrieveProductData } = require('./retrieveData');
 const { getUserToken } = require('./retrieveUserToken')
+const { sendNotification } = require('./sendNotification')
 exports.handler = async (event, context) => {
     try {
         
         const productData30 = await retrieveProductData(30);
-        // console.log('Product Data with 30 day warranty:', productData30);
-        // console.log(`Length: ${productData30.length}`);
         if (productData30.length > 0) {
-            console.log('Test');
             productData30.forEach(async product => {
-                console.log(`User ID: ${product.userId}`)
+                // console.log(`User ID: ${product.userId}`)
                 const userToken = await getUserToken(product.userId);
                 console.log(`user token : ${userToken}`)
+                if(userToken){
+                const notify =  sendNotification(userToken, productData30);
+                  console.log('send ', notify);
+                }
                 // You can add more actions or data processing here
             });
         } else {
