@@ -58,10 +58,12 @@ async function getUserToken(userId) {
     try {
         console.log(`1 ${userId}`);
         const docRef = db.collection("userCollection").doc(userId);
-        console.log(`docRef: ${docRef}`);
+        const docData = await db.collection("userCollection").where('userId', '==', userId).get();
+        console.log('doc Data', docData[0]);
+        console.log(`docRef: ${docRef.get}`);
         const userDoc = await docRef.get();
         console.log(`userDoc: ${userDoc} || ${!userDoc.exists}`);
-        
+        console.log(`userDoc 1 : ${userDoc[0]}`)
         if (!userDoc.exists) {
             console.log(`No user found with userId: ${userId}`);
             return null; // Return null if no user is found
