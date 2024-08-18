@@ -3,7 +3,7 @@ const { messaging } = require('./firebase.js');
 
 async function sendNotification(pushToken, productData){
   let message;
-  const warrantyEndsDate = productData.warrantyEndsDate;
+  const warrantyEndsDate = new Date(productData.warrantyEndsDate) ;
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const timeDiff = warrantyEndsDate.getTime() - today.getTime();
