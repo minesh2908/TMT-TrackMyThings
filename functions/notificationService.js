@@ -7,36 +7,11 @@ exports.handler = async (event, context) => {
         
         const productData30 = await retrieveProductData(30);
         if (productData30.length > 0) {
-            const promises = [];
-            productData30.forEach(async product => {
-                // console.log(`User ID: ${product.userId}`)
+            const promises = productData30.map(async product => {
                 const userToken = await getUserToken(product.userId);
-                console.log(`user token : ${userToken}`)
                 if(userToken){
-                //     console.log('Inside usertoken')
-                // const notify =  await sendNotification(userToken, productData30);
-                //   console.log('send ', notify);
-                
-                const message = {
-                    notification: {
-      
-                      title: "Warranty Expiry Reminder",
-                      body: `Your warranty for ${productData30.productName} is expiring in 3 days.`,
-                      image:productData30.productImage
-                    },
-                    token: userToken,
-                  };
-      
-                 
-                  promises.push(messaging.send(message)
-                    .then(response => {
-                      console.log(`Notification sent for product ${productData30.productName}: ${response}`);
-                    })
-                    .catch(error => {
-                      console.error(`Error sending notification to:`, error);
-                    }));
+                    await sendNotification(userToken, product);
                 }
-                // You can add more actions or data processing here
             });
             await Promise.all(promises);
         } else {
