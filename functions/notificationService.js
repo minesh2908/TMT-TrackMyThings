@@ -11,7 +11,7 @@ exports.handler = async (event, context) => {
                 const userToken = await getUserToken(product.userId);
                 console.log(`user token : ${userToken}`)
                 if(userToken){
-                const notify =  sendNotification(userToken, productData30);
+                const notify =  await sendNotification(userToken, productData30);
                   console.log('send ', notify);
                 }
                 // You can add more actions or data processing here
