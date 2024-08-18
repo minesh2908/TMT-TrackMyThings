@@ -57,36 +57,35 @@ async function retrieveProductData(daysLeft) {
 async function getUserToken(userId) {
     try {
         console.log(`Starting getUserToken function with userId: ${userId}`);
-        
-        // Get a reference to the document
         const docRef = db.collection("userCollection").doc(userId);
         console.log(`Created docRef: ${docRef.id}`);
 
-        // Fetch the document snapshot
-        const userDoc = await docRef.get();
+        // Set a timeout to detect if the request hangs
+        const userDoc = await Promise.race([
+            docRef.get(),
+            new Promise((_, reject) => setTimeout(() => reject(new Error("Request timed out")), 5000))
+        ]);
+
         console.log(`Fetched userDoc: ${userDoc.exists}`);
 
-        // Check if the document exists
         if (!userDoc.exists) {
             console.log(`No user found with userId: ${userId}`);
-            return null; // Return null if no user is found
+            return null;
         }
-        
-        // Retrieve the user data
+
         const userData = userDoc.data();
         console.log(`Retrieved userData: ${JSON.stringify(userData)}`);
-        
-        // Extract the pushToken
+
         const pushToken = userData.pushToken;
         console.log(`Extracted pushToken: ${pushToken}`);
-        
-        // Return the pushToken
+
         return pushToken;
     } catch (error) {
         console.log(`Error fetching user token: ${error}`);
         return null;
     }
 }
+
 
 
 module.exports = { retrieveProductData, getUserToken };
