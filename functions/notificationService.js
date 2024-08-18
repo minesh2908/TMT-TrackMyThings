@@ -14,6 +14,7 @@ exports.handler = async (event, context) => {
                 //     console.log('Inside usertoken')
                 // const notify =  await sendNotification(userToken, productData30);
                 //   console.log('send ', notify);
+                const promises = [];
                 const message = {
                     notification: {
       
