@@ -4,8 +4,8 @@ exports.handler = async (event, context) => {
     try {
         
         const productData30 = await retrieveProductData(30);
-        console.log('Product Data with 30 day warranty:', productData30);
-        console.log(`Length: ${productData30.length}`);
+        // console.log('Product Data with 30 day warranty:', productData30);
+        // console.log(`Length: ${productData30.length}`);
         if (productData30.length > 0) {
             console.log('Test');
             productData30.forEach(async product => {
