@@ -21,3 +21,7 @@ async function sendNotification(pushToken, productData){
         }));
 
 }
+
+module.exports = { sendNotification };
+
+
