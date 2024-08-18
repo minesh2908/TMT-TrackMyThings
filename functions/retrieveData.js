@@ -56,36 +56,37 @@ async function retrieveProductData(daysLeft) {
 
 async function getUserToken(userId) {
     try {
-        console.log(`1 ${userId}`);
-        // const docRef = await db.collection("userCollection").doc(userId);
-        // const docData = await db.collection("userCollection").where('userId', '==', userId).get();
-        // console.log('doc Data', docData[0]);
-        // console.log(`docRef: ${docRef.get}`);
-        // const userDoc = await docRef.get();
-        // console.log(`userDoc: ${userDoc} || ${!userDoc.exists}`);
-        // console.log(`userDoc 1 : ${userDoc[0]}`)
-        console.log("done");
-      const  userDoc = await db.collection("userCollection")
-                .where("userId", "==", userId)
-                .get();
+        console.log(`Starting getUserToken function with userId: ${userId}`);
+        
+        // Get a reference to the document
+        const docRef = db.collection("userCollection").doc(userId);
+        console.log(`Created docRef: ${docRef.id}`);
+
+        // Fetch the document snapshot
+        const userDoc = await docRef.get();
+        console.log(`Fetched userDoc: ${userDoc.exists}`);
+
+        // Check if the document exists
         if (!userDoc.exists) {
             console.log(`No user found with userId: ${userId}`);
             return null; // Return null if no user is found
         }
-         
-        console.log(`userDoc: ${userDoc}`)
+        
+        // Retrieve the user data
         const userData = userDoc.data();
-        console.log(`userData: ${userData}`);   
+        console.log(`Retrieved userData: ${JSON.stringify(userData)}`);
         
+        // Extract the pushToken
         const pushToken = userData.pushToken;
-        console.log(`pushToken: ${pushToken}`);
-          // Return the pushToken and productImage
+        console.log(`Extracted pushToken: ${pushToken}`);
         
+        // Return the pushToken
         return pushToken;
     } catch (error) {
-        console.log(`Error: ${error}`);
+        console.log(`Error fetching user token: ${error}`);
         return null;
     }
 }
+
 
 module.exports = { retrieveProductData, getUserToken };
