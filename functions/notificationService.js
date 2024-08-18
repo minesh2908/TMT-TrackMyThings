@@ -7,6 +7,7 @@ exports.handler = async (event, context) => {
         
         const productData30 = await retrieveProductData(30);
         if (productData30.length > 0) {
+            const promises = [];
             productData30.forEach(async product => {
                 // console.log(`User ID: ${product.userId}`)
                 const userToken = await getUserToken(product.userId);
@@ -15,7 +16,7 @@ exports.handler = async (event, context) => {
                 //     console.log('Inside usertoken')
                 // const notify =  await sendNotification(userToken, productData30);
                 //   console.log('send ', notify);
-                const promises = [];
+                
                 const message = {
                     notification: {
       
