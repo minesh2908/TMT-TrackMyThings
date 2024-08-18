@@ -54,4 +54,23 @@ async function retrieveProductData(daysLeft) {
     }
 }
 
-module.exports = { retrieveProductData };
+async function getUserToken(userId) {
+    try {
+        const userDoc = await db.collection("userCollection").doc(userId).get();
+
+        if (!userDoc.exists) {
+            console.log(`No user found with userId: ${userId}`);
+            return null; // Return null if no user is found
+        }
+
+        const userData = userDoc.data();
+        const pushToken = userData.pushToken;
+          // Return the pushToken and productImage
+        return {pushToken};
+    } catch (error) {
+        console.log(`Error: ${error}`);
+        return null;
+    }
+}
+
+module.exports = { retrieveProductData, getUserToken };
