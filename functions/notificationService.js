@@ -1,5 +1,5 @@
-const { retrieveProductData, getUserToken } = require('./retrieveData');
-
+const { retrieveProductData } = require('./retrieveData');
+const { getUserToken } = require('./retrieveUserToken')
 exports.handler = async (event, context) => {
     try {
         
