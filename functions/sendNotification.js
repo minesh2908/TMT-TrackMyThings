@@ -10,13 +10,19 @@ async function sendNotification(pushToken, productData){
         token: pushToken,
       };
 
+      const promises = []; // Declare and initialize the promises array
+
       // Send the notification
-      try {
-        const response = await messaging.send(message);
-        console.log(`Notification sent to ${pushToken} for product ${productData.productName}: ${response}`);
-      } catch (error) {
-        console.error(`Error sending notification to ${pushToken}:`, error);
-      }
+      promises.push(messaging.send(message)
+        .then(response => {
+          console.log(`Notification sent to ${pushToken} for product ${productData.productName}: ${response}`);
+        })
+        .catch(error => {
+          console.error(`Error sending notification to ${pushToken}:`, error);
+        }));
+
+      // Wait for all promises to resolve
+      await Promise.all(promises);
 }
 
 module.exports = { sendNotification };
