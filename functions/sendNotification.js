@@ -13,7 +13,7 @@ async function sendNotification(pushToken, productData){
       const promises = []; // Declare and initialize the promises array
 
       // Send the notification
-      promises.push(messaging.send(message)
+     await promises.push(messaging.send(message)
         .then(response => {
           console.log(`Notification sent to ${pushToken} for product ${productData.productName}: ${response}`);
         })
