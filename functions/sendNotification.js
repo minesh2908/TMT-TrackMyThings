@@ -9,7 +9,7 @@ async function sendNotification(pushToken, productData){
   const timeDiff = warrantyEndsDate.getTime() - today.getTime();
   const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-  if(daysLeft >=2){
+  if(daysLeft >2){
      message = {
       notification: {
         title: "Product Warranty Expiry Reminder",
@@ -19,7 +19,7 @@ async function sendNotification(pushToken, productData){
       token: pushToken,
     };
   }  
-  else if(daysLeft == 1){
+  else if(daysLeft == 2){
     message = {
       notification: {
         title: "Hurry Up! Product Warranty Expiring tomorrow",
@@ -29,7 +29,7 @@ async function sendNotification(pushToken, productData){
       token: pushToken,
     };
   }
-  else if(daysLeft == 0){
+  else if(daysLeft == 1){
     message = {
       notification: {
         title: "Last Chance to claim! Product Warranty Expiring today",
