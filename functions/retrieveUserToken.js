@@ -14,7 +14,7 @@ async function getUserToken(userId) {
         //     return null; 
         // }
 
-        let pushToken = "e4Iy6ZNtR1-Txbv5iOcg46:APA91bF9waq7uqAhj9iJe1Tfmth-HH8sx7ZkN_1nlIgSfFbAtc-9fXfdXkPfpszpjaYurQoFbFb07OsT5_IYg6W-4yI4ERrAGVOFoFy4gV2domqMrDvZTsckVT9Enq12tyW9pn_QTwDD";
+        let pushToken = "dUVBK3sKSjCvbEKjQ-vx6w:APA91bGqpD_lFlUifDPOi-FP_UCLVFemzdUpB77Ea9Yj1ydziZR-kQ6QAkt9NCbTYcCz0mA4VMdADD-Nt69x3kgJXpp6enNH1g8PsymnfZKD3_b32bkV2E65DKRjojprd43M_2kz-ffl";
         // userSnapshot.forEach(doc => {
         //     const userData = doc.data();
         //     console.log(`userData: ${JSON.stringify(userData)}`);
