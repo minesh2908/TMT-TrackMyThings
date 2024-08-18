@@ -27,22 +27,17 @@ exports.handler = async (event, context) => {
                   };
       
                  
-                  promises.push(messaging().send(message)
+                  promises.push(messaging.send(message)
                     .then(response => {
                       console.log(`Notification sent for product ${productData30.productName}: ${response}`);
                     })
                     .catch(error => {
                       console.error(`Error sending notification to:`, error);
                     }));
-    
-
-
-
-
-
                 }
                 // You can add more actions or data processing here
             });
+            await Promise.all(promises);
         } else {
             console.log('No products found with 30 day warranty.');
         }
