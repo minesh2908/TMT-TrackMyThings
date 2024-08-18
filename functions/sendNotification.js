@@ -8,7 +8,7 @@ async function sendNotification(pushToken, productData){
   today.setHours(0, 0, 0, 0);
   const timeDiff = warrantyEndsDate.getTime() - today.getTime();
   const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
+  console.log(daysLeft);
   if(daysLeft >2){
      message = {
       notification: {
