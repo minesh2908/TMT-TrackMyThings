@@ -1,6 +1,7 @@
 const { retrieveProductData } = require('./retrieveData');
-const { getUserToken } = require('./retrieveUserToken')
-const { sendNotification } = require('./sendNotification')
+const { getUserToken } = require('./retrieveUserToken');
+const { sendNotification } = require('./sendNotification');
+const { messaging } = require('./firebase.js');
 exports.handler = async (event, context) => {
     try {
         
@@ -25,8 +26,8 @@ exports.handler = async (event, context) => {
                     token: userToken,
                   };
       
-                  // Send the notification
-                  promises.push(admin.messaging().send(message)
+                 
+                  promises.push(messaging.send(message)
                     .then(response => {
                       console.log(`Notification sent for product ${productData30.productName}: ${response}`);
                     })
