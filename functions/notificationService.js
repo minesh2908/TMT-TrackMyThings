@@ -11,8 +11,33 @@ exports.handler = async (event, context) => {
                 const userToken = await getUserToken(product.userId);
                 console.log(`user token : ${userToken}`)
                 if(userToken){
-                const notify =  await sendNotification(userToken, productData30);
-                  console.log('send ', notify);
+                //     console.log('Inside usertoken')
+                // const notify =  await sendNotification(userToken, productData30);
+                //   console.log('send ', notify);
+                const message = {
+                    notification: {
+      
+                      title: "Warranty Expiry Reminder",
+                      body: `Your warranty for ${productData30.productName} is expiring in 3 days.`,
+                      image:productData30.productImage
+                    },
+                    token: userToken,
+                  };
+      
+                  // Send the notification
+                  promises.push(admin.messaging().send(message)
+                    .then(response => {
+                      console.log(`Notification sent for product ${productData30.productName}: ${response}`);
+                    })
+                    .catch(error => {
+                      console.error(`Error sending notification to:`, error);
+                    }));
+    
+
+
+
+
+
                 }
                 // You can add more actions or data processing here
             });
