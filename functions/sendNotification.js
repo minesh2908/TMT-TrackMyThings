@@ -16,8 +16,10 @@ async function sendNotification(pushToken, productData){
         body: `Your warranty for ${productData.productName} is expiring in ${daysLeft+1} days.`,
         image: productData.productImage
       },
+      
       token: pushToken,
     };
+    console.log(`Your warranty for ${productData.productName} is expiring in ${daysLeft+1} days.`);
   }  
   else if(daysLeft == 2){
     message = {
@@ -28,6 +30,7 @@ async function sendNotification(pushToken, productData){
       },
       token: pushToken,
     };
+    console.log(`Your warranty for ${productData.productName} is expiring in ${daysLeft+1} days.`);
   }
   else if(daysLeft == 1){
     message = {
@@ -38,6 +41,7 @@ async function sendNotification(pushToken, productData){
       },
       token: pushToken,
     };
+    console.log(`Your warranty for ${productData.productName} is expiring today.`);
   }
   else{
     message = {
@@ -48,6 +52,7 @@ async function sendNotification(pushToken, productData){
       },
       token: pushToken,
     };
+    console.log(`Your warranty for ${productData.productName} has been expired.`);
   }
       try {
         const response = await messaging.send(message);
