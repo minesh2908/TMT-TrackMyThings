@@ -9,7 +9,7 @@ async function sendNotification(pushToken, productData){
   const timeDiff = warrantyEndsDate.getTime() - today.getTime();
   const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
   console.log(daysLeft);
-  if(daysLeft >2){
+  if(daysLeft >=2){
      message = {
       notification: {
         title: "Product Warranty Expiry Reminder",
