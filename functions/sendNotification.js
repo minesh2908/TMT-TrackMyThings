@@ -30,7 +30,7 @@ async function sendNotification(pushToken, productData){
       },
       token: pushToken,
     };
-    console.log(`Your warranty for ${productData.productName} is expiring in ${daysLeft+1} days.`);
+    console.log(`Your warranty for ${productData.productName} is expiring tomorrow.`);
   }
   else if(daysLeft == 0){
     message = {
