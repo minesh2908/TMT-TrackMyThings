@@ -47,7 +47,7 @@ async function sendNotification(pushToken, productData){
     message = {
       notification: {
         title: "Product Warrant Expired",
-        body: `Your warranty for ${productData.productName} has been expired.`,
+        body: `Your Product warranty for ${productData.productName} has been expired.`,
         image: productData.productImage
       },
       token: pushToken,
