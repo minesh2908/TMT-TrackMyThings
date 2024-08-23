@@ -18,7 +18,10 @@ async function retrieveProductData(daysLeft) {
             query = db.collection("productCollection")
                 .where("warrantyEndsDate", ">=", startDate)
                 .where("warrantyEndsDate", "<=", endDate);
-        } else {
+        }else if(daysLeft===0){
+          query = db.collection("productCollection").where("warrantyEndsDate", "==", endDate);
+        } 
+        else {
             return [];
         }
 
