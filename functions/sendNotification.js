@@ -21,7 +21,7 @@ async function sendNotification(pushToken, productData){
     };
     console.log(`Your warranty for ${productData.productName} is expiring in ${daysLeft+1} days.`);
   }  
-  else if(daysLeft == 2){
+  else if(daysLeft == 1){
     message = {
       notification: {
         title: "Hurry Up! Product Warranty Expiring tomorrow",
@@ -32,7 +32,7 @@ async function sendNotification(pushToken, productData){
     };
     console.log(`Your warranty for ${productData.productName} is expiring in ${daysLeft+1} days.`);
   }
-  else if(daysLeft == 1){
+  else if(daysLeft == 0){
     message = {
       notification: {
         title: "Last Chance to claim! Product Warranty Expiring today",
