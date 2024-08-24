@@ -13,13 +13,13 @@ async function retrieveProductData(daysLeft) {
 
         let query;
         if (daysLeft === 30 || daysLeft === 7) {
-            query = db.collection("productCollection").where("warrantyEndsDate", "==", endDate);
+            query = db.collection("productCollection").where("warrantyEndsDate", "==", endDate).where("dontNoify", "!=", true );
         } else if (daysLeft === 3) {
             query = db.collection("productCollection")
                 .where("warrantyEndsDate", ">=", startDate)
-                .where("warrantyEndsDate", "<=", endDate);
+                .where("warrantyEndsDate", "<=", endDate).where("dontNoify", "!=", true );
         }else if(daysLeft===0){
-          query = db.collection("productCollection").where("warrantyEndsDate", "==", endDate);
+          query = db.collection("productCollection").where("warrantyEndsDate", "==", endDate).where("dontNoify", "!=", true );
         } 
         else {
             return [];
@@ -31,7 +31,7 @@ async function retrieveProductData(daysLeft) {
         }
         return productSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     } catch (error) {
-        console.log(`Error Is: ${error}`);
+        console.log(`Error: ${error}`);
         return [];
     }
 }
