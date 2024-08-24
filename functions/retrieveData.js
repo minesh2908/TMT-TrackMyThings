@@ -31,7 +31,7 @@ async function retrieveProductData(daysLeft) {
         }
         return productSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     } catch (error) {
-        console.log(`Error: ${error}`);
+        console.log(`Error Is: ${error}`);
         return [];
     }
 }
