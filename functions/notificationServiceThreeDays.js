@@ -8,6 +8,7 @@ exports.handler = async (event, context) => {
         if (productData3.length > 0) {
             const promises = productData3.map(async product => {
                 const userToken = await getUserToken(product.userId);
+                console.log(productData3);
                 if(userToken){
                     await sendNotification(userToken, product);
                 }
