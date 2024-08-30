@@ -13,13 +13,13 @@ async function retrieveProductData(daysLeft) {
 
         let query;
         if (daysLeft === 30 || daysLeft === 7) {
-            query = db.collection("productCollection").where("warrantyEndsDate", "==", endDate).where("dontNoify", "!=", true );
+            query = db.collection("productCollection").where("warrantyEndsDate", "==", endDate);
         } else if (daysLeft === 3) {
             query = db.collection("productCollection")
                 .where("warrantyEndsDate", ">=", startDate)
-                .where("warrantyEndsDate", "<=", endDate).where("dontNoify", "!=", true );
+                .where("warrantyEndsDate", "<=", endDate);
         }else if(daysLeft===0){
-          query = db.collection("productCollection").where("warrantyEndsDate", "==", endDate).where("dontNoify", "!=", true );
+          query = db.collection("productCollection").where("warrantyEndsDate", "==", endDate);
         } 
         else {
             return [];
