@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 Future<bool> requestStoragePermission() async {
@@ -56,5 +57,43 @@ Future<bool> _isAndroid13OrAbove() async {
     }
   } catch (e) {
     return false;
+  }
+}
+
+Future<String> notificationPermission() async {
+  final firebaseMessaging = FirebaseMessaging.instance;
+  {
+    await firebaseMessaging.requestPermission(
+      announcement: true,
+      carPlay: true,
+      criticalAlert: true,
+      provisional: true,
+    );
+    final userToken = await firebaseMessaging.getToken();
+    log('Device Token : $userToken');
+    return userToken!;
+  }
+}
+
+Future<bool> isNotificationOn() async {
+  if (await Permission.notification.isGranted) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+Future<void> stopNotificationPermission() async {
+  if (await isNotificationOn()) {
+    await openAppSettings();
+  }
+}
+
+Future<void> requestNotificationPermission() async {
+  final status = await Permission.notification.status;
+  if (status.isDenied) {
+    await openAppSettings();
+  } else {
+    await Permission.notification.isGranted;
   }
 }

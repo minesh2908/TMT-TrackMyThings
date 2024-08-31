@@ -467,6 +467,7 @@ class _MyDashboardState extends State<MyDashboard> {
                               ),
                               Expanded(
                                 child: ListView.builder(
+                                  padding: const EdgeInsets.only(bottom: 25),
                                   itemCount: state.productList.length,
                                   itemBuilder: (context, index) {
                                     final productData =
@@ -643,51 +644,86 @@ class _MyDashboardState extends State<MyDashboard> {
                                                         fontSize: 18,
                                                       ),
                                                     ),
-                                                    TweenAnimationBuilder<
-                                                        double>(
-                                                      tween: Tween<double>(
-                                                        begin: 0,
-                                                        end:
-                                                            calculateWarrantyPercentage(
+                                                    if (calculateWarrantyPercentage(
                                                           productData
                                                               .purchasedDate!,
                                                           productData
                                                               .warrantyEndsDate!,
-                                                        ),
-                                                      ),
-                                                      duration: const Duration(
-                                                        seconds: 1,
-                                                      ),
-                                                      builder: (
-                                                        BuildContext context,
-                                                        double percentage,
-                                                        Widget? child,
-                                                      ) {
-                                                        return LinearPercentIndicator(
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                          width: MediaQuery.of(
-                                                                context,
-                                                              ).size.width *
-                                                              0.40,
-                                                          lineHeight: 12,
-                                                          percent: percentage,
-                                                          barRadius:
-                                                              const Radius
-                                                                  .circular(
-                                                            10,
-                                                          ),
-                                                          progressColor:
+                                                        ) ==
+                                                        -1)
+                                                      Container(
+                                                        height: 12,
+                                                        width: MediaQuery.of(
+                                                              context,
+                                                            ).size.width *
+                                                            0.40,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
                                                               Theme.of(context)
                                                                   .colorScheme
-                                                                  .onPrimary,
-                                                          backgroundColor:
-                                                              Theme.of(
-                                                            context,
-                                                          ).colorScheme.surface,
-                                                        );
-                                                      },
-                                                    ),
+                                                                  .error,
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                  .all(
+                                                            Radius.circular(20),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    else
+                                                      TweenAnimationBuilder<
+                                                          double>(
+                                                        tween: Tween<double>(
+                                                          begin: 0,
+                                                          end:
+                                                              calculateWarrantyPercentage(
+                                                            productData
+                                                                .purchasedDate!,
+                                                            productData
+                                                                .warrantyEndsDate!,
+                                                          ),
+                                                        ),
+                                                        duration:
+                                                            const Duration(
+                                                          seconds: 1,
+                                                        ),
+                                                        builder: (
+                                                          BuildContext context,
+                                                          double percentage,
+                                                          Widget? child,
+                                                        ) {
+                                                          return LinearPercentIndicator(
+                                                            padding:
+                                                                EdgeInsets.zero,
+                                                            width:
+                                                                MediaQuery.of(
+                                                                      context,
+                                                                    )
+                                                                        .size
+                                                                        .width *
+                                                                    0.40,
+                                                            lineHeight: 12,
+                                                            percent: percentage,
+                                                            barRadius:
+                                                                const Radius
+                                                                    .circular(
+                                                              10,
+                                                            ),
+                                                            progressColor:
+                                                                Theme.of(
+                                                              context,
+                                                            )
+                                                                    .colorScheme
+                                                                    .onPrimary,
+                                                            backgroundColor:
+                                                                Theme.of(
+                                                              context,
+                                                            )
+                                                                    .colorScheme
+                                                                    .surface,
+                                                          );
+                                                        },
+                                                      ),
                                                   ],
                                                 ),
                                               ),

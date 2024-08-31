@@ -71,5 +71,9 @@
     "warrantyEndsOn": "वारंटी समाप्ति",
     "monthsLeft": "महीने बचे",
     "daysLeft": "दिन बचे",
-    "warrantyHasExpired": "वारंटी समाप्त"
+    "warrantyHasExpired": "वारंटी समाप्त",
+    "allowNotification":"अल्लोव नोटिफकेशन",
+    "warrantyExpiringToday": "आज वारंटी खत्म हो रही",
+    "warrantyExpiringTomorrow": "कल वारंटी खत्म हो जाएगी",
+    "warrantyExpiredYesterday": "कल वारंटी खत्म हो गई"
 }

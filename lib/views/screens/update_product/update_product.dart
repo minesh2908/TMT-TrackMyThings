@@ -424,7 +424,7 @@ class _UpdateProductState extends State<UpdateProduct> {
     final pickedDate = await showDatePicker(
       helpText: helpText,
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: widget.productModal!.purchasedDate!.toDateTime(),
       firstDate: firstDate,
       lastDate: DateTime(2100),
       builder: (context, child) {
