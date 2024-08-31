@@ -28,7 +28,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ) async {
     emit(ProductLoadingState());
     try {
-      
       String? productImageRef;
       String? billImageRef;
       final uid = DateTime.now().microsecondsSinceEpoch.toString();
@@ -71,9 +70,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
             .where(
               (value) =>
                   value.warrantyEndsDate != null &&
-                  DateTime.parse(value.warrantyEndsDate!)
-                          .compareTo(DateTime.now()) >=
-                      0,
+                  DateTime.parse(value.warrantyEndsDate!).isAfter(
+                      DateTime.now().subtract(const Duration(days: 1))),
             )
             .toList();
       } else {
@@ -81,9 +79,9 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
             .where(
               (value) =>
                   value.warrantyEndsDate != null &&
-                  DateTime.parse(value.warrantyEndsDate!)
-                          .compareTo(DateTime.now()) <=
-                      0,
+                  DateTime.parse(value.warrantyEndsDate!).isBefore(
+                    DateTime.now().subtract(const Duration(days: 1)),
+                  ),
             )
             .toList();
       }

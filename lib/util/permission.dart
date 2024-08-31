@@ -62,13 +62,38 @@ Future<bool> _isAndroid13OrAbove() async {
 
 Future<String> notificationPermission() async {
   final firebaseMessaging = FirebaseMessaging.instance;
-  await firebaseMessaging.requestPermission(
-    announcement: true,
-    carPlay: true,
-    criticalAlert: true,
-    provisional: true,
-  );
-  final userToken = await firebaseMessaging.getToken();
-  log('Device Token : $userToken');
-  return userToken!;
+  {
+    await firebaseMessaging.requestPermission(
+      announcement: true,
+      carPlay: true,
+      criticalAlert: true,
+      provisional: true,
+    );
+    final userToken = await firebaseMessaging.getToken();
+    log('Device Token : $userToken');
+    return userToken!;
+  }
+}
+
+Future<bool> isNotificationOn() async {
+  if (await Permission.notification.isGranted) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+Future<void> stopNotificationPermission() async {
+  if (await isNotificationOn()) {
+    await openAppSettings();
+  }
+}
+
+Future<void> requestNotificationPermission() async {
+  final status = await Permission.notification.status;
+  if (status.isDenied) {
+    await openAppSettings();
+  } else {
+    await Permission.notification.isGranted;
+  }
 }
