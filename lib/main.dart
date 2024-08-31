@@ -9,6 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:track_my_things/constants/api_key.dart';
 import 'package:track_my_things/firebase_options.dart';
+import 'package:track_my_things/notifications/notification_service.dart';
 import 'package:track_my_things/routes/routes.dart';
 import 'package:track_my_things/routes/routes_names.dart';
 import 'package:track_my_things/service/shared_prefrence.dart';
@@ -35,6 +36,7 @@ void main() async {
   FlutterError.onError = (errorDetails) {
     FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
   };
+  await NotificationService.localNotification();
 
   PlatformDispatcher.instance.onError = (error, stack) {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
@@ -65,10 +67,8 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocBuilder<ThemeCubit, bool>(
         builder: (context, themeSate) {
-         
           return BlocBuilder<SelectLanguageCubit, String>(
             builder: (context, state) {
-             
               return MaterialApp(
                 title: 'TMT : Track My Things',
                 navigatorKey: navigatorKey,

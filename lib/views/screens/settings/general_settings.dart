@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:track_my_things/service/shared_prefrence.dart';
+import 'package:track_my_things/util/permission.dart';
 import 'package:track_my_things/views/components/button.dart';
 import 'package:track_my_things/views/components/input_field_form.dart';
 import 'package:track_my_things/views/screens/add_product/bloc/product_bloc.dart';
@@ -18,6 +19,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   @override
   void initState() {
     context.read<AuthBloc>().add(GetCurrentUserData());
+    checkNotification();
     super.initState();
   }
 
@@ -27,11 +29,22 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   final _formKey = GlobalKey<FormState>();
   final sortByNotifier =
       ValueNotifier<String>(AppPrefHelper.getSortProductBy());
+
+  bool _isNotificationOn = false;
+  Future<void> checkNotification() async {
+    final isOn = await isNotificationOn();
+    setState(() {
+      _isNotificationOn = isOn;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final appLocalization = AppLocalizations.of(context)!;
     return BlocConsumer<AuthBloc, AuthState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        print(state.runtimeType);
+      },
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -55,7 +68,6 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                     ),
                   ),
                 );
-                
               }
             },
             builder: (context, state) {
@@ -136,6 +148,56 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                           controller: defaultWarrantyController,
                         ),
                         const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              appLocalization.allowNotification,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
+                            ),
+                            Switch(
+                              trackColor:
+                                  WidgetStateProperty.resolveWith((states) {
+                                if (states.contains(WidgetState.selected)) {
+                                  return Theme.of(context)
+                                      .colorScheme
+                                      .primary; // track color when switch is true
+                                } else {
+                                  return Colors
+                                      .grey; // track color when switch is false
+                                }
+                              }),
+                              thumbColor:
+                                  WidgetStateProperty.resolveWith((states) {
+                                if (states.contains(WidgetState.selected)) {
+                                  return Colors
+                                      .white; // thumb color when switch is true
+                                } else {
+                                  return Colors
+                                      .white; // thumb color when switch is false
+                                }
+                              }),
+                              value: _isNotificationOn,
+                              onChanged: (value) async {
+                                if (value) {
+                                  await requestNotificationPermission();
+                                } else {
+                                  await stopNotificationPermission();
+                                }
+                                setState(() {
+                                  _isNotificationOn = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
                           height: 30,
                         ),
                         if (state.runtimeType == AuthLoadingState)
@@ -171,6 +233,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                                   defaultWarrantyPeriod:
                                       defaultWarrantyController.text,
                                 );
+                                await checkNotification();
                               }
                             },
                             child: SubmitButton(

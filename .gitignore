@@ -43,3 +43,6 @@ app.*.map.json
 /android/app/release
 
 lib/constants/api_key.dart
+/node_modules
+/package-lock.json
+.env

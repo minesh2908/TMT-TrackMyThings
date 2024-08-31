@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 String calculateDateDifference(String warrantEndDate, BuildContext context) {
@@ -10,18 +10,26 @@ String calculateDateDifference(String warrantEndDate, BuildContext context) {
   }
 
   final now = DateTime.now();
-  final differenceInDays = endDate.difference(now).inDays;
+  final today = DateTime(now.year, now.month, now.day);
+  final endDateStartOfDay = DateTime(endDate.year, endDate.month, endDate.day);
 
-  if (differenceInDays < 0) {
-    return AppLocalizations.of(context)!.warrantyHasExpired;
-  }
-
-  if (differenceInDays > 30) {
+  final differenceInDays = endDateStartOfDay.difference(today).inDays + 1;
+  if (differenceInDays <= 0) {
+    if (differenceInDays == 0) {
+      return AppLocalizations.of(context)!.warrantyExpiredYesterday;
+    } else {
+      return AppLocalizations.of(context)!.warrantyHasExpired;
+    }
+  } else if (differenceInDays == 1) {
+    return AppLocalizations.of(context)!.warrantyExpiringToday;
+  } else if (differenceInDays == 2) {
+    return AppLocalizations.of(context)!.warrantyExpiringTomorrow;
+  } else if (differenceInDays > 30) {
     final differenceInMonths = (differenceInDays / 30).floor();
     return '$differenceInMonths ${AppLocalizations.of(context)!.monthsLeft}';
+  } else {
+    return '$differenceInDays ${AppLocalizations.of(context)!.daysLeft}';
   }
-
-  return '$differenceInDays ${AppLocalizations.of(context)!.daysLeft}';
 }
 
 double calculateWarrantyPercentage(
@@ -32,24 +40,14 @@ double calculateWarrantyPercentage(
   final warrantyEnd = DateTime.parse(warrantyEndDate);
 
   final totalWarrantyDays = warrantyEnd.difference(purchaseDate).inDays;
-  final totalWarrantyMonths = totalWarrantyDays / 30;
-
   final remainingWarrantyDays = warrantyEnd.difference(DateTime.now()).inDays;
-  final remainingWarrantyMonths = remainingWarrantyDays / 30;
 
-  if (remainingWarrantyDays <= 0) {
+  if (remainingWarrantyDays == 0) {
     return 0;
-  } else if (totalWarrantyMonths == 0) {
-    final percentage = remainingWarrantyDays / totalWarrantyDays;
-    return percentage.clamp(
-      0.0,
-      1.0,
-    );
+  } else if (remainingWarrantyDays < 0) {
+    return -1;
   } else {
-    final percentage = remainingWarrantyMonths / totalWarrantyMonths;
-    return percentage.clamp(
-      0.0,
-      1.0,
-    ); // ensure the value is between 0.0 and 1.0
+    final percentage = remainingWarrantyDays / totalWarrantyDays;
+    return percentage.clamp(0.0, 1.0);
   }
 }
