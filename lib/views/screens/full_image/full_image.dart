@@ -1,11 +1,14 @@
 import 'dart:developer';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:saver_gallery/saver_gallery.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:track_my_things/util/permission.dart';
+import 'package:widgets_to_image/widgets_to_image.dart';
 
 class FullImage extends StatefulWidget {
   const FullImage({required this.imageUrl, super.key});
@@ -18,7 +21,8 @@ class FullImage extends StatefulWidget {
 class _FullImageState extends State<FullImage> {
   double _progress = 0;
   bool _isDownloading = false;
-
+  final widgetController = WidgetsToImageController();
+  Uint8List? bytes;
   Future<void> downloadImage(String imageUrl, BuildContext context) async {
     try {
       final hasPermission = await requestStoragePermission();
@@ -88,15 +92,37 @@ class _FullImageState extends State<FullImage> {
           elevation: 2,
           actions: [
             Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: InkWell(
+                onTap: () async {
+                  // Add your download functionality here
+                  final byte = await widgetController.capture();
+                  setState(() {
+                    bytes = byte;
+                  });
+                  await Share.shareXFiles([
+                    XFile.fromData(
+                      bytes!,
+                      mimeType: 'image/png',
+                    ),
+                  ]);
+                },
+                child: Icon(
+                  Icons.share_outlined,
+                  color: Theme.of(context).colorScheme.surface,
+                ),
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: InkWell(
                 onTap: () async {
                   // Add your download functionality here
                   await downloadImage(widget.imageUrl, context);
                 },
-                child: const Text(
-                  'Download',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                child: Icon(
+                  Icons.download,
+                  color: Theme.of(context).colorScheme.surface,
                 ),
               ),
             ),
@@ -104,10 +130,13 @@ class _FullImageState extends State<FullImage> {
         ),
         body: Center(
           child: InteractiveViewer(
-            child: Image.network(
-              widget.imageUrl,
-              fit: BoxFit.contain,
-              height: MediaQuery.of(context).size.height,
+            child: WidgetsToImage(
+              controller: widgetController,
+              child: Image.network(
+                widget.imageUrl,
+                fit: BoxFit.contain,
+                height: MediaQuery.of(context).size.height,
+              ),
             ),
           ),
         ),
