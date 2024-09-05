@@ -9,7 +9,7 @@ Stay on top of your product warranties with Track My Things, a cutting-edge Flut
 <img src="https://github.com/user-attachments/assets/7502e3a5-a9ee-44f4-98c1-bbcca82f6ce7" width="200" height="400" >
 <img src="https://github.com/user-attachments/assets/6005f3a6-1a61-41d3-8b06-95a6644ff30b" width="200" height="400" >
 <img src="https://github.com/user-attachments/assets/efbedd0e-2f11-4006-b5e8-c16043d26810" width="200" height="400" >
-<img src="https://github.com/user-attachments/assets/7502e3a5-a9ee-44f4-98c1-bbcca82f6ce7" width="200" height="400" >
+<img src="https://github.com/user-attachments/assets/a837c696-ac92-49d0-bc47-a64a635a0cff" width="200" height="400" >
 
 ## Tech Stack
 
