@@ -22,13 +22,16 @@ class AuthRepository {
 
       final userData =
           await FirebaseAuth.instance.signInWithCredential(credential);
-
+      print('userData- $userData');
       await AppPrefHelper.setUID(uid: userData.user!.uid);
       final userId = userData.user!.uid;
+      print('userId- $userId');
       if (userData.additionalUserInfo!.isNewUser) {
         final user = await UserRepository().createUser(userData.user);
-        final phoneToken = await FCMToken().getDeviceToken();
-        log('Phone Token already - $phoneToken');
+        if (Platform.isAndroid) {
+          final phoneToken = await FCMToken().getDeviceToken();
+          log('Phone Token already - $phoneToken');
+        }
         await AppPrefHelper.setDisplayName(
           displayName: userData.user!.displayName!,
         );
@@ -41,8 +44,11 @@ class AuthRepository {
         );
         return user;
       } else {
-        final phoneToken = await FCMToken().getDeviceToken();
-        log('Phone Token - $phoneToken');
+        String? phoneToken;
+        if (Platform.isAndroid) {
+          phoneToken = await FCMToken().getDeviceToken();
+          log('Phone Token - $phoneToken');
+        }
         final data = await UserRepository().getCurrentUserDetails(userId);
         await UserRepository().updateUser(data.copyWith(pushToken: phoneToken));
 
@@ -55,7 +61,6 @@ class AuthRepository {
   }
 
   Future<bool> signOutFromGoogle() async {
-   
     try {
       await FirebaseAuth.instance.signOut();
       await GoogleSignIn().signOut();

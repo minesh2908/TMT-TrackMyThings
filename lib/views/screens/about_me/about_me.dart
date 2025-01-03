@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:track_my_things/constants/urls.dart';
-import 'package:url_launcher/url_launcher.dart';
+//import 'package:url_launcher/url_launcher.dart';
 
 class AboutMe extends StatefulWidget {
   const AboutMe({super.key});
@@ -78,7 +78,7 @@ class _AboutMeState extends State<AboutMe> {
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: InkWell(
                           onTap: () {
-                            launchUrl(github);
+                            //launchUrl(github);
                           },
                           child: Image.asset(
                             'assets/images/giticon.png',
@@ -91,7 +91,7 @@ class _AboutMeState extends State<AboutMe> {
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: InkWell(
                           onTap: () {
-                            launchUrl(linkedin);
+                            //launchUrl(linkedin);
                           },
                           child: Image.asset(
                             'assets/images/linkedIicon.png',
@@ -104,7 +104,7 @@ class _AboutMeState extends State<AboutMe> {
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: InkWell(
                           onTap: () {
-                            launchUrl(portfolio);
+                            //launchUrl(portfolio);
                           },
                           child: Image.asset(
                             'assets/images/portfolioIcon.png',
@@ -160,7 +160,8 @@ class _AboutMeState extends State<AboutMe> {
                 ),
               ],
             ),
-             Text('Made with 💙 in India',style:TextStyle(color: Theme.of(context).colorScheme.scrim)),
+            Text('Made with 💙 in India',
+                style: TextStyle(color: Theme.of(context).colorScheme.scrim)),
           ],
         ),
       ),

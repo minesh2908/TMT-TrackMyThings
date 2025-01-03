@@ -2,17 +2,30 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    
-	 <key>NSPhotoLibraryAddUsageDescription</key>
-	 <string>photo</string>
+	<key>GIDClientID</key>
+	<string>1061664889869-l805hr78ohkthpm65ehi6i0pectofb02.apps.googleusercontent.com</string>
+		<!-- Put me in the [my_project]/ios/Runner/Info.plist file -->
+	<!-- Google Sign-in Section -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.1061664889869-l805hr78ohkthpm65ehi6i0pectofb02</string>
+			</array>
+		</dict>
+	</array>
+	<!-- End of the Google Sign-in Section -->
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Used to Picking Image from camera</string>
+	<string>Photo Album Permission</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Used to Picking Image from gallery</string>
+	<string>Camera Permission</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Warranty Tracker</string>
+	<string>Track My Things</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

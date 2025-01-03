@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:track_my_things/constants/urls.dart';
-import 'package:url_launcher/url_launcher.dart';
+//import 'package:url_launcher/url_launcher.dart';
 
 class showRating {
   static Future<void> launchRatingBar(BuildContext context) async {
@@ -73,7 +73,6 @@ class showRating {
                     ),
                     InkWell(
                       onTap: () {
-                        
                         if (currentRating < 3) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
@@ -82,7 +81,7 @@ class showRating {
                           );
                           Navigator.pop(context);
                         } else if (currentRating >= 3) {
-                          launchUrl(tmtApp);
+                          //launchUrl(tmtApp);
                         }
                       },
                       child: Container(

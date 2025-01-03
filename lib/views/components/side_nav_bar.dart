@@ -1,6 +1,8 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:track_my_things/constants/urls.dart';
 import 'package:track_my_things/routes/routes_names.dart';
 import 'package:track_my_things/service/shared_prefrence.dart';
@@ -9,7 +11,7 @@ import 'package:track_my_things/util/rating.dart';
 import 'package:track_my_things/views/components/body_widget.dart';
 import 'package:track_my_things/views/screens/auth/bloc/auth_bloc.dart';
 import 'package:track_my_things/views/screens/language/cubit/select_language_cubit.dart';
-import 'package:url_launcher/url_launcher.dart';
+//import 'package:url_launcher/url_launcher.dart';
 
 class SideNavBar extends StatefulWidget {
   const SideNavBar({super.key});
@@ -41,135 +43,142 @@ class _SideNavBarState extends State<SideNavBar> {
             child: Scaffold(
               body: SafeArea(
                 child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Row(
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            AppLocalizations.of(context)!.settings,
-                            style: TextStyle(
-                              fontSize: 26,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.secondary,
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.settings,
+                                style: TextStyle(
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                ),
+                              ),
+                              const Spacer(),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Image.asset(
+                                  'assets/images/tmt_logo.png',
+                                  height: 30,
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          SideNavBarItem(
+                            title: AppLocalizations.of(context)!.account,
+                            icon: Icons.person,
+                            function: () {
+                              Navigator.pushNamed(
+                                context,
+                                RoutesName.accountDetails,
+                              );
+                            },
+                          ),
+                          SideNavBarItem(
+                            title: AppLocalizations.of(context)!.language,
+                            icon: Icons.language,
+                            function: () {
+                              Navigator.pushNamed(
+                                context,
+                                RoutesName.selectLanguage,
+                              );
+                            },
+                          ),
+                          SideNavBarItem(
+                            function: () {
+                              Navigator.pushNamed(context, RoutesName.settings);
+                            },
+                            title: AppLocalizations.of(context)!.generalSetting,
+                            icon: Icons.settings,
+                          ),
+                          SideNavBarItem(
+                            title: AppLocalizations.of(context)!.darkTheme,
+                            icon: Icons.dark_mode,
+                            widget: Switch(
+                              value: dark,
+                              onChanged: (bool value) async {
+                                setState(() {
+                                  dark = value;
+                                });
+                                final themeCubit = context.read<ThemeCubit>();
+                                await AppPrefHelper.setDarkTheme(
+                                    darkTheme: value);
+
+                                await themeCubit.changeTheme(value);
+                              },
                             ),
                           ),
-                          const Spacer(),
-                          InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
+                          SideNavBarItem(
+                            title: AppLocalizations.of(context)!.rateApp,
+                            icon: Icons.star,
+                            function: () async {
+                              await showRating.launchRatingBar(context);
                             },
-                            child: Image.asset(
-                              'assets/images/tmt_logo.png',
-                              height: 30,
-                              fit: BoxFit.fitHeight,
-                            ),
+                          ),
+                          SideNavBarItem(
+                            title: AppLocalizations.of(context)!.privacyPolicy,
+                            icon: Icons.privacy_tip,
+                            function: () {
+                              // launchUrl(privacyPolicy);
+                            },
+                          ),
+                          SideNavBarItem(
+                            title: AppLocalizations.of(context)!.termsCondition,
+                            icon: Icons.gavel,
+                            function: () {
+                              //launchUrl(termsCondition);
+                            },
+                          ),
+                          SideNavBarItem(
+                            title: AppLocalizations.of(context)!.aboutUs,
+                            icon: Icons.code,
+                            function: () {
+                              Navigator.pushNamed(context, RoutesName.aboutMe);
+                            },
+                          ),
+                          SideNavBarItem(
+                            title: AppLocalizations.of(context)!.logOut,
+                            icon: Icons.logout,
+                            color: Theme.of(context).colorScheme.error,
+                            widget: const SizedBox(),
+                            function: () async {
+                              final selectLanguageCubit =
+                                  context.read<SelectLanguageCubit>();
+                              final themeCubit = context.read<ThemeCubit>();
+                              final authBloc = context.read<AuthBloc>();
+
+                              await selectLanguageCubit.updateAppLanguage('en');
+                              await themeCubit.changeTheme(false);
+                              authBloc.add(GoogleSignOutEvent());
+
+                              if (mounted) {
+                                // Check if the widget is still mounted
+                                final state = authBloc.state;
+                                if (state is AuthSuccessState) {
+                                  await AppPrefHelper.signOut();
+                                }
+                              }
+                            },
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SideNavBarItem(
-                        title: AppLocalizations.of(context)!.account,
-                        icon: Icons.person,
-                        function: () {
-                          Navigator.pushNamed(
-                            context,
-                            RoutesName.accountDetails,
-                          );
-                        },
-                      ),
-                      SideNavBarItem(
-                        title: AppLocalizations.of(context)!.language,
-                        icon: Icons.language,
-                        function: () {
-                          Navigator.pushNamed(
-                            context,
-                            RoutesName.selectLanguage,
-                          );
-                        },
-                      ),
-                      SideNavBarItem(
-                        function: () {
-                          Navigator.pushNamed(context, RoutesName.settings);
-                        },
-                        title: AppLocalizations.of(context)!.generalSetting,
-                        icon: Icons.settings,
-                      ),
-                      SideNavBarItem(
-                        title: AppLocalizations.of(context)!.darkTheme,
-                        icon: Icons.dark_mode,
-                        widget: Switch(
-                          value: dark,
-                          onChanged: (bool value) async {
-                            setState(() {
-                              dark = value;
-                            });
-                            final themeCubit = context.read<ThemeCubit>();
-                            await AppPrefHelper.setDarkTheme(darkTheme: value);
-
-                            await themeCubit.changeTheme(value);
-                          },
-                        ),
-                      ),
-                      SideNavBarItem(
-                        title: AppLocalizations.of(context)!.rateApp,
-                        icon: Icons.star,
-                        function: () async {
-                          await showRating.launchRatingBar(context);
-                        },
-                      ),
-                      SideNavBarItem(
-                        title: AppLocalizations.of(context)!.privacyPolicy,
-                        icon: Icons.privacy_tip,
-                        function: () {
-                          launchUrl(privacyPolicy);
-                        },
-                      ),
-                      SideNavBarItem(
-                        title: AppLocalizations.of(context)!.termsCondition,
-                        icon: Icons.gavel,
-                        function: () {
-                          launchUrl(termsCondition);
-                        },
-                      ),
-                      SideNavBarItem(
-                        title: AppLocalizations.of(context)!.aboutUs,
-                        icon: Icons.code,
-                        function: () {
-                          Navigator.pushNamed(context, RoutesName.aboutMe);
-                        },
-                      ),
-                      SideNavBarItem(
-                        title: AppLocalizations.of(context)!.logOut,
-                        icon: Icons.logout,
-                        color: Theme.of(context).colorScheme.error,
-                        widget: const SizedBox(),
-                        function: () async {
-                          final selectLanguageCubit =
-                              context.read<SelectLanguageCubit>();
-                          final themeCubit = context.read<ThemeCubit>();
-                          final authBloc = context.read<AuthBloc>();
-
-                          await selectLanguageCubit.updateAppLanguage('en');
-                          await themeCubit.changeTheme(false);
-                          authBloc.add(GoogleSignOutEvent());
-
-                          if (mounted) {
-                            // Check if the widget is still mounted
-                            final state = authBloc.state;
-                            if (state is AuthSuccessState) {
-                              await AppPrefHelper.signOut();
-                            }
-                          }
-                        },
-                      ),
+                      VersionDisplay()
                     ],
                   ),
                 ),
@@ -224,6 +233,28 @@ class SideNavBarItem extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSecondaryFixedVariant,
             ),
       ),
+    );
+  }
+}
+
+class VersionDisplay extends StatelessWidget {
+  const VersionDisplay({super.key});
+
+  Future<String> _getAppVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    return '${packageInfo.version}+${packageInfo.buildNumber}';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<String>(
+      future: _getAppVersion(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Text('Version ${snapshot.data}');
+        }
+        return const CircularProgressIndicator();
+      },
     );
   }
 }

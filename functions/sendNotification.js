@@ -62,4 +62,56 @@ async function sendNotification(pushToken, productData){
       }
 }
 
-module.exports = { sendNotification };
+async function sendBroadcastNotification(title, body, imageUrl = null) {
+  try {
+      // Get all users with push tokens
+      const userQuery = db.collection("userCollection");
+      const userSnapshot = await userQuery.get();
+      
+      if (userSnapshot.empty) {
+          console.log('No users found.');
+          return {
+              statusCode: 404,
+              body: 'No users found to send notifications'
+          };
+      }
+
+      const notifications = userSnapshot.docs
+          .map(doc => doc.data().pushToken)
+          .filter(pushToken => pushToken) // Filter out any null/undefined tokens
+          .map(pushToken => {
+              const message = {
+                  notification: {
+                      title,
+                      body,
+                      ...(imageUrl && { image: imageUrl })
+                  },
+                  token: pushToken
+              };
+
+              return messaging.send(message)
+                  .then(response => {
+                      console.log(`Notification sent successfully to ${pushToken}: ${response}`);
+                  })
+                  .catch(error => {
+                      console.error(`Error sending notification to ${pushToken}:`, error);
+                  });
+          });
+
+      // Wait for all notifications to be sent
+      await Promise.all(notifications);
+      
+      return {
+          statusCode: 200,
+          body: 'Broadcast notifications sent successfully'
+      };
+
+  } catch (error) {
+      console.error(`Error: ${error}`);
+      return {
+          statusCode: 500,
+          body: JSON.stringify({ error: 'Failed to send broadcast notifications' })
+      };
+  }
+}
+module.exports = { sendNotification, sendBroadcastNotification  };
